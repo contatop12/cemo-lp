@@ -10,7 +10,11 @@ export interface SitemapRoute {
 }
 
 // Só rotas que EXISTEM no app e são indexáveis (teste confere o arquivo page.tsx de cada uma).
-export const sitemapRoutes: readonly SitemapRoute[] = [{ path: '/', group: 'core', lastModified: '2026-10-22' }];
+export const sitemapRoutes: readonly SitemapRoute[] = [
+  { path: '/', group: 'core', lastModified: '2026-10-22' },
+  { path: '/privacidade/', group: 'core', lastModified: '2026-10-22' },
+  { path: '/cookies/', group: 'core', lastModified: '2026-10-22' },
+];
 
 // Defesa extra: utilitárias, experimentos e paginação nunca entram, mesmo se listadas por engano.
 const EXCLUDED = [/^\/obrigado\//, /^\/lp\//, /\/page\/\d+\/$/, /^\/api\//];

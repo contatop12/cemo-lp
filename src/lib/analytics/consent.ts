@@ -55,3 +55,18 @@ export function writeConsent(choice: ConsentChoice): void {
   gtag('consent', 'update', consentUpdateFor(choice));
   document.documentElement.dataset.consent = choice;
 }
+
+// Evento interno para o banner reagir a mudanças feitas fora dele (ex.: página de cookies).
+export const CONSENT_CHANGE_EVENT = 'cemo:consent-change';
+
+// Apaga a escolha salva e reabre o banner; o GTM volta ao padrão negado até nova escolha.
+export function resetConsent(): void {
+  try {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+  } catch {
+    // storage indisponível: nada salvo para apagar
+  }
+  gtag('consent', 'update', consentUpdateFor('denied'));
+  document.documentElement.dataset.consent = 'pending';
+  window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
+}

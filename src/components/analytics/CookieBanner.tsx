@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useSyncExternalStore } from 'react';
-import { readConsent, writeConsent, type ConsentChoice } from '@/lib/analytics/consent';
+import { CONSENT_CHANGE_EVENT, readConsent, writeConsent, type ConsentChoice } from '@/lib/analytics/consent';
 
 // "Aceitar" e "Recusar" com o mesmo peso visual (sem dark pattern). Enquanto a escolha está pendente,
 // html[data-consent="pending"] esconde o StickyMobileCTA para os dois nunca disputarem a base da tela.
@@ -10,7 +10,7 @@ const choiceButton =
   'min-h-[3.25rem] min-w-[8rem] rounded-md border-2 border-papel bg-papel px-6 py-3 text-ui font-bold text-azul-profundo ' +
   'transition-colors duration-[var(--duration-fast)] hover:bg-nevoa-2';
 
-const CHANGE_EVENT = 'cemo:consent-change';
+const CHANGE_EVENT = CONSENT_CHANGE_EVENT;
 
 function subscribe(onChange: () => void) {
   window.addEventListener(CHANGE_EVENT, onChange);

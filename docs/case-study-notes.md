@@ -84,3 +84,8 @@ npm run build && npm start
 - **Correções vindas do QA:** (1) o título do CTA final ficava sob a curva-pálpebra (texto branco sobre fundo branco) → raio fixo e espaço superior; (2) a composição dos equipamentos deixava um vazio sob a foto-âncora → âncora + 2 recortes ao lado + faixa de 3 recortes com alturas diferentes (§7.2); (3) imagens "em branco" na captura de página inteira eram artefato do *lazy loading* — confirmado que carregam ao rolar (0 falhas no otimizador).
 - **Observação de tipografia:** os zeros "cortados" nos horários são o zero com barra da Atkinson Hyperlegible — intencional, para não confundir 0 e O.
 - **Pendências que impactam a Home:** fotos dos demais médicos (hoje monogramas), seleção de avaliações reais do Google, publicação do vídeo, logos dos convênios, identificação dos equipamentos.
+
+## 2026-10-22 — 404 e páginas legais
+
+- **404 humanizada sem busca:** o site ainda não tem busca interna (o briefing permite deixá-la fora do primeiro MVP). A 404 oferece os caminhos mais úteis (início, especialidades, exames, corpo clínico, contato) e o WhatsApp; status HTTP 404 real e `noindex`.
+- **Privacidade e cookies preliminares:** descrevem apenas o que o site de fato coleta (nome, WhatsApp, interesse e parâmetros de campanha, com a finalidade de retornar o contato). Nada de CNPJ, encarregado (DPO) ou prazos de retenção inventados — marcados como `TODO_CONTENT_VALIDATION` para o jurídico. A página de cookies tem um botão que apaga a escolha e reabre o banner.
