@@ -7,9 +7,9 @@ import { Reticle, StarIcon, WhatsappIcon } from './icons';
 
 describe('Button', () => {
   it('com href renderiza um link', () => {
-    render(<Button href="/x">Agendar</Button>);
+    render(<Button href="/consulta-oftalmologica/">Agendar</Button>);
     const link = screen.getByRole('link', { name: 'Agendar' });
-    expect(link).toHaveAttribute('href', '/x');
+    expect(link).toHaveAttribute('href', '/consulta-oftalmologica/');
   });
 
   it('sem href renderiza button type="button" por padrão', () => {

@@ -172,3 +172,9 @@
     animation: hero-rise var(--duration-slow) var(--ease-out) both;
   }
 }
+
+/* Enquanto o aviso de cookies está aberto, a barra fixa de CTA no mobile fica oculta:
+   os dois nunca disputam a base da tela nem cobrem o elemento focado. */
+html[data-consent="pending"] [data-sticky-cta] {
+  display: none;
+}
