@@ -1,0 +1,21 @@
+# materiais brutos do cliente (dados do Search Console, fotos originais, vídeos) — nunca commitar
+_materiais/
+
+# workspace dos agentes
+.superpowers/
+
+# dependências e build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# testes
+/test-results/
+/playwright-report/
+coverage/
+
+# segredos
+.env*
+!.env.example
