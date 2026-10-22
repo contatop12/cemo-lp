@@ -16,7 +16,7 @@ export function GoogleRating({
   const { display, reviewsLabel } = stats.googleRating;
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-      <p aria-label={`Nota ${display} de 5 no Google, ${reviewsLabel}`} className="flex items-center gap-3">
+      <p role="img" aria-label={`Nota ${display} de 5 no Google, ${reviewsLabel}`} className="flex items-center gap-3">
         <span aria-hidden="true" className="font-display text-h2 font-semibold text-tinta">
           {display}
         </span>

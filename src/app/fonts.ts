@@ -1,11 +1,10 @@
 import { Atkinson_Hyperlegible_Next, Literata } from 'next/font/google';
 
-// Títulos: serifa editorial variável (wght + opsz); usar 500/600.
+// Títulos: serifa editorial variável (wght); usar 500/600. Sem o eixo opsz: o arquivo cai pela metade.
 export const literata = Literata({
   subsets: ['latin'],
   variable: '--font-literata',
   display: 'swap',
-  axes: ['opsz'],
 });
 
 // Corpo: desenhada para baixa visão; variável (wght 200–800); usar 400/500/700.

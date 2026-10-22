@@ -12,11 +12,12 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test",
+    "test:e2e": "npm run build:e2e && playwright test",
     "redirects:generate": "node scripts/generate-redirects.ts",
     "assets:optimize": "node scripts/optimize-images.mjs",
     "todos": "node scripts/list-todos.mjs",
-    "redirects:check-targets": "node scripts/check-redirect-targets.ts"
+    "redirects:check-targets": "node scripts/check-redirect-targets.ts",
+    "build:e2e": "node -e \"process.env.SITE_ENV='production';process.env.NEXT_PUBLIC_SITE_URL='http://localhost:3100';require('child_process').execSync('npx next build',{stdio:'inherit',env:process.env})\""
   },
   "repository": {
     "type": "git",

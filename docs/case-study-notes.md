@@ -89,3 +89,15 @@ npm run build && npm start
 
 - **404 humanizada sem busca:** o site ainda não tem busca interna (o briefing permite deixá-la fora do primeiro MVP). A 404 oferece os caminhos mais úteis (início, especialidades, exames, corpo clínico, contato) e o WhatsApp; status HTTP 404 real e `noindex`.
 - **Privacidade e cookies preliminares:** descrevem apenas o que o site de fato coleta (nome, WhatsApp, interesse e parâmetros de campanha, com a finalidade de retornar o contato). Nada de CNPJ, encarregado (DPO) ou prazos de retenção inventados — marcados como `TODO_CONTENT_VALIDATION` para o jurídico. A página de cookies tem um botão que apaga a escolha e reabre o banner.
+
+## 2026-10-22 — Qualidade e trade-offs finais da fundação
+
+- **Testes:** 378 testes unitários/componentes (Vitest) e 53 E2E (Playwright em 5 viewports: Home, SEO técnico, leads com webhook falso, redirects, acessibilidade com axe e responsividade). O E2E encontrou e corrigiu: `aria-label` proibido em `<p>` (nota do Google), link do rodapé com alvo estreito, e duas metodologias de teste que mediam errado (meta robots duplicada na 404 é o `noindex` do próprio Next; zoom 200% = viewport de 640 px).
+- **Performance:** desktop 99 no Lighthouse; mobile simulado 80 — medição local contaminada por antivírus (injeção bloqueada no navegador de teste). Fonte de títulos reduzida pela metade (sem eixo `opsz`). Medição de campo fica para o staging.
+- **CSP:** `'unsafe-inline'` em scripts (para manter SSG e o default do Consent Mode inline); `unsafe-eval` nunca em produção — o `zod` foi configurado sem o modo JIT para não disparar violação.
+- **Rate limit em memória**, por instância (best-effort em serverless) — próximo degrau: store compartilhado ou Turnstile.
+- **Hero sem fade na foto** (protege o LCP); só o texto sobe 12 px, e nada anima com movimento reduzido.
+- **Sitemap único** nesta fase; sitemap index por grupo quando o blog migrar.
+- **Barra fixa no celular oculta enquanto o aviso de cookies está pendente** — nunca disputam a base da tela.
+- **Nenhum depoimento, número, RQE, preço ou técnica inventados;** convênios exibidos por nome (sem logos até a CEMO fornecer).
+- **Destinos de redirect pendentes:** 52 destinos do mapa de migração dependem das páginas dos próximos planos; o domínio só é apontado com `redirects:check-targets` vazio.

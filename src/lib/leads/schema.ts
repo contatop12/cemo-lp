@@ -3,6 +3,9 @@ import { LEAD_INTEREST_IDS, type LeadInterestId } from '@/content/types';
 import { sanitizeText } from './sanitize';
 import type { LeadAttribution, LeadFieldErrors, LeadSubmission } from './types';
 
+// Sem o modo JIT do zod: ele testa new Function() no navegador, o que a CSP (sem 'unsafe-eval') registra como violação.
+z.config({ jitless: true });
+
 export const FIELD_MESSAGES = {
   name: 'Informe seu nome (pelo menos 2 letras).',
   whatsapp: 'Informe um telefone com DDD, por exemplo (11) 91234-5678',

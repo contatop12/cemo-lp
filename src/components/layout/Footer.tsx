@@ -4,7 +4,7 @@ import { Logo } from '@/components/brand/Logo';
 import type { Doctor, NavGroup, NavLink, SiteSettings } from '@/content/types';
 import { formatAddress, formatHoursLines, telHref, whatsappHref } from '@/lib/contact';
 
-const linkClass = 'inline-flex min-h-12 items-center text-papel no-underline hover:text-ciano-claro hover:underline';
+const linkClass = 'inline-flex min-h-12 min-w-12 items-center text-papel no-underline hover:text-ciano-claro hover:underline';
 
 function group(navigation: NavGroup[], id: NavGroup['id']) {
   return navigation.find((g) => g.id === id);

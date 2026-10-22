@@ -38,3 +38,47 @@ Para quem cria ou revisa páginas e para o lançamento. A infraestrutura fica em
 - [ ] JSON-LD validado no Rich Results Test / Schema Markup Validator.
 - [ ] Crawl completo (Screaming Frog ou equivalente) conferindo title, description, H1, canonical, status e links internos.
 - [ ] Monitorar no GSC: Home, Catarata, Refrativa, Retina, Glaucoma, páginas de exame, corpo clínico e artigos principais (cliques, impressões, CTR, posição).
+
+## Definition of Done — Home (briefing §158) — status em 2026-10-22
+
+| Item | Status | Evidência / pendência |
+|---|---|---|
+| Dr. David em destaque na primeira dobra | ✅ | Hero com foto real, cartão-nome e CTA; testes unitários + E2E (LCP = foto do hero) |
+| Visual premium | ✅ (validar com cliente) | Direção de arte própria (painel-pálpebra, mira da marca, Literata + Atkinson); QA visual em 5 viewports |
+| Mobile excelente | ✅ | Hero projetado à parte; CTA visível sem rolar em 390×844 e 360×740; sem rolagem horizontal (E2E em 5 viewports + 200% de zoom) |
+| SEO implementado | ✅ | Title/description/canonical únicos, um H1, JSON-LD (clínica, site, Dr. David), robots/sitemap por ambiente; Lighthouse SEO 100 |
+| CTA funcional | ✅ | "Agendar consulta" → formulário; WhatsApp/telefone com eventos genéricos |
+| Formulário funcional | ✅ | E2E: lead chega ao webhook com atribuição; falha fechada sem webhook; honeypot; rate limit |
+| Prova social | ⚠️ dados a validar | Nota Google, anos e atendimentos centralizados em `stats.ts` com `validated: false` |
+| Serviços | ✅ | 8 intenções → URLs canônicas |
+| Médicos | ⚠️ | 8 médicos com CRM; RQE, bios e fotos (exceto Dr. David) pendentes |
+| Estrutura | ⚠️ | Composição editorial com 6 fotos reais; identificação dos aparelhos e fotos em alta pendentes |
+| Localização | ✅ | NAP central, horários, "Como chegar", mapa sob demanda |
+| Reviews | ⚠️ | Nota + link para o Google; depoimentos reais aguardam seleção da CEMO |
+| Performance | ✅ desktop / ⚠️ mobile simulado | Ver números abaixo |
+| Acessibilidade | ✅ | axe (WCAG 2.2 AA) 0 violações em 1440 e 390, com e sem banner; skip link; foco; alvos ≥ 44 px; Lighthouse a11y 100 |
+
+### Lighthouse local (build de produção, `next start`, 2026-10-22)
+
+Medido com os domínios do antivírus Kaspersky bloqueados no navegador de teste — o antivírus desta máquina injeta ~850 KB de scripts/CSS em todas as páginas e distorce o resultado.
+
+| | Performance | A11y | Boas práticas | SEO | LCP | CLS | TBT | FCP |
+|---|---|---|---|---|---|---|---|---|
+| Desktop | 99 | 100 | 73* | 100 | 0,9 s | 0 | 0 ms | 0,6 s |
+| Mobile (4G lento simulado, CPU 4×) | 80 | 100 | 73* | 100 | 4,5 s | 0 | 30 ms | 2,3 s |
+
+\* "Boas práticas" penaliza HTTP local (`is-on-https`) e o 404 do *prefetch* de `/corpo-clinico/` (rota dos próximos planos). Ambos somem em produção/staging com HTTPS e as páginas publicadas.
+
+**Gargalos e ações:** a imagem do hero (AVIF, 13 KB no celular) chega em ~130 ms; o LCP mobile simulado é dominado por *render delay* na simulação Lantern. Já aplicado: fonte de títulos sem o eixo `opsz` (110 → 53 KB), logo sem prioridade alta, `zod` sem probe de `eval`. **Medir LCP/INP reais no staging (PageSpeed Insights / CrUX)** antes de novas otimizações; candidatos se necessário: `preload: false` na Literata (títulos) e CSS crítico.
+
+## Portões de lançamento (bloqueiam o apontamento do domínio)
+
+- [ ] `npm run todos` sem pendências críticas — hoje: **95 ocorrências em 20 arquivos** (src: médicos 26, NAP 4, prova social 3, vídeo 2, convênios 2, equipamentos 2, editoriais 2, demais 1 cada; o restante em docs).
+- [ ] `npm run redirects:check-targets` com lista vazia (hoje 52 destinos dependem dos próximos planos).
+- [ ] `SITE_ENV=production` e `NEXT_PUBLIC_SITE_URL=https://oftalmologiacemo.com.br` no build de produção; staging com `SITE_ENV=staging`.
+- [ ] `LEAD_WEBHOOK_URL` e `LEAD_WEBHOOK_SECRET` configurados (sem eles o formulário falha fechado em produção).
+- [ ] GTM de produção, Consent Mode e conversões revisados (`docs/analytics-plan.md`).
+- [ ] Textos de privacidade e cookies revisados pelo jurídico.
+- [ ] Foto do Dr. David em alta resolução; vetor original do logo (ou aprovação do SVG vetorizado); vídeo "Tudo em um lugar só" publicado.
+- [ ] Revisão médica dos textos de Catarata e Refrativa.
+- [ ] Backlinks conferidos antes dos 410 (não havia export de backlinks na análise).

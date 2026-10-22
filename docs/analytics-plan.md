@@ -25,6 +25,10 @@ Parâmetros permitidos: `location`, `page_type`, `form_id`. **Proibidos:** qualq
 
 Adiado para os próximos planos: `doctor_view` (perfis individuais de médicos ainda não publicados).
 
+## Status da implementação (2026-10-22)
+
+Todos os 8 eventos estão implementados e cobertos por testes: `lead_form_start`/`lead_form_submit` (LeadForm), `whatsapp_click` (utility bar, hero, conversão, convênios, sticky mobile, menu mobile, CTA final, rodapé, /obrigado/, 404), `phone_click` (utility bar, conversão, localização, rodapé), `schedule_click` (header, hero, sticky mobile, CTA final), `directions_click` (localização), `reviews_click` (avaliações), `service_cta_click` (cards de serviço e blocos editoriais). O E2E confirma que o `dataLayer` não recebe nome, telefone nem interesse.
+
 ## Consent Mode v2
 
 - **Padrão** (antes de qualquer tag, `beforeInteractive`): `ad_storage`, `analytics_storage`, `ad_user_data` e `ad_personalization` = `denied`, com `wait_for_update: 500`.
