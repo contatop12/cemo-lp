@@ -1,4 +1,5 @@
 // Transcrito do site atual (/corpo-clinico/, auditoria 2026-10-22). Credenciais sem validação médica.
+import { assets } from '../assets';
 import type { Doctor } from '../types';
 
 export const doctors: Doctor[] = [
@@ -23,7 +24,8 @@ export const doctors: Doctor[] = [
       "Diretor técnico CEMO",
       "Membro do corpo clínico e cirurgião oftalmológico do Hosp. Israelita Albert Einstein – SP"
     ],
-    "photo": null,
+    "photo": assets.drDavid,
+    "photoMobile": assets.drDavidMobile,
     "canonicalPath": "/corpo-clinico/david-ribeiro-de-mendonca-filho/",
     "published": false,
     "featured": true,
@@ -31,7 +33,8 @@ export const doctors: Doctor[] = [
       "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
       "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
       "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional",
-      "TODO_CONTENT_VALIDATION: grafia do CRM: 98339 (corpo clínico) × 98.339 (rodapé)"
+      "TODO_CONTENT_VALIDATION: grafia do CRM: 98339 (corpo clínico) × 98.339 (rodapé)",
+      "TODO_CONTENT_VALIDATION: obter original em alta (≥ 2400 px de altura) da foto do Dr. David; arquivo atual 853×1280 muito comprimido"
     ]
   },
   {
