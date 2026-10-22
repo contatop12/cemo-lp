@@ -15,7 +15,7 @@ export function Header({ settings, navigation }: { settings: SiteSettings; navig
       <header className="site-header sticky top-0 z-30 border-b border-borda bg-papel">
         <div className="mx-auto flex h-[var(--header-h,5rem)] max-w-wide items-center justify-between gap-6 px-[var(--gutter)]">
           <Link href="/" className="shrink-0 rounded-sm">
-            <Logo height={56} priority className="h-12 w-auto lg:h-14" />
+            <Logo height={56} className="h-12 w-auto lg:h-14" />
           </Link>
           <nav aria-label="Principal" className="hidden lg:block">
             <NavMenu groups={navigation} />

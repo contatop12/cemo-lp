@@ -28,7 +28,7 @@ export function StarIcon({ filled = false, className }: { filled?: boolean; clas
 }
 
 // Mira (retículo) derivada da logo: círculo + cruz com vazado central. Sempre estática.
-export function Reticle({ className }: { className?: string }) {
+export function Reticle({ className, ...rest }: { className?: string } & Record<`data-${string}`, string>) {
   return (
     <svg
       viewBox="0 0 48 48"
@@ -41,9 +41,10 @@ export function Reticle({ className }: { className?: string }) {
       aria-hidden="true"
       focusable="false"
       className={className}
+      {...rest}
     >
-      <circle cx="24" cy="24" r="16" />
-      <path d="M24 2v12M24 34v12M2 24h12M34 24h12" />
+      <circle cx="24" cy="24" r="16" vectorEffect="non-scaling-stroke" />
+      <path d="M24 2v12M24 34v12M2 24h12M34 24h12" vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }
