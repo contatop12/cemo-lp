@@ -7,6 +7,9 @@ const config = [
   {
     ignores: [
       '.next/**',
+      '.open-next/**',
+      '.wrangler/**',
+      'cloudflare-env.d.ts',
       'node_modules/**',
       '_materiais/**',
       '.superpowers/**',

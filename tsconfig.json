@@ -22,5 +22,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules", "_materiais", ".superpowers"]
+  "exclude": ["node_modules", "_materiais", ".superpowers", ".open-next", ".wrangler"]
 }

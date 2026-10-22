@@ -36,8 +36,12 @@ export function createLeadHandler(deps: LeadHandlerDeps): (request: Request) => 
         return json(415, { ok: false, error: 'unsupported_media_type' });
       }
 
+      // Aceita o site configurado e a própria origem da requisição (ex.: staging em *.workers.dev);
+      // qualquer outro site é recusado.
       const origin = request.headers.get('origin');
-      if (origin && origin !== deps.allowedOrigin) return json(403, { ok: false, error: 'forbidden' });
+      if (origin && origin !== deps.allowedOrigin && origin !== new URL(request.url).origin) {
+        return json(403, { ok: false, error: 'forbidden' });
+      }
 
       const limit = deps.rateLimiter.check(clientKey(request));
       if (!limit.allowed) {

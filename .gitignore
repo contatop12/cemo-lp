@@ -19,3 +19,9 @@ coverage/
 # segredos
 .env*
 !.env.example
+
+# OpenNext / Cloudflare Workers
+.open-next/
+.wrangler/
+.dev.vars
+cloudflare-env.d.ts

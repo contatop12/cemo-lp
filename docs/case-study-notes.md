@@ -113,3 +113,12 @@ Uma revisão independente do branch inteiro não encontrou falhas críticas. Cor
 - **Sem redirect por `x-forwarded-proto`:** HTTPS fica com a hospedagem + HSTS (evita loop atrás de proxy TLS).
 - **Mega menu fecha quando o foco de teclado sai** (WCAG 2.4.11).
 - **HSTS sem `includeSubDomains; preload`** até o dono do domínio confirmar.
+
+## 2026-10-22 — Hospedagem no Cloudflare Workers
+
+- **Decisão:** Cloudflare Workers com o adaptador OpenNext (`@opennextjs/cloudflare`) e deploy automático (Workers Builds) a cada push na `main`. Primeiro ambiente: **staging** (noindex em três camadas).
+- **Cache:** site 100% estático → cache incremental em assets do próprio Worker (sem bucket R2/KV para criar ou pagar).
+- **Imagens:** binding Cloudflare Images para servir AVIF/WebP (a foto do hero cai para ~11 KB no celular).
+- **Ajuste de código:** a API de leads passou a aceitar também a própria origem da requisição (além do domínio configurado), para o staging em `*.workers.dev` funcionar sem depender de a URL de build estar perfeita — sites de terceiros continuam recusados.
+- **Verificação:** build completo (Next + OpenNext) e smoke test no `workerd` local: Home, redirects 301 em um salto, 410, staging noindex, imagens AVIF e falha fechada da API sem webhook.
+- **Risco aceito:** o middleware Node.js (proxy de redirects) é experimental no OpenNext para Cloudflare — monitorar após o deploy. Guia completo em `docs/deploy-cloudflare.md`.

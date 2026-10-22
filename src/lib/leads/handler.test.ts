@@ -170,3 +170,25 @@ describe('fix: provider de desenvolvimento só com opt-in (nunca falha aberta)',
     expect(resolveLeadProvider({ siteEnv: 'production', allowDevProvider: true })).toBeNull();
   });
 });
+
+describe('mesma origem da requisição (staging em workers.dev)', () => {
+  it('aceita Origin igual à origem da própria requisição, mesmo diferente do site configurado', async () => {
+    const { handler } = setup({ allowedOrigin: 'https://oftalmologiacemo.com.br' });
+    const request = new Request('https://cemo-lp.exemplo.workers.dev/api/lead/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: 'https://cemo-lp.exemplo.workers.dev', 'x-forwarded-for': '198.51.100.9' },
+      body: JSON.stringify(body),
+    });
+    expect((await handler(request)).status).toBe(200);
+  });
+
+  it('continua recusando outro site', async () => {
+    const { handler } = setup({ allowedOrigin: 'https://oftalmologiacemo.com.br' });
+    const request = new Request('https://cemo-lp.exemplo.workers.dev/api/lead/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: 'https://evil.example', 'x-forwarded-for': '198.51.100.10' },
+      body: JSON.stringify(body),
+    });
+    expect((await handler(request)).status).toBe(403);
+  });
+});

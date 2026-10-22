@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cemo-lp",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Auto-referência do OpenNext: precisa ser igual ao nome do Worker.
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "cemo-lp"
+    }
+  ],
+  "images": {
+    // Otimização de imagens do next/image (AVIF/WebP) via Cloudflare Images.
+    // Sem este binding o Worker serve a imagem original, sem otimização.
+    "binding": "IMAGES"
+  },
+  "vars": {
+    // Lido em runtime pelo proxy (redirects/host) e pela API de leads.
+    // SITE_ENV e NEXT_PUBLIC_SITE_URL também precisam estar nas variáveis de BUILD do Workers Builds.
+    "SITE_ENV": "staging"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
