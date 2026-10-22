@@ -10,6 +10,7 @@ import { siteSettings } from '../fixtures/site-settings';
 import { siteStats } from '../fixtures/stats';
 import { testimonials } from '../fixtures/testimonials';
 import { videos } from '../fixtures/videos';
+import { navigation } from '../navigation';
 
 export function createFixturesRepository(): ContentRepository {
   return {
@@ -52,7 +53,7 @@ export function createFixturesRepository(): ContentRepository {
       return articles.slice(0, limit);
     },
     async getNavigation() {
-      return [];
+      return navigation;
     },
   };
 }

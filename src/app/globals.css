@@ -178,3 +178,23 @@
 html[data-consent="pending"] [data-sticky-cta] {
   display: none;
 }
+
+/* Header: encolhe e ganha sombra conforme a rolagem — CSS puro (scroll-driven animation). */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes header-compact {
+      from { --header-h: 5rem; box-shadow: none; }
+      to { --header-h: 4.25rem; box-shadow: var(--shadow-2); }
+    }
+    .site-header {
+      animation: header-compact linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 120px;
+    }
+  }
+}
+@property --header-h {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 5rem;
+}
