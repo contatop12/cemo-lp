@@ -102,3 +102,11 @@ describe('validateLeadInput', () => {
     }
   });
 });
+
+describe('fix: apóstrofo tipográfico (iOS)', () => {
+  it.each(['Maria D’Ávila', 'Ana Sant‘Anna', 'José Dʼávila'])('%s é aceito e normalizado', (name) => {
+    const result = validateLeadInput({ ...valid, name });
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.data.name).toBe(name.replace(/[‘’ʼ]/g, "'"));
+  });
+});

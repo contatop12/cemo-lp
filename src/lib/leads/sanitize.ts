@@ -5,6 +5,7 @@ export function sanitizeText(input: string, maxLength: number): string {
     .replace(/\s+/g, ' ')
     .replace(/[\u0000-\u001f\u007f]/g, '')
     .replace(/[<>]/g, '')
+    .replace(/[‘’ʼ´`]/g, "'") // apóstrofos tipográficos (iOS) → reto
     .replace(/ {2,}/g, ' ')
     .trim()
     .slice(0, maxLength);

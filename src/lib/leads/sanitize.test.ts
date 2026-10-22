@@ -18,3 +18,9 @@ describe('sanitizeText', () => {
     expect(sanitizeText('abcdef', 3)).toBe('abc');
   });
 });
+
+describe('fix: apóstrofos', () => {
+  it('normaliza apóstrofos tipográficos para o reto', () => {
+    expect(sanitizeText('D’Ávila Sant‘Anna Dʼx a´b c`d', 100)).toBe("D'Ávila Sant'Anna D'x a'b c'd");
+  });
+});

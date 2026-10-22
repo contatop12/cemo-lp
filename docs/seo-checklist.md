@@ -76,7 +76,9 @@ Medido com os domínios do antivírus Kaspersky bloqueados no navegador de teste
 - [ ] `npm run todos` sem pendências críticas — hoje: **95 ocorrências em 20 arquivos** (src: médicos 26, NAP 4, prova social 3, vídeo 2, convênios 2, equipamentos 2, editoriais 2, demais 1 cada; o restante em docs).
 - [ ] `npm run redirects:check-targets` com lista vazia (hoje 52 destinos dependem dos próximos planos).
 - [ ] `SITE_ENV=production` e `NEXT_PUBLIC_SITE_URL=https://oftalmologiacemo.com.br` no build de produção; staging com `SITE_ENV=staging`.
-- [ ] `LEAD_WEBHOOK_URL` e `LEAD_WEBHOOK_SECRET` configurados (sem eles o formulário falha fechado em produção).
+- [ ] `LEAD_WEBHOOK_URL` e `LEAD_WEBHOOK_SECRET` configurados (sem eles o formulário falha fechado em produção). `SITE_ENV` definido no build **e** em runtime.
+- [ ] HTTPS forçado pela hospedagem (o proxy do site só canonicaliza `www.` → apex). HSTS está com `max-age=31536000`; acrescentar `includeSubDomains; preload` apenas após o dono do domínio confirmar HTTPS em todos os subdomínios.
+- [ ] Tag Assistant no staging: conversão do Google Ads e GA4 disparando sem bloqueios de CSP.
 - [ ] GTM de produção, Consent Mode e conversões revisados (`docs/analytics-plan.md`).
 - [ ] Textos de privacidade e cookies revisados pelo jurídico.
 - [ ] Foto do Dr. David em alta resolução; vetor original do logo (ou aprovação do SVG vetorizado); vídeo "Tudo em um lugar só" publicado.

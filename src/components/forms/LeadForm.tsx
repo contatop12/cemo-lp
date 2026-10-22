@@ -252,9 +252,19 @@ export function LeadForm({ interests, defaultInterest, formId, location, whatsap
       </div>
 
       {notice ? (
-        <p role="status" className="rounded-md bg-nevoa-2 p-4 font-bold text-tinta">
-          {notice}
-        </p>
+        <div role="status" className="rounded-md bg-nevoa-2 p-4">
+          <p className="font-bold text-tinta">{notice}</p>
+          <p className="mt-2">Se preferir, fale agora com a nossa equipe:</p>
+          <TrackedLink
+            event="whatsapp_click"
+            location={location}
+            href={whatsappFallbackHref}
+            className="mt-3 inline-flex min-h-[3.25rem] items-center gap-2 rounded-md bg-whatsapp px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+          >
+            <WhatsappIcon />
+            Falar no WhatsApp
+          </TrackedLink>
+        </div>
       ) : null}
 
       {status === 'failed' ? (

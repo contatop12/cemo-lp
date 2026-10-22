@@ -20,14 +20,11 @@ export function proxy(request: NextRequest): NextResponse {
   }
 
   if (getSiteEnv() === 'production') {
-    // Só redireciona quando o destino é de fato outro: www.<host do site> → apex, ou http → https quando o
-    // site configurado é https. Nunca para a mesma URL (evita loop com proxies que enviam x-forwarded-proto=http).
+    // Só www.<host do site> → apex. HTTP → HTTPS fica com a hospedagem + HSTS: decidir por
+    // x-forwarded-proto geraria loop atrás de proxies TLS que não enviam o header (next start assume http).
     const site = new URL(getSiteUrl());
     const host = request.headers.get('host') ?? '';
-    const proto = request.headers.get('x-forwarded-proto');
-    const wrongHost = host === `www.${site.host}`;
-    const wrongProto = site.protocol === 'https:' && proto === 'http';
-    if (wrongHost || wrongProto) {
+    if (host === `www.${site.host}`) {
       const location = decision.kind === 'redirect' ? decision.location : `${pathname}${search}`;
       return NextResponse.redirect(new URL(location, getSiteUrl()), 301);
     }

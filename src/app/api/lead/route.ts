@@ -6,7 +6,10 @@ import { createRateLimiter } from '@/lib/leads/rate-limit';
 export const dynamic = 'force-dynamic';
 
 const handler = createLeadHandler({
-  getProvider: () => resolveLeadProvider(getServerEnv()),
+  getProvider: () => {
+    const env = getServerEnv();
+    return resolveLeadProvider({ ...env, allowDevProvider: env.allowDevLeadProvider });
+  },
   rateLimiter: createRateLimiter({ windowMs: 10 * 60 * 1000, max: 5 }),
   allowedOrigin: getSiteUrl(),
 });

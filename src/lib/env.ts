@@ -29,10 +29,14 @@ export function getServerEnv(): {
   siteEnv: SiteEnv;
   leadWebhookUrl: string | undefined;
   leadWebhookSecret: string | undefined;
+  allowDevLeadProvider: boolean;
 } {
   return {
     siteEnv: getSiteEnv(),
     leadWebhookUrl: nonEmpty(process.env.LEAD_WEBHOOK_URL),
     leadWebhookSecret: nonEmpty(process.env.LEAD_WEBHOOK_SECRET),
+    // Provider de memória só em next dev ou com opt-in explícito: um SITE_ENV ausente/errado em runtime
+    // nunca transforma produção num destino que descarta leads.
+    allowDevLeadProvider: process.env.NODE_ENV !== 'production' || process.env.LEAD_PROVIDER === 'dev',
   };
 }

@@ -147,11 +147,26 @@ describe('resolveLeadProvider', () => {
   });
 
   it('staging sem webhook → provider de desenvolvimento', () => {
-    expect(resolveLeadProvider({ siteEnv: 'staging' })?.name).toBe('dev');
+    expect(resolveLeadProvider({ siteEnv: 'staging', allowDevProvider: true })?.name).toBe('dev');
   });
 
   it('com webhook → provider webhook em qualquer ambiente', () => {
     expect(resolveLeadProvider({ siteEnv: 'production', leadWebhookUrl: 'https://hook.example' })?.name).toBe('webhook');
     expect(resolveLeadProvider({ siteEnv: 'development', leadWebhookUrl: 'https://hook.example' })?.name).toBe('webhook');
+  });
+});
+
+describe('fix: provider de desenvolvimento só com opt-in (nunca falha aberta)', () => {
+  it('sem webhook e sem opt-in → null mesmo fora de produção', () => {
+    expect(resolveLeadProvider({ siteEnv: 'development' })).toBeNull();
+    expect(resolveLeadProvider({ siteEnv: 'staging' })).toBeNull();
+  });
+
+  it('com opt-in explícito → provider dev', () => {
+    expect(resolveLeadProvider({ siteEnv: 'staging', allowDevProvider: true })?.name).toBe('dev');
+  });
+
+  it('opt-in nunca vale em produção', () => {
+    expect(resolveLeadProvider({ siteEnv: 'production', allowDevProvider: true })).toBeNull();
   });
 });

@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CONSENT_STORAGE_KEY } from '@/lib/analytics/consent';
+import { CONSENT_STORAGE_KEY, resetConsent } from '@/lib/analytics/consent';
 import { CookieBanner } from './CookieBanner';
 
 beforeEach(() => {
+  resetConsent(); // a escolha em memória vive no módulo (numa página real, recarrega a cada visita)
   localStorage.clear();
   delete document.documentElement.dataset.consent;
 });
@@ -50,5 +51,22 @@ describe('CookieBanner', () => {
     });
     render(<CookieBanner />);
     expect(await screen.findByRole('region', { name: 'Aviso de cookies' })).toBeInTheDocument();
+  });
+});
+
+describe('fix: storage bloqueado', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  it('Aceitar fecha o banner mesmo sem conseguir salvar', async () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('SecurityError');
+    });
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('SecurityError');
+    });
+    render(<CookieBanner />);
+    await userEvent.click(await screen.findByRole('button', { name: 'Aceitar' }));
+    expect(screen.queryByRole('region', { name: 'Aviso de cookies' })).toBeNull();
+    expect(document.documentElement.dataset.consent).toBe('granted');
   });
 });

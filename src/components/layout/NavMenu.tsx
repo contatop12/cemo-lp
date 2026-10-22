@@ -71,7 +71,14 @@ export function NavMenu({ groups }: { groups: NavGroup[] }) {
   const current = (href: string) => (pathname === href ? 'page' : undefined);
 
   return (
-    <ul ref={root} className="flex items-center gap-1">
+    <ul
+      ref={root}
+      className="flex items-center gap-1"
+      onBlur={(e) => {
+        // Foco de teclado saiu do menu: fecha para o painel não cobrir o elemento focado (WCAG 2.4.11).
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpenId(null);
+      }}
+    >
       {groups.map((group) => {
         if (group.kind === 'link' && group.href) {
           return (

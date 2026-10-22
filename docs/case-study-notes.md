@@ -101,3 +101,15 @@ npm run build && npm start
 - **Barra fixa no celular oculta enquanto o aviso de cookies está pendente** — nunca disputam a base da tela.
 - **Nenhum depoimento, número, RQE, preço ou técnica inventados;** convênios exibidos por nome (sem logos até a CEMO fornecer).
 - **Destinos de redirect pendentes:** 52 destinos do mapa de migração dependem das páginas dos próximos planos; o domínio só é apontado com `redirects:check-targets` vazio.
+
+## 2026-10-22 — Revisão final independente e correções
+
+Uma revisão independente do branch inteiro não encontrou falhas críticas. Corrigimos (cada uma com teste que falhava antes):
+- **Banner de cookies preso com o armazenamento bloqueado** → a escolha passa a valer em memória na página atual.
+- **Nomes com apóstrofo tipográfico (’)** — padrão do iPhone em "D’Ávila" — eram recusados → normalizados.
+- **Falha aberta por configuração:** sem `SITE_ENV` em runtime, leads iriam para um destino em memória → o provider de memória agora exige `next dev` ou opt-in explícito (`LEAD_PROVIDER=dev`) e nunca vale em produção.
+- **CSP pronta para a conversão do Google Ads e o Pixel da Meta** carregados via GTM.
+- **429 também oferece o WhatsApp** (o paciente nunca fica sem caminho).
+- **Sem redirect por `x-forwarded-proto`:** HTTPS fica com a hospedagem + HSTS (evita loop atrás de proxy TLS).
+- **Mega menu fecha quando o foco de teclado sai** (WCAG 2.4.11).
+- **HSTS sem `includeSubDomains; preload`** até o dono do domínio confirmar.

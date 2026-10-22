@@ -67,3 +67,22 @@ describe('getServerEnv', () => {
     expect(env.leadWebhookSecret).toBeUndefined();
   });
 });
+
+describe('fix: allowDevLeadProvider', () => {
+  it('build de produção (NODE_ENV=production) sem LEAD_PROVIDER=dev → false', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('LEAD_PROVIDER', '');
+    expect(getServerEnv().allowDevLeadProvider).toBe(false);
+  });
+
+  it('LEAD_PROVIDER=dev libera explicitamente', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('LEAD_PROVIDER', 'dev');
+    expect(getServerEnv().allowDevLeadProvider).toBe(true);
+  });
+
+  it('desenvolvimento local (next dev) libera', () => {
+    vi.stubEnv('NODE_ENV', 'development');
+    expect(getServerEnv().allowDevLeadProvider).toBe(true);
+  });
+});

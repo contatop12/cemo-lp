@@ -26,12 +26,12 @@ describe('proxy', () => {
     expect(res.headers.get('location')).toBe('https://oftalmologiacemo.com.br/contato/?gclid=abc');
   });
 
-  it('produção: http → https mantendo o caminho', () => {
+  it('fix: produção não redireciona só pelo x-forwarded-proto (HTTPS é da hospedagem/HSTS; evita loop atrás de proxy TLS)', () => {
     vi.stubEnv('SITE_ENV', 'production');
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://oftalmologiacemo.com.br');
     const res = proxy(request('http://oftalmologiacemo.com.br/sobre/', { 'x-forwarded-proto': 'http' }));
-    expect(res.status).toBe(301);
-    expect(res.headers.get('location')).toBe('https://oftalmologiacemo.com.br/sobre/');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('location')).toBeNull();
   });
 
   it('URL removida responde 410 com noindex', () => {

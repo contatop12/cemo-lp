@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { navigation } from '@/content/navigation';
 import { NavMenu } from './NavMenu';
@@ -82,5 +82,22 @@ describe('NavMenu', () => {
     setup();
     expect(screen.getByRole('link', { name: 'Corpo Clínico' })).toHaveAttribute('href', '/corpo-clinico/');
     expect(screen.queryByRole('button', { name: 'Corpo Clínico' })).toBeNull();
+  });
+});
+
+describe('fix: foco de teclado sai do menu', () => {
+  it('fecha o painel quando o foco vai para fora (não cobre o elemento focado)', async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <NavMenu groups={navigation} />
+        <a href="/fora/">link fora do menu</a>
+      </div>,
+    );
+    const button = screen.getByRole('button', { name: 'Especialidades' });
+    await user.click(button);
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    act(() => screen.getByRole('link', { name: 'link fora do menu' }).focus());
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });

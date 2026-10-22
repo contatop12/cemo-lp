@@ -11,13 +11,15 @@ export interface LeadProvider {
   submit(lead: LeadRecord): Promise<ProviderResult>;
 }
 
-// Produção sem webhook configurado => null: o formulário falha fechado e oferece o WhatsApp.
+// Sem webhook => null (o formulário falha fechado e oferece o WhatsApp), exceto fora de produção com
+// opt-in explícito para o provider de memória (next dev ou LEAD_PROVIDER=dev).
 export function resolveLeadProvider(env: {
   siteEnv: SiteEnv;
   leadWebhookUrl?: string;
   leadWebhookSecret?: string;
+  allowDevProvider?: boolean;
 }): LeadProvider | null {
   if (env.leadWebhookUrl) return createWebhookProvider({ url: env.leadWebhookUrl, secret: env.leadWebhookSecret });
-  if (env.siteEnv !== 'production') return createDevProvider();
+  if (env.siteEnv !== 'production' && env.allowDevProvider === true) return createDevProvider();
   return null;
 }

@@ -1,8 +1,9 @@
-import { CONSENT_DEFAULT, CONSENT_STORAGE_KEY, consentUpdateFor, readConsent, writeConsent } from './consent';
+import { CONSENT_DEFAULT, CONSENT_STORAGE_KEY, consentUpdateFor, readConsent, resetConsent, writeConsent } from './consent';
 
 type DataLayerWindow = Window & { dataLayer?: unknown[] };
 
 beforeEach(() => {
+  resetConsent();
   (window as DataLayerWindow).dataLayer = [];
   localStorage.clear();
   delete document.documentElement.dataset.consent;
@@ -66,5 +67,18 @@ describe('Consent Mode v2', () => {
     expect(last[1]).toBe('update');
     expect(last[2]).toEqual(consentUpdateFor('granted'));
     expect(document.documentElement.dataset.consent).toBe('granted');
+  });
+});
+
+describe('fix: escolha em memória quando o storage está bloqueado', () => {
+  it('writeConsent + readConsent funcionam com getItem/setItem lançando', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('SecurityError');
+    });
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('SecurityError');
+    });
+    writeConsent('granted');
+    expect(readConsent()).toBe('granted');
   });
 });

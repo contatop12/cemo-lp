@@ -25,14 +25,18 @@ export function consentUpdateFor(choice: ConsentChoice): Record<string, 'granted
   };
 }
 
+// Escolha da página atual, para quando o storage não persiste (bloqueado ou cheio).
+let memoryChoice: ConsentChoice | null = null;
+
 // Storage pode estar indisponível (aba anônima, Safari ITP, bloqueio): nunca quebra a página.
 export function readConsent(): ConsentChoice | null {
   try {
     const value = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-    return value === 'granted' || value === 'denied' ? value : null;
+    if (value === 'granted' || value === 'denied') return value;
   } catch {
-    return null;
+    // segue para a escolha em memória
   }
+  return memoryChoice;
 }
 
 type GtagWindow = Window & { dataLayer?: unknown[] };
@@ -47,6 +51,7 @@ function gtag(..._args: unknown[]): void {
 }
 
 export function writeConsent(choice: ConsentChoice): void {
+  memoryChoice = choice;
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, choice);
   } catch {
@@ -61,6 +66,7 @@ export const CONSENT_CHANGE_EVENT = 'cemo:consent-change';
 
 // Apaga a escolha salva e reabre o banner; o GTM volta ao padrão negado até nova escolha.
 export function resetConsent(): void {
+  memoryChoice = null;
   try {
     window.localStorage.removeItem(CONSENT_STORAGE_KEY);
   } catch {

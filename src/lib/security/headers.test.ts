@@ -18,7 +18,7 @@ describe('buildSecurityHeaders', () => {
   });
 
   it('HSTS só em produção', () => {
-    expect(get('production', 'Strict-Transport-Security')).toBe('max-age=63072000; includeSubDomains; preload');
+    expect(get('production', 'Strict-Transport-Security')).toBeTruthy();
     expect(get('staging', 'Strict-Transport-Security')).toBeUndefined();
     expect(get('development', 'Strict-Transport-Security')).toBeUndefined();
   });
@@ -43,5 +43,38 @@ describe('buildSecurityHeaders', () => {
     expect(get('staging', 'X-Robots-Tag')).toBe('noindex, nofollow');
     expect(get('development', 'X-Robots-Tag')).toBe('noindex, nofollow');
     expect(get('production', 'X-Robots-Tag')).toBeUndefined();
+  });
+});
+
+describe('fix: CSP para Google tag/Ads e Meta Pixel via GTM', () => {
+  const csp = get('production', 'Content-Security-Policy') ?? '';
+  const directive = (name: string) => csp.split('; ').find((d) => d.startsWith(name + ' ')) ?? '';
+
+  it('script-src', () => {
+    for (const host of ['https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net']) {
+      expect(directive('script-src')).toContain(host);
+    }
+  });
+
+  it('img-src', () => {
+    for (const host of ['https://googleads.g.doubleclick.net', 'https://www.google.com.br', 'https://*.google-analytics.com', 'https://www.facebook.com']) {
+      expect(directive('img-src')).toContain(host);
+    }
+  });
+
+  it('connect-src', () => {
+    for (const host of ['https://*.google-analytics.com', 'https://www.google.com', 'https://www.googleadservices.com', 'https://www.facebook.com']) {
+      expect(directive('connect-src')).toContain(host);
+    }
+  });
+
+  it('frame-src permite o iframe de conversão do Google Ads', () => {
+    expect(directive('frame-src')).toContain('https://td.doubleclick.net');
+  });
+});
+
+describe('fix: HSTS sem includeSubDomains/preload até o dono do domínio confirmar', () => {
+  it('só max-age', () => {
+    expect(get('production', 'Strict-Transport-Security')).toBe('max-age=31536000');
   });
 });

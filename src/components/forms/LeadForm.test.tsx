@@ -206,3 +206,17 @@ describe('LeadForm', () => {
     expect(screen.getByRole('link', { name: /privacidade/i })).toHaveAttribute('href', '/privacidade/');
   });
 });
+
+describe('fix: 429 também oferece o WhatsApp', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('mostra a alternativa pelo WhatsApp junto do aviso', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ ok: false, error: 'rate_limited' }), { status: 429 })));
+    const user = userEvent.setup();
+    renderForm();
+    await fillValid(user);
+    await user.click(screen.getByRole('button', { name: 'Solicitar contato' }));
+    expect(await screen.findByText('Muitas tentativas. Tente novamente em alguns minutos.')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Falar no WhatsApp' })).toHaveAttribute('href', WHATSAPP);
+  });
+});
