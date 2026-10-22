@@ -17,7 +17,7 @@ export function initials(name: string): string {
 export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
   const fullName = `${doctor.honorific} ${doctor.name}`;
   return (
-    <Section labelledBy="destaque-medico">
+    <Section id="diretor-tecnico" labelledBy="destaque-medico">
       <div className="mx-auto grid max-w-wide items-center gap-10 px-[var(--gutter)] lg:grid-cols-12">
         <div className="relative mx-auto w-full max-w-md overflow-hidden bg-estudio radius-lid lg:col-span-5">
           {doctor.photo ? (

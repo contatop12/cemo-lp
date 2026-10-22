@@ -76,3 +76,11 @@ npm run build && npm start
 - **Correção de rota (QA visual):** o design previa a mira centrada no olhar do médico. No protótipo, cruz + círculo sobre a cabeça liam como **mira de arma** — inaceitável para a imagem do Dr. David e da clínica. A mira passou a ser um detalhe pequeno sobre o fundo do painel, junto à curva da pálpebra, ecoando a logo sem tocar o rosto.
 - **Mobile projetado à parte:** recorte 4:5 com arco-pálpebra; foto limitada a 32svh para que "Agendar consulta" apareça sem rolar em 390×844 e 360×740 (medido com Playwright no build de produção). O logo do header deixou de ter prioridade alta para não competir com a foto, que é o LCP (`<picture>` com preload das duas fontes por `media`).
 - **Pendente:** foto original em alta resolução — a atual (853×1280, 47 KB) funciona no layout, mas perde nitidez em telas retina.
+
+## 2026-10-22 — Home completa (QA visual)
+
+- **Jornada implementada (briefing §47):** hero → prova → agendamento → "Como podemos cuidar da sua visão?" (8 intenções) → Catarata → Refrativa → Dr. David → estrutura → corpo clínico → avaliações → convênios → localização → conteúdos → CTA final. A seção de vídeo existe, mas fica omitida até o vídeo ser publicado (sem "em breve").
+- **QA em 1440, 1280, 820, 390 e 360 px (Playwright, build de produção):** 0 px de rolagem horizontal; menor fonte visível 16 px; CTA principal visível sem rolar no celular.
+- **Correções vindas do QA:** (1) o título do CTA final ficava sob a curva-pálpebra (texto branco sobre fundo branco) → raio fixo e espaço superior; (2) a composição dos equipamentos deixava um vazio sob a foto-âncora → âncora + 2 recortes ao lado + faixa de 3 recortes com alturas diferentes (§7.2); (3) imagens "em branco" na captura de página inteira eram artefato do *lazy loading* — confirmado que carregam ao rolar (0 falhas no otimizador).
+- **Observação de tipografia:** os zeros "cortados" nos horários são o zero com barra da Atkinson Hyperlegible — intencional, para não confundir 0 e O.
+- **Pendências que impactam a Home:** fotos dos demais médicos (hoje monogramas), seleção de avaliações reais do Google, publicação do vídeo, logos dos convênios, identificação dos equipamentos.

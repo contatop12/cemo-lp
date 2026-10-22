@@ -44,7 +44,7 @@ export function Hero({ eyebrow, headline, lead, primaryCta, secondaryCta, proof,
   const roleLine = `${doctor.role} · ${doctor.crm}`;
 
   return (
-    <section aria-labelledby="hero-title" className="hero relative overflow-hidden bg-papel">
+    <section id="inicio" aria-labelledby="hero-title" className="hero relative overflow-hidden bg-papel">
       {/* Painel-pálpebra com a foto: no celular vem primeiro; no desktop sangra à direita. */}
       <div className="hero-panel relative bg-estudio lg:absolute lg:inset-y-0 lg:left-[52%] lg:right-0 lg:radius-lid">
         <div className="hero-photo-box relative mx-auto aspect-[4/5] h-[min(32svh,300px)] lg:absolute lg:bottom-0 lg:left-1/2 lg:aspect-[853/1280] lg:h-full lg:max-h-[56rem] lg:-translate-x-1/2">

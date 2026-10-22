@@ -8,7 +8,7 @@ import type { EditorialContent } from '@/content/types';
 export function EditorialBlock({ content, tone }: { content: EditorialContent; tone: 'papel' | 'nevoa' }) {
   const titleId = `editorial-${content.id}`;
   return (
-    <Section tone={tone} labelledBy={titleId}>
+    <Section id={content.id} tone={tone} labelledBy={titleId}>
       <div className="mx-auto grid max-w-wide gap-10 px-[var(--gutter)] lg:grid-cols-12">
         <h2 id={titleId} className="text-h2 lg:col-span-5">
           {content.heading}
