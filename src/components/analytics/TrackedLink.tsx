@@ -25,5 +25,7 @@ export function TrackedLink({
   if (href.startsWith('/') || href.startsWith('#')) {
     return <Link href={href} onClick={handleClick} {...rest} />;
   }
-  return <a href={href} onClick={handleClick} {...rest} />;
+  // Externos (WhatsApp, mapas…): noopener por padrão, a menos que o chamador defina rel.
+  const rel = rest.rel ?? (/^https?:/.test(href) ? 'noopener' : undefined);
+  return <a href={href} onClick={handleClick} {...rest} rel={rel} />;
 }

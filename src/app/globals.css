@@ -198,3 +198,10 @@ html[data-consent="pending"] [data-sticky-cta] {
   inherits: true;
   initial-value: 5rem;
 }
+
+/* Abaixo de md, reserva espaço para a barra fixa de CTA (não cobre o fim do conteúdo nem o rodapé). */
+@media (max-width: 47.99rem) {
+  body {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+}

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { TrackedLink } from '@/components/analytics/TrackedLink';
 import { Logo } from '@/components/brand/Logo';
 import type { NavGroup, SiteSettings } from '@/content/types';
+import { MobileNav } from './MobileNav';
 import { NavMenu } from './NavMenu';
 import { UtilityBar } from './UtilityBar';
 
@@ -27,6 +28,7 @@ export function Header({ settings, navigation }: { settings: SiteSettings; navig
           >
             Agendar consulta
           </TrackedLink>
+          <MobileNav groups={navigation} settings={settings} />
         </div>
       </header>
     </>
