@@ -15,7 +15,8 @@
     "test:e2e": "playwright test",
     "redirects:generate": "node scripts/generate-redirects.ts",
     "assets:optimize": "node scripts/optimize-images.mjs",
-    "todos": "node scripts/list-todos.mjs"
+    "todos": "node scripts/list-todos.mjs",
+    "redirects:check-targets": "node scripts/check-redirect-targets.ts"
   },
   "repository": {
     "type": "git",
