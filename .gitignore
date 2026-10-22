@@ -1,27 +1,48 @@
-# materiais brutos do cliente (dados do Search Console, fotos originais, vídeos) — nunca commitar
+# ── Segredos e credenciais ─────────────────────────────────────────────
+# Variáveis do site (.env, .env.local, .env.production…) e credenciais de deploy (.env.cloudflare).
+# Só os modelos sem valores são versionados.
+.env*
+!.env.example
+!.env.cloudflare.example
+# Variáveis locais do wrangler (inclui .dev.vars.<ambiente>)
+.dev.vars*
+# Chaves e certificados
+*.pem
+*.key
+
+# ── Materiais brutos do cliente (Search Console, fotos originais, vídeos) ──
 _materiais/
 
-# workspace dos agentes
+# ── Workspace dos agentes ──────────────────────────────────────────────
 .superpowers/
 
-# dependências e build
+# ── Dependências e build ───────────────────────────────────────────────
 node_modules/
 .next/
 out/
 *.tsbuildinfo
 next-env.d.ts
 
-# testes
-/test-results/
-/playwright-report/
-coverage/
-
-# segredos
-.env*
-!.env.example
-
-# OpenNext / Cloudflare Workers
+# ── OpenNext / Cloudflare Workers ──────────────────────────────────────
 .open-next/
 .wrangler/
-.dev.vars
 cloudflare-env.d.ts
+
+# ── Testes ─────────────────────────────────────────────────────────────
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+coverage/
+
+# ── Logs ───────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── Sistema operacional e editores ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json

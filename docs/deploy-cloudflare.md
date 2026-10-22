@@ -60,3 +60,11 @@ Tudo isso foi verificado localmente no `workerd` (`npm run preview`) antes do pr
 - **Middleware Node.js experimental no OpenNext:** o `src/proxy.ts` (redirects 301/410 do mapa de migração) roda como middleware Node.js, que o OpenNext marca como experimental no Cloudflare. Funcionou no teste local; acompanhar os logs (Observability) após o deploy e conferir alguns redirects.
 - **Build no Windows:** o OpenNext recomenda Linux/WSL para builds locais. O Workers Builds roda em Linux, sem esse problema.
 - **Produção (depois dos portões de lançamento em `docs/seo-checklist.md`):** trocar para `SITE_ENV=production` (build **e** `wrangler.jsonc`), `NEXT_PUBLIC_SITE_URL=https://oftalmologiacemo.com.br`, adicionar os domínios personalizados `oftalmologiacemo.com.br` e `www.oftalmologiacemo.com.br` ao Worker (o código redireciona `www` → apex), ativar "Always Use HTTPS" na zona e configurar os secrets de lead e o GTM.
+
+## Deploy manual a partir de uma máquina (alternativa ao Workers Builds)
+
+1. Copie `.env.cloudflare.example` para **`.env.cloudflare`** e preencha `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` (o arquivo é ignorado pelo git).
+2. Defina no shell as variáveis de build do ambiente (ex.: `SITE_ENV=staging`, `NEXT_PUBLIC_SITE_URL=...`).
+3. `npm run cf:whoami` (confere o token) e depois `npm run deploy`.
+
+**Nunca coloque credenciais do Cloudflare em `.env`, `.env.local` ou `.env.production`.** O OpenNext embute os valores desses arquivos no Worker publicado (`.open-next/cloudflare/next-env.mjs`) — o token ficaria dentro do código do site. O `npm run deploy` usa `scripts/cloudflare-env.mjs`, que carrega `.env.cloudflare` só para o wrangler e **bloqueia o deploy** se encontrar variáveis `*CLOUDFLARE*` nos arquivos lidos pelo build.

@@ -19,8 +19,9 @@
     "redirects:check-targets": "node scripts/check-redirect-targets.ts",
     "build:e2e": "node -e \"process.env.SITE_ENV='production';process.env.NEXT_PUBLIC_SITE_URL='http://localhost:3100';require('child_process').execSync('npx next build',{stdio:'inherit',env:process.env})\"",
     "preview": "npm run build && opennextjs-cloudflare preview",
-    "deploy": "npm run build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "deploy": "node scripts/cloudflare-env.mjs echo verificacao-ok && npm run build && node scripts/cloudflare-env.mjs opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "cf:whoami": "node scripts/cloudflare-env.mjs wrangler whoami"
   },
   "repository": {
     "type": "git",
