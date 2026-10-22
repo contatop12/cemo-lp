@@ -13,13 +13,20 @@ const equipmentAlts = [
   'Aparelho de exame com tela grande exibindo a interface, em sala da clínica',
 ];
 
+const LOGO_ALT = 'CEMO – Centro de Microcirurgia Ocular';
+
 export const assets: {
   drDavid: ImageAsset;
   drDavidMobile: ImageAsset;
   ogHome: ImageAsset;
   logoPng: ImageAsset;
+  // Vetorizado de logo-cemo.png (scripts/trace-logo.mjs), aprovado no QA visual e de silhueta (IoU ≥ 0,97).
+  logoSvg?: ImageAsset;
+  logoSvgWhite?: ImageAsset;
   equipment: ImageAsset[];
 } = {
+  logoSvg: { src: '/brand/logo-cemo.svg', width: 648, height: 508, alt: LOGO_ALT },
+  logoSvgWhite: { src: '/brand/logo-cemo-white.svg', width: 648, height: 508, alt: LOGO_ALT },
   drDavid: { src: '/images/dr-david.jpg', width: 853, height: 1280, alt: DAVID_ALT },
   drDavidMobile: { src: '/images/dr-david-mobile.jpg', width: 728, height: 910, alt: DAVID_ALT },
   ogHome: { src: '/images/og-home.png', width: 1200, height: 630, alt: 'CEMO – Centro de Microcirurgia Ocular' },
