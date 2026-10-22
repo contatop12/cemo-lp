@@ -17,6 +17,18 @@ describe('Logo', () => {
     expect(screen.getByRole('img', { name: ALT })).toHaveAttribute('src', '/brand/logo-cemo-white.svg');
   });
 
+  it('layout horizontal usa o SVG horizontal com a proporção dele', () => {
+    render(<Logo layout="horizontal" height={40} />);
+    const img = screen.getByRole('img', { name: ALT });
+    expect(img).toHaveAttribute('src', '/brand/logo-cemo-horizontal.svg');
+    expect(Number(img.getAttribute('width'))).toBe(Math.round((40 * 1111.25) / 211.3));
+  });
+
+  it('layout horizontal branco aponta para o SVG horizontal branco', () => {
+    render(<Logo layout="horizontal" variant="white" />);
+    expect(screen.getByRole('img', { name: ALT })).toHaveAttribute('src', '/brand/logo-cemo-horizontal-white.svg');
+  });
+
   it('priority troca o carregamento para eager com prioridade alta', () => {
     render(<Logo priority />);
     const img = screen.getByRole('img', { name: ALT });
