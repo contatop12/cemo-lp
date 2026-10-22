@@ -33,3 +33,13 @@ npm test                     # testes unitários/componentes
 npm run typecheck && npm run lint
 npm run build && npm start
 ```
+
+## 2026-10-22 — Tipografia e tokens
+
+### Fontes pensadas para baixa visão
+- **Problema:** boa parte do público é idoso, tem catarata ou baixa visão; o briefing proíbe sacrificar legibilidade pela estética.
+- **Decisão:** corpo em **Atkinson Hyperlegible Next** (Braille Institute; disponível no `next/font/google` como `Atkinson_Hyperlegible_Next`, variável `wght` 200–800 — verificado no `font-data.json` do Next 16.4.2) e títulos em **Literata** (serifa editorial variável, eixos `wght` + `opsz`). Ambas self-hosted pelo `next/font` (sem requisição ao Google em runtime), `display: swap`, subset `latin`. Corpo ≥ 18 px, nada abaixo de 16 px.
+- **Benefício:** caracteres desambiguados (I/l/1, 0/O) e leitura confortável sem perder a percepção premium.
+
+### Tokens com contraste testado
+- Cores do `docs/design-system.md` §14 copiadas literalmente em `src/app/globals.css` (Tailwind v4 `@theme`). Um teste automatizado calcula o contraste WCAG dos pares críticos e impede que o verde/ciano da marca virem texto sobre fundo claro.
