@@ -49,3 +49,9 @@ npm run build && npm start
 - **Problema:** o briefing exige fotos reais (Dr. David no hero, equipamentos como prova de estrutura), mas o material disponível é limitado: a foto do Dr. David tem 853×1280 px e 47 KB (muito comprimida) e as 6 fotos de equipamentos vieram do WhatsApp (960×1280, ~70 KB).
 - **Decisão:** usar o material real já (nunca banco de imagens): a foto do Dr. David é servida como cópia byte a byte (recomprimir pioraria) e o recorte mobile 4:5 é corte puro, sem retoque, upscaling ou alteração de rosto/corpo; equipamentos com orientação corrigida, sem EXIF/GPS e sem ampliação. Pipeline reproduzível em `scripts/optimize-images.mjs` (`npm run assets:optimize`). As fotos foram baixadas direto do Drive compartilhado por link.
 - **Pendente:** `TODO_CONTENT_VALIDATION: obter original em alta (≥ 2400 px de altura) da foto do Dr. David` e originais/nova sessão para os equipamentos — o layout já está preparado para trocar os arquivos sem mexer em código.
+
+## 2026-10-22 — SEO técnico e segurança
+
+- **Problema:** o WordPress atual não tem schema de clínica, só 42 meta descriptions e nenhuma proteção contra indexação de ambientes de teste.
+- **Decisão:** metadata centralizada (title único com sufixo, canonical absoluto com barra final), JSON-LD em grafo com `@id` estáveis (clínica, site, médicos, breadcrumb) e **nenhum** markup enganoso (sem avaliações autoatribuídas, preço, RQE, coordenadas aproximadas — e sem `medicalSpecialty: Optometric`, que confundiria oftalmologia com optometria). Staging bloqueado em três camadas (robots, meta robots e `X-Robots-Tag`). Headers de segurança com CSP explícita; `'unsafe-inline'` aceito conscientemente para preservar o SSG.
+- **Benefício:** entidades compreensíveis para buscadores e sistemas generativos, sem risco de penalização por markup indevido nem de staging indexado.
