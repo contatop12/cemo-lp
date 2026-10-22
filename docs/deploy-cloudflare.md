@@ -2,6 +2,11 @@
 
 Para quem configura o Cloudflare e publica o site. O projeto usa o adaptador **OpenNext** (`@opennextjs/cloudflare` 1.20.13) e o **Workers Builds** (deploy automático a cada push na `main`).
 
+## Ambiente atual
+
+- **Staging:** https://cemo-lp.contato-097.workers.dev — conta Cloudflare "Contato P12", Worker `cemo-lp`, primeiro deploy em 2026-10-22 (manual, `npm run deploy`, versão `d8c63daa`). Conferido no ar: redirects 301 em um salto, 410, noindex em três camadas, hero em AVIF, fontes, CSP sem violações, API de leads falhando fechado (sem webhook ainda).
+- Build variables usadas: `SITE_ENV=staging`, `NEXT_PUBLIC_SITE_URL=https://cemo-lp.contato-097.workers.dev`.
+
 ## Como o build funciona
 
 | Etapa (Workers Builds) | Comando | O que faz |
