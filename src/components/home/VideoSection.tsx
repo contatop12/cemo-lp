@@ -17,7 +17,7 @@ export function VideoSection({ videos }: { videos: VideoItem[] }) {
             Consulta com o especialista da área e exames no mesmo dia, sem precisar voltar em outra data.
           </p>
         </div>
-        <ul className="-mx-[var(--gutter)] mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-[var(--gutter)] pb-4 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0">
+        <ul className="relative -mx-[var(--gutter)] mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-[var(--gutter)] pb-4 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0">
           {videos.map((video) => (
             <li key={video.id} className="w-[min(78vw,20rem)] shrink-0 snap-start lg:w-auto">
               <VideoCard video={video} location="home_videos" />

@@ -78,7 +78,7 @@ export function MobileNav({ groups, settings }: { groups: NavGroup[]; settings: 
         aria-expanded={open}
         aria-controls={dialogId}
         onClick={() => setOpen(true)}
-        className="inline-flex min-h-12 min-w-12 items-center gap-2 rounded-md border-2 border-azul-cemo px-4 font-bold text-azul-700 lg:hidden"
+        className="inline-flex min-h-12 min-w-12 items-center gap-2 rounded-md border-2 border-azul-cemo px-4 font-bold text-azul-700 xl:hidden"
       >
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
           <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

@@ -32,9 +32,15 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
   return (
     <section id="inicio" aria-labelledby="hero-title" className="hero relative overflow-hidden bg-papel">
       <div className="relative mx-auto grid max-w-wide px-[var(--gutter)] lg:min-h-[clamp(640px,calc(100svh-8rem),840px)] lg:grid-cols-12 lg:gap-x-8">
-        <div className="relative z-10 pb-10 pt-6 lg:col-span-6 lg:self-center lg:py-16">
-          <p className="text-ui font-bold text-azul-700">{kicker}</p>
-          <h1 id="hero-title" className="mt-3 max-w-[13ch] text-h1 lg:text-display">
+        <div className="relative z-10 pb-10 pt-4 lg:col-span-6 lg:self-center lg:py-16">
+          {/* Celular: quem é o médico da foto vem logo abaixo dela (o cartão sobre a foto cobriria o rosto). */}
+          <p className="text-small text-tinta-suave lg:hidden">
+            <strong className="font-bold text-tinta">{doctor.name}</strong>
+            <br />
+            {doctor.role}, {doctor.crm}
+          </p>
+          <p className="hidden text-ui font-bold text-azul-700 lg:block">{kicker}</p>
+          <h1 id="hero-title" className="mt-4 max-w-[13ch] text-h1 lg:mt-3 lg:text-display">
             {headline}
           </h1>
           <p className="mt-4 max-w-[46ch] text-body text-tinta-suave lg:mt-6 lg:text-lead">{lead}</p>
@@ -57,8 +63,8 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
           </div>
         </div>
 
-        <div className="hero-visual relative order-first -mx-[var(--gutter)] h-[min(46svh,23rem)] overflow-hidden bg-nevoa sm:h-[26rem] lg:order-none lg:col-span-6 lg:mx-0 lg:h-auto lg:overflow-visible lg:bg-transparent">
-          <Lens className="absolute left-1/2 top-[3%] w-[min(34rem,112%)] -translate-x-[46%] lg:top-[6%] lg:w-[min(42rem,108%)] lg:-translate-x-1/2" />
+        <div className="hero-visual relative order-first -mx-[var(--gutter)] h-[min(40svh,20rem)] overflow-hidden bg-nevoa sm:h-[26rem] lg:order-none lg:col-span-6 lg:mx-0 lg:h-auto lg:overflow-visible lg:bg-transparent">
+          <Lens className="absolute left-1/2 top-[3%] w-[min(38rem,125%)] -translate-x-[48%] lg:top-[5%] lg:w-[min(46rem,118%)] lg:-translate-x-1/2" />
           {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element -- otimizado via getImageProps; alt vem dele */}
           <img
             {...image}
@@ -70,9 +76,9 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
           </svg>
           <div
             data-testid="hero-doctor-card"
-            className="absolute bottom-7 left-[var(--gutter)] max-w-[15rem] rounded-md bg-papel/95 px-4 py-3 shadow-2 lg:bottom-12 lg:left-[2%] lg:max-w-[19rem] lg:px-5 lg:py-4"
+            className="absolute bottom-12 left-[2%] hidden max-w-[19rem] rounded-md bg-papel/95 px-5 py-4 shadow-2 lg:block"
           >
-            <p className="font-display text-ui font-semibold leading-snug text-tinta lg:text-h4">{doctor.name}</p>
+            <p className="font-display text-h4 font-semibold leading-snug text-tinta">{doctor.name}</p>
             <p className="mt-1 text-small font-bold text-azul-700">{doctor.role}</p>
             <p className="text-small text-tinta-suave">{doctor.crm}</p>
           </div>
@@ -108,7 +114,7 @@ function Lens({ className }: { className?: string }) {
     return [300 + r * Math.cos(a), 300 - r * Math.sin(a)] as const;
   };
   return (
-    <svg data-lens="" viewBox="-30 -40 660 660" aria-hidden="true" focusable="false" className={className}>
+    <svg data-lens="" viewBox="-80 -40 760 660" aria-hidden="true" focusable="false" className={className}>
       <circle cx="300" cy="300" r={R} className="fill-nevoa-2" />
       {rings.map((r, i) => (
         <circle

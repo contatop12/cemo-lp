@@ -24,7 +24,7 @@ export function VideoCard({
 }) {
   const Heading = headingLevel === 3 ? 'h3' : 'h4';
   return (
-    <figure className={cn('flex flex-col', className)}>
+    <figure className={cn('relative flex flex-col', className)}>
       <VideoPlayer video={video} location={location} sizes={sizes} />
       <figcaption className="mt-4">
         <Heading className="font-display text-h4 font-semibold text-tinta">{video.title}</Heading>
