@@ -1,45 +1,28 @@
-import {
-  DirectAnswer,
-  JourneyBlock,
-  OptionsBlock,
-  ProseBlock,
-  SignsBlock,
-} from "@/components/page/ContentBlocks";
-import { content } from "@/content";
-import type {
-  Condition,
-  Exam,
-  LeadInterestId,
-  Specialty,
-} from "@/content/types";
-import { resolveRelated } from "@/lib/content/related";
-import { buildMedicalWebPageNode, type JsonLdNode } from "@/lib/seo/jsonld";
-import { MedicalPage, type MedicalBlock } from "./MedicalPage";
+import { DirectAnswer, JourneyBlock, OptionsBlock, ProseBlock, SignsBlock } from '@/components/page/ContentBlocks';
+import { content } from '@/content';
+import type { Condition, Exam, LeadInterestId, Specialty } from '@/content/types';
+import { resolveRelated } from '@/lib/content/related';
+import { buildMedicalWebPageNode, type JsonLdNode } from '@/lib/seo/jsonld';
+import { MedicalPage, type MedicalBlock } from './MedicalPage';
 
-const HOME = { name: "Início", path: "/" };
+const HOME = { name: 'Início', path: '/' };
 
+// Revisor só conta se o perfil estiver publicado (o JSON-LD e o selo visível precisam dizer a mesma coisa).
 async function reviewerOf(slug: string | null) {
-  return slug ? content.getDoctorBySlug(slug) : null;
+  const doctor = slug ? await content.getDoctorBySlug(slug) : null;
+  return doctor?.published ? doctor : null;
 }
 
 // O que a página descreve, em schema.org — conservador: só tipos semanticamente corretos (briefing §127).
 function aboutSpecialty(s: Specialty): JsonLdNode {
-  if (s.id === "catarata")
-    return { "@type": "SurgicalProcedure", name: "Cirurgia de catarata" };
-  if (s.id === "refrativa")
-    return { "@type": "SurgicalProcedure", name: "Cirurgia refrativa" };
-  if (s.kind === "tratamento")
-    return { "@type": "MedicalProcedure", name: s.name };
-  if (s.id === "glaucoma")
-    return { "@type": "MedicalCondition", name: "Glaucoma" };
-  return { "@type": "MedicalEntity", name: s.name };
+  if (s.id === 'catarata') return { '@type': 'SurgicalProcedure', name: 'Cirurgia de catarata' };
+  if (s.id === 'refrativa') return { '@type': 'SurgicalProcedure', name: 'Cirurgia refrativa' };
+  if (s.kind === 'tratamento') return { '@type': 'MedicalProcedure', name: s.name };
+  if (s.id === 'glaucoma') return { '@type': 'MedicalCondition', name: 'Glaucoma' };
+  return { '@type': 'MedicalEntity', name: s.name };
 }
 
-export async function SpecialtyTemplate({
-  specialty: s,
-}: {
-  specialty: Specialty;
-}) {
+export async function SpecialtyTemplate({ specialty: s }: { specialty: Specialty }) {
   const [related, videos, reviewer, parent] = await Promise.all([
     resolveRelated(s.related),
     content.listVideos(s.videoIds),
@@ -50,14 +33,14 @@ export async function SpecialtyTemplate({
 
   const blocks: MedicalBlock[] = [
     {
-      id: "resposta",
+      id: 'resposta',
       label: s.answer.question,
       node: <DirectAnswer question={s.answer.question} text={s.answer.text} />,
     },
   ];
   if (s.signs)
     blocks.push({
-      id: "sinais",
+      id: 'sinais',
       label: s.signs.title,
       node: <SignsBlock {...s.signs} />,
     });
@@ -73,13 +56,13 @@ export async function SpecialtyTemplate({
     });
   if (s.journey)
     blocks.push({
-      id: "jornada",
+      id: 'jornada',
       label: s.journey.title,
       node: <JourneyBlock {...s.journey} />,
     });
   if (s.options)
     blocks.push({
-      id: "opcoes",
+      id: 'opcoes',
       label: s.options.title,
       node: <OptionsBlock {...s.options} />,
     });
@@ -91,20 +74,16 @@ export async function SpecialtyTemplate({
     });
 
   const trail =
-    s.kind === "consulta"
+    s.kind === 'consulta'
       ? [HOME, { name: s.shortName, path: s.canonicalPath }]
-      : s.kind === "tratamento" && parent
+      : s.kind === 'tratamento' && parent
         ? [
             HOME,
-            { name: "Especialidades", path: "/especialidades/" },
+            { name: 'Especialidades', path: '/especialidades/' },
             { name: parent.shortName, path: parent.canonicalPath },
             { name: s.shortName, path: s.canonicalPath },
           ]
-        : [
-            HOME,
-            { name: "Especialidades", path: "/especialidades/" },
-            { name: s.shortName, path: s.canonicalPath },
-          ];
+        : [HOME, { name: 'Especialidades', path: '/especialidades/' }, { name: s.shortName, path: s.canonicalPath }];
 
   return MedicalPage({
     path: s.canonicalPath,
@@ -114,14 +93,14 @@ export async function SpecialtyTemplate({
     ctaLabel: s.ctaLabel,
     ctaTitle: s.ctaLabel,
     interest: s.leadInterest,
-    formId: `pagina_${s.id.replace(/-/g, "_")}`,
+    formId: 'pagina_especialidade', // nunca o assunto: o id iria para o dataLayer (LGPD)
     blocks: blocks,
     faq: s.faq,
     videos: videos,
     related: related,
     review: s.review,
     sources: s.review.sources,
-    proof: s.id === "catarata" || s.id === "refrativa",
+    proof: s.id === 'catarata' || s.id === 'refrativa',
     pageNode: buildMedicalWebPageNode({
       path: s.canonicalPath,
       name: s.h1,
@@ -142,16 +121,16 @@ export async function ExamTemplate({ exam: e }: { exam: Exam }) {
     content.getSiteSettings(),
   ]);
   const fields: Array<[keyof Exam, string, string]> = [
-    ["purpose", "para-que-serve", "Para que serve"],
-    ["whenRequested", "quando-e-solicitado", "Quando costuma ser solicitado"],
-    ["howDone", "como-e-feito", "Como o exame é feito"],
-    ["preparation", "preparo", "Preparo"],
-    ["duration", "duracao", "Quanto tempo dura"],
-    ["aftercare", "depois-do-exame", "Depois do exame"],
+    ['purpose', 'para-que-serve', 'Para que serve'],
+    ['whenRequested', 'quando-e-solicitado', 'Quando costuma ser solicitado'],
+    ['howDone', 'como-e-feito', 'Como o exame é feito'],
+    ['preparation', 'preparo', 'Preparo'],
+    ['duration', 'duracao', 'Quanto tempo dura'],
+    ['aftercare', 'depois-do-exame', 'Depois do exame'],
   ];
   const blocks: MedicalBlock[] = [
     {
-      id: "resposta",
+      id: 'resposta',
       label: e.answer.question,
       node: <DirectAnswer question={e.answer.question} text={e.answer.text} />,
     },
@@ -167,17 +146,13 @@ export async function ExamTemplate({ exam: e }: { exam: Exam }) {
   }
   return MedicalPage({
     path: e.canonicalPath,
-    breadcrumbs: [
-      HOME,
-      { name: "Exames", path: "/exames/" },
-      { name: e.name, path: e.canonicalPath },
-    ],
+    breadcrumbs: [HOME, { name: 'Exames', path: '/exames/' }, { name: e.name, path: e.canonicalPath }],
     title: e.h1,
     lead: e.lead,
-    ctaLabel: "Agendar exame",
-    ctaTitle: `Agende o exame de ${e.name.split(" (")[0]!.toLowerCase()}`,
-    interest: "exames",
-    formId: `exame_${e.id.replace(/-/g, "_")}`,
+    ctaLabel: 'Agendar exame',
+    ctaTitle: `Agende o exame de ${e.name.split(' (')[0]!.toLowerCase()}`,
+    interest: 'exames',
+    formId: 'pagina_exame',
     blocks: blocks,
     faq: e.faq,
     videos: videos,
@@ -189,7 +164,7 @@ export async function ExamTemplate({ exam: e }: { exam: Exam }) {
       name: e.h1,
       description: e.seo.description,
       about: {
-        "@type": "MedicalTest",
+        '@type': 'MedicalTest',
         name: e.name,
         ...(e.aka.length ? { alternateName: e.aka } : {}),
       },
@@ -200,11 +175,7 @@ export async function ExamTemplate({ exam: e }: { exam: Exam }) {
   });
 }
 
-export async function ConditionTemplate({
-  condition: c,
-}: {
-  condition: Condition;
-}) {
+export async function ConditionTemplate({ condition: c }: { condition: Condition }) {
   const [related, reviewer, settings, specialties] = await Promise.all([
     resolveRelated(c.related),
     reviewerOf(c.review.medicalReviewerSlug),
@@ -212,18 +183,18 @@ export async function ConditionTemplate({
     content.listSpecialties(),
   ]);
   // O formulário já vem com a área que trata a condição (primeira especialidade relacionada).
-  const area = specialties.find((s) => c.related.specialties.includes(s.id));
-  const interest: LeadInterestId = area?.leadInterest ?? "consulta";
+  const area = c.related.specialties.map((id) => specialties.find((s) => s.id === id)).find((s) => s !== undefined);
+  const interest: LeadInterestId = area?.leadInterest ?? 'consulta';
   const blocks: MedicalBlock[] = [
     {
-      id: "resposta",
+      id: 'resposta',
       label: c.answer.question,
       node: <DirectAnswer question={c.answer.question} text={c.answer.text} />,
     },
   ];
   if (c.signs)
     blocks.push({
-      id: "sinais",
+      id: 'sinais',
       label: c.signs.title,
       node: <SignsBlock {...c.signs} />,
     });
@@ -235,17 +206,13 @@ export async function ConditionTemplate({
     });
   return MedicalPage({
     path: c.canonicalPath,
-    breadcrumbs: [
-      HOME,
-      { name: "Condições oculares", path: "/condicoes-oculares/" },
-      { name: c.name, path: c.canonicalPath },
-    ],
+    breadcrumbs: [HOME, { name: 'Condições oculares', path: '/condicoes-oculares/' }, { name: c.name, path: c.canonicalPath }],
     title: c.h1,
     lead: c.lead,
-    ctaLabel: "Agendar avaliação",
-    ctaTitle: "Agende uma avaliação com o oftalmologista",
+    ctaLabel: 'Agendar avaliação',
+    ctaTitle: 'Agende uma avaliação com o oftalmologista',
     interest: interest,
-    formId: `condicao_${c.id.replace(/-/g, "_")}`,
+    formId: 'pagina_condicao',
     blocks: blocks,
     faq: c.faq,
     videos: [],
@@ -256,7 +223,7 @@ export async function ConditionTemplate({
       path: c.canonicalPath,
       name: c.h1,
       description: c.seo.description,
-      about: { "@type": "MedicalCondition", name: c.name },
+      about: { '@type': 'MedicalCondition', name: c.name },
       review: c.review,
       reviewer,
       s: settings,

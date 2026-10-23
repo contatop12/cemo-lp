@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { DoctorCard } from '@/components/ui/DoctorCard';
-import type { Doctor } from '@/content/types';
+import { DoctorCard, type DoctorCardData } from '@/components/ui/DoctorCard';
 import { cn } from '@/lib/cn';
 
 // Filtro por área (briefing §72). Sem JS, todos os médicos aparecem; o filtro só reduz a lista visível e anuncia o
 // resultado para leitores de tela.
-export function DoctorsDirectory({ doctors, areas }: { doctors: Doctor[]; areas: Array<{ id: string; label: string }> }) {
+export function DoctorsDirectory({ doctors, areas }: { doctors: DoctorCardData[]; areas: Array<{ id: string; label: string }> }) {
   const [area, setArea] = useState<string | null>(null);
   const visible = area ? doctors.filter((d) => d.specialtyIds.includes(area)) : doctors;
   const options = [{ id: null, label: 'Todas as áreas' }, ...areas.filter((a) => doctors.some((d) => d.specialtyIds.includes(a.id)))];

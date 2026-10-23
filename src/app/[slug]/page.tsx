@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { ExamTemplate } from '@/components/templates/EntityTemplates';
 import { PostTemplate } from '@/components/templates/PostTemplate';
 import { content } from '@/content';
+import { assertRootSlugs } from '@/lib/content/root-slugs';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 // URLs na raiz (preservadas do WordPress): posts do blog e os exames que moram em slug de artigo (IA §7).
@@ -19,7 +20,7 @@ async function resolve(slug: string) {
 export async function generateStaticParams() {
   const [exams, posts] = await Promise.all([content.listExams(), content.listPosts()]);
   const examSlugs = exams.filter((e) => !e.canonicalPath.startsWith('/exames/')).map((e) => e.canonicalPath.slice(1, -1));
-  return [...examSlugs, ...posts.map((p) => p.slug)].map((slug) => ({ slug }));
+  return assertRootSlugs([...examSlugs, ...posts.map((p) => p.slug)]).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

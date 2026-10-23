@@ -14,7 +14,7 @@ import { content } from '@/content';
 import type { FaqItem, LeadInterestId, MedicalReview, SourceRef, VideoItem } from '@/content/types';
 import { reviewsHref, whatsappHref } from '@/lib/contact';
 import type { ResolvedRelated } from '@/lib/content/related';
-import { buildClinicNode, buildFaqNode, buildGraph, buildVideoNode, buildWebSiteNode, type JsonLdNode } from '@/lib/seo/jsonld';
+import { buildClinicNode, buildFaqNode, buildGraph, buildPersonNode, buildVideoNode, buildWebSiteNode, type JsonLdNode } from '@/lib/seo/jsonld';
 
 export interface MedicalBlock {
   id: string;
@@ -69,11 +69,13 @@ export async function MedicalPage({
     content.listDoctors(),
   ]);
   const reviewer = review.medicalReviewerSlug ? (doctors.find((d) => d.slug === review.medicalReviewerSlug) ?? null) : null;
+  const reviewed = (review.status === 'APPROVED' || review.status === 'PUBLISHED') && reviewer !== null && review.reviewedAt !== null;
 
   const graph = buildGraph([
     buildClinicNode(settings),
     buildWebSiteNode(settings),
     pageNode,
+    ...(reviewed ? [buildPersonNode(reviewer, settings)] : []),
     ...(faq.length > 0 ? [buildFaqNode(path, faq, settings)] : []),
     ...videos.map((v) => buildVideoNode(v, settings)),
   ]);

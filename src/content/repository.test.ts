@@ -100,12 +100,12 @@ describe('content repository (fixtures)', () => {
     const videos = await content.listVideos();
     expect(videos.length).toBe(9);
     for (const v of videos) {
-      expect(v.src).toMatch(/^\/videos\/[a-z0-9-]+\.mp4$/);
+      expect(v.src).toMatch(/^\/v\/[a-z0-9-]+\.mp4$/); // rota com suporte a Range (src/app/v/[file])
       expect(v.poster.src).toMatch(/-poster\.jpg$/);
       expect(v.durationSeconds).toBeGreaterThan(0);
       expect(v.transcript.length).toBeGreaterThan(0);
       expect(v.uploadDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      if (v.captionsSrc) expect(v.captionsSrc).toBe(v.src.replace('.mp4', '.vtt'));
+      if (v.captionsSrc) expect(v.captionsSrc).toBe(`/videos/${v.id}.vtt`);
     }
     await expect(content.getVideo('nao-existe')).rejects.toThrow();
   });

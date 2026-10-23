@@ -79,3 +79,72 @@ describe('templates de página', () => {
     expect(graphTypes(container)).toContain('BlogPosting');
   });
 });
+
+describe('correções da revisão final', () => {
+  type DataLayerWindow = Window & { dataLayer?: unknown[] };
+  beforeEach(() => {
+    (window as DataLayerWindow).dataLayer = [];
+  });
+
+  it('condição: formulário marca a área da própria condição (ceratocone → córnea)', async () => {
+    const c = (await content.getCondition('ceratocone'))!;
+    const { container } = render(await ConditionTemplate({ condition: c }));
+    for (const select of container.querySelectorAll<HTMLSelectElement>('select')) expect(select.value).toBe('cornea');
+  });
+
+  it('perfil: interesse e áreas na ordem do próprio médico (Dra. Roberta → glaucoma)', async () => {
+    const d = (await content.getDoctorBySlug('roberta-andrade-e-nascimento'))!;
+    const { container } = render(await DoctorTemplate({ doctor: d }));
+    for (const select of container.querySelectorAll<HTMLSelectElement>('select')) expect(select.value).toBe('glaucoma');
+    const chips = [...container.querySelectorAll('ul[aria-label="Áreas de atuação no CEMO"] a')].map((a) => a.textContent);
+    expect(chips[0]).toBe('Glaucoma');
+  });
+
+  it('perfil: registra doctor_view sem dado do médico', async () => {
+    const d = (await content.getDoctorBySlug('adriana-bizzarri'))!;
+    render(await DoctorTemplate({ doctor: d }));
+    expect((window as DataLayerWindow).dataLayer).toEqual([{ event: 'doctor_view', location: 'perfil_medico' }]);
+  });
+
+  it('índice "Nesta página": toda âncora tem alvo e não há ids duplicados', async () => {
+    for (const s of await content.listSpecialties()) {
+      const { container, unmount } = render(await SpecialtyTemplate({ specialty: s }));
+      for (const a of container.querySelectorAll('nav[aria-label="Nesta página"] a')) {
+        const id = a.getAttribute('href')!.slice(1);
+        expect(container.querySelector(`[id="${id}"]`), `${s.id} → #${id}`).not.toBeNull();
+      }
+      const ids = [...container.querySelectorAll('[id]')].map((el) => el.id);
+      expect(ids.filter((id, i) => ids.indexOf(id) !== i), s.id).toEqual([]);
+      unmount();
+    }
+  });
+
+  it('cliques na página de especialidade não levam o assunto para o analytics', async () => {
+    const s = (await content.getSpecialty('catarata'))!;
+    render(await SpecialtyTemplate({ specialty: s }));
+    const link = screen.getAllByRole('link', { name: 'Falar no WhatsApp' })[0]!;
+    link.addEventListener('click', (e) => e.preventDefault());
+    link.click();
+    const layer = JSON.stringify((window as DataLayerWindow).dataLayer);
+    expect(layer).toContain('whatsapp_click');
+    expect(layer).not.toMatch(/catarata/i);
+  });
+
+  it('post: CTA final com frase íntegra para a Home e para especialidades', async () => {
+    const posts = await content.listPosts();
+    const home = posts.find((p) => p.entity?.kind === 'home')!;
+    const { unmount } = render(await PostTemplate({ post: (await content.getPost(home.slug))! }));
+    expect(screen.getByRole('link', { name: 'Conheça o CEMO' })).toHaveAttribute('href', '/');
+    unmount();
+    const post = (await content.getPost('hipermetropia-como-e-a-visao'))!;
+    render(await PostTemplate({ post }));
+    expect(screen.getByRole('link', { name: /^Conheça a página de / })).toBeInTheDocument();
+  });
+
+  it('post: data de atualização nunca anterior à de publicação', async () => {
+    for (const p of await content.listPosts()) {
+      expect(p.publishedAt, p.slug).toMatch(/Z$/);
+      expect(p.modifiedAt >= p.publishedAt, p.slug).toBe(true);
+    }
+  });
+});

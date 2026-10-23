@@ -6,6 +6,7 @@ import {
   buildBreadcrumbNode,
   buildClinicNode,
   buildGraph,
+  buildMedicalWebPageNode,
   buildPersonNode,
   buildWebSiteNode,
   schemaIds,
@@ -81,5 +82,16 @@ describe('JSON-LD', () => {
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script?.innerHTML).not.toContain('</script>');
     expect(script?.innerHTML).toContain('\\u003c/script>');
+  });
+});
+
+describe('página médica e revisão', () => {
+  const base = { path: '/x/', name: 'X', description: 'd', about: { '@type': 'MedicalEntity', name: 'X' }, s: siteSettings };
+  const approved = { status: 'APPROVED' as const, author: 'Equipe editorial CEMO', medicalReviewerSlug: david.slug, reviewedAt: '2026-11-01', updatedAt: '2026-11-01', sources: [] };
+
+  it('reviewedBy/lastReviewed só com revisão aprovada e revisor informado', () => {
+    expect(buildMedicalWebPageNode({ ...base, review: approved, reviewer: david }).reviewedBy).toEqual({ '@id': schemaIds(SITE).person(david.slug) });
+    expect(buildMedicalWebPageNode({ ...base, review: { ...approved, status: 'MEDICAL_REVIEW' }, reviewer: david }).reviewedBy).toBeUndefined();
+    expect(buildMedicalWebPageNode({ ...base, review: approved, reviewer: null }).lastReviewed).toBeUndefined();
   });
 });

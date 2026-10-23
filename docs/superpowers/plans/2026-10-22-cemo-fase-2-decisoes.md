@@ -32,3 +32,15 @@ decidido — por quê — custo se estiver errado.
 - F3 conteúdo: Ruling: removida a opção "Pálpebra caída (ptose)" da página de plástica ocular — o vídeo com esse título fala de entrópio/ectrópio; ptose não está confirmada (TODO já aberto) — custo se errado: recolocar um item.
 - F2 (feedback do cliente, 22/10): Ruling: títulos trocados de Literata (serifa) para Manrope (sans variável) e escala reduzida (corpo 16–17 px, H1 30–42 px, display 32–52 px, menor da tabela de leitura 18 px), botões em pílula de 48 px, seções com 72–88 px de respiro — o cliente achou o visual pouco moderno e as fontes grandes; o corpo segue em Atkinson Hyperlegible Next (legibilidade) — custo se errado: tokens em um lugar só (globals.css).
 - Deploy: Ruling: fase 2 publicada no staging a partir da branch feat/fase-2 (versão c209076d), sem merge na main — o cliente revisa no staging; merge e push dependem dele — custo se errado: nenhum (staging com noindex).
+
+## Revisão final (revisor independente) — correções
+
+- Final: fixed dado de saúde no analytics (form_id/location com o id da entidade) — formId genérico por tipo de página; e2e/leaks.spec.ts "eventos de analytics…" RED→GREEN + templates.test "cliques na página de especialidade…" RED→GREEN.
+- Final: fixed notas internas (TODO_CONTENT_VALIDATION, compliance) no payload RSC — props enxutas para VideoPlayer, DoctorsDirectory, InsuranceSearch; layout passa settings sem `todos` e navegação sem links não publicados; e2e/leaks.spec.ts (6 páginas) RED→GREEN.
+- Final: fixed interesse errado no formulário (ordem global em vez da ordem da entidade/médico) — templates.test "ceratocone → córnea" e "Dra. Roberta → glaucoma" RED→GREEN.
+- Final: fixed foco perdido ao abrir o vídeo + <video> sem nome — VideoCard.test RED→GREEN.
+- Final: fixed sanitizador aceitando javascript:/data: e "#âncora" virando link da Home — scripts/wp/links.mjs com lista branca de protocolos; scripts/wp/links.test.ts.
+- Final: fixed (re-graduado de Minor para Important pelo efeito) âncora "Nesta página" sem alvo e id duplicado #estrutura na Catarata; datas de 14 posts agendados (atualizado antes de publicado) agora em UTC com fuso; frase quebrada no CTA de 29 posts; rótulo acessível ≠ texto visível no "Ver o perfil"; revisor não publicado no JSON-LD; colisão de slug na raiz falha o build (assertRootSlugs); doctor_view disparado no perfil — todos com teste RED→GREEN; suíte 492/492, e2e 93/93.
+- Final: fixed (achado do "Declined to judge", confirmado ao vivo) vídeos sem suporte a Range nos assets do Workers (200 com o arquivo inteiro; Safari/iOS não toca) — rota /v/[file] lê dos assets e responde 206; src/app/v/[file]/route.test.ts + e2e.
+- Final: Ruling: <h3> dentro de <summary> no FAQ mantido — válido em HTML e mantém a hierarquia de títulos; custo se errado: suporte irregular em leitores de tela antigos.
+- Final: minor (deferred): LCP das páginas de hub no desktop pode ser o pôster lazy da coluna lateral — medir no PageSpeed do staging antes de mexer.

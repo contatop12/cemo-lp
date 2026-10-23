@@ -1,12 +1,11 @@
 'use client';
 
 import { useId, useState } from 'react';
-import type { InsurancePlan } from '@/content/types';
 
 const normalize = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
 // Busca por nome do convênio (briefing §90). Sem JS a lista inteira continua visível.
-export function InsuranceSearch({ plans }: { plans: InsurancePlan[] }) {
+export function InsuranceSearch({ plans }: { plans: Array<{ id: string; name: string }> }) {
   const [query, setQuery] = useState('');
   const id = useId();
   const visible = query ? plans.filter((p) => normalize(p.name).includes(normalize(query))) : plans;

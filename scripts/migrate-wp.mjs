@@ -15,6 +15,7 @@ import { parse } from 'csv-parse/sync';
 import { JSDOM } from 'jsdom';
 import sharp from 'sharp';
 import { redirectTables } from '../src/lib/redirects/generated.ts';
+import { classifyHref } from './wp/links.mjs';
 
 const ROOT = process.cwd();
 const EXPORT = join(ROOT, '_materiais/wp-export');
@@ -103,22 +104,7 @@ function entityFor(post, row) {
 const gone = new Set(redirectTables.gone);
 // Links já quebrados no site atual, com destino óbvio.
 const LINK_FIXES = { '/riscos-luz-azul-das-telas/': '/quais-os-riscos-da-luz-azul-das-telas/' };
-function resolveInternal(href) {
-  let url;
-  try {
-    url = new URL(href, SITE);
-  } catch {
-    return { kind: 'drop' };
-  }
-  if (!/(^|\.)oftalmologiacemo\.com\.br$/.test(url.hostname)) return { kind: 'external', href: url.href };
-  if (url.pathname.startsWith('/wp-content/')) return { kind: 'asset', href: url.pathname };
-  // Permalinks antigos por data (/2022/11/28/slug/) apontam para o post na raiz.
-  let path = decodeURIComponent(url.pathname).toLowerCase().replace(/^\/\d{4}\/\d{2}\/(?:\d{2}\/)?/, '/');
-  if (!path.endsWith('/')) path += '/';
-  if (gone.has(path)) return { kind: 'unlink' };
-  const target = LINK_FIXES[path] ?? redirectTables.redirects[path] ?? path;
-  return { kind: 'internal', href: target + (url.hash || '') };
-}
+const linkTables = { redirects: redirectTables.redirects, gone, fixes: LINK_FIXES };
 
 // ---------- imagens ----------
 const imageCache = new Map();
@@ -196,19 +182,19 @@ async function clean(html, post) {
 
   // Links
   for (const a of [...body.querySelectorAll('a')]) {
-    const href = a.getAttribute('href') ?? '';
-    if (/api\.whatsapp\.com|wa\.me\//.test(href)) {
+    const href = a.getAttribute('href');
+    if (/api\.whatsapp\.com|wa\.me\//.test(href ?? '')) {
       if (/agende|agendar|whatsapp|clique/i.test(a.textContent ?? '')) a.remove();
       else a.replaceWith(...a.childNodes);
       continue;
     }
-    if (/^(mailto:|tel:)/.test(href)) continue;
-    const r = resolveInternal(href);
-    if (r.kind === 'internal' || r.kind === 'asset') a.setAttribute('href', r.href);
-    else if (r.kind === 'external') {
-      a.setAttribute('href', r.href);
-      a.setAttribute('rel', 'noopener');
-    } else a.replaceWith(...a.childNodes);
+    const r = classifyHref(href, linkTables);
+    if (r.kind === 'unlink') {
+      a.replaceWith(...a.childNodes);
+      continue;
+    }
+    a.setAttribute('href', r.href);
+    if (r.kind === 'external') a.setAttribute('rel', 'noopener');
   }
 
   // Imagens: locais, com dimensões; dentro de <figure>
@@ -271,8 +257,9 @@ for (const post of posts) {
     title,
     excerpt: truncate(text(post.excerpt.rendered).replace(/\s*\[…\]$|\s*\[&hellip;\]$/, ''), 220),
     description: yoastDescription || truncate(plain, 155),
-    publishedAt: post.date,
-    modifiedAt: post.modified,
+    // UTC explícito (o WordPress agendava posts: a "modificação" podia ser anterior à publicação).
+    publishedAt: `${post.date_gmt}Z`,
+    modifiedAt: post.modified_gmt > post.date_gmt ? `${post.modified_gmt}Z` : `${post.date_gmt}Z`,
     image: image ? { ...image, alt: text(featured.alt_text ?? '') || '', original: featured.source_url } : null,
     topics: post.categories.map((id) => categories[id]?.name).filter(Boolean),
     entity: entityFor(post, row),

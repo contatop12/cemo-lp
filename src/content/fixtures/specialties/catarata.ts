@@ -104,7 +104,7 @@ export const catarata: Specialty = {
       ],
     },
     {
-      id: 'estrutura',
+      id: 'estrutura-cemo',
       title: 'Avaliação, exames e cirurgia no mesmo lugar',
       paragraphs: [
         'A CEMO reúne várias especialidades da oftalmologia em Taboão da Serra. Para o paciente de catarata, isso significa passar pela avaliação com o especialista, fazer os exames no mesmo dia e, se houver indicação, seguir para a cirurgia sem circular entre clínicas.',

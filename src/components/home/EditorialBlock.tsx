@@ -41,7 +41,7 @@ export function EditorialBlock({
           </ul>
           <TrackedLink
             event="service_cta_click"
-            location={`editorial-${content.id}`}
+            location="home_editorial"
             href={content.href}
             className="mt-9 inline-flex min-h-12 items-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
           >
@@ -50,7 +50,7 @@ export function EditorialBlock({
         </div>
         {video ? (
           <div className={cn('mx-auto w-full max-w-[20rem] lg:col-span-4', reverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-9')}>
-            <VideoCard video={video} location={`editorial-${content.id}`} sizes="(min-width: 1024px) 20rem, 80vw" />
+            <VideoCard video={video} location="home_editorial" sizes="(min-width: 1024px) 20rem, 80vw" />
           </div>
         ) : null}
       </div>

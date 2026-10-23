@@ -1,6 +1,7 @@
 import type { ContentRepository } from '../index';
 import type { ArticleLink, Post, PostSummary } from '../types';
 import postIndex from '../posts/index.json';
+import { localDate } from '@/lib/dates';
 import { articles } from '../fixtures/articles';
 import { conditionLinks, conditions } from '../fixtures/conditions';
 import { doctors } from '../fixtures/doctors';
@@ -23,7 +24,7 @@ function toArticles(slugs: string[]): ArticleLink[] {
   return slugs.flatMap((slug) => {
     const p = posts.find((post) => post.slug === slug);
     return p
-      ? [{ slug, title: p.title, href: `/${slug}/`, excerpt: p.excerpt, publishedAt: p.publishedAt.slice(0, 10), image: p.image }]
+      ? [{ slug, title: p.title, href: `/${slug}/`, excerpt: p.excerpt, publishedAt: localDate(p.publishedAt), image: p.image }]
       : [];
   });
 }

@@ -20,7 +20,10 @@ export const metadata: Metadata = {
 
 // #app-root envolve cabeçalho, conteúdo e rodapé: o diálogo do menu mobile (portal) aplica `inert` nele.
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const [settings, navigation] = await Promise.all([content.getSiteSettings(), content.getNavigation()]);
+  const [rawSettings, rawNavigation] = await Promise.all([content.getSiteSettings(), content.getNavigation()]);
+  // Header, menu e barra fixa são componentes cliente: o que eles recebem vai serializado no HTML.
+  const settings = { ...rawSettings, todos: [] };
+  const navigation = rawNavigation.map((g) => ({ ...g, links: g.links.filter((l) => l.published !== false) }));
   const technicalResponsible = await content.getDoctorBySlug(settings.technicalResponsibleSlug);
 
   return (

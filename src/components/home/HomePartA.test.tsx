@@ -99,7 +99,9 @@ describe('DoctorSpotlight', () => {
     expect(document.body.textContent).not.toContain('RQE');
     for (const c of david.credentials) expect(screen.getByText(c)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Ver todo o corpo clínico' })).toHaveAttribute('href', '/corpo-clinico/');
-    expect(screen.getByRole('link', { name: `Ver o perfil do Dr. ${david.name}` })).toHaveAttribute('href', david.canonicalPath);
+    const profile = screen.getByRole('link', { name: 'Ver o perfil do Dr. David' });
+    expect(profile).toHaveAttribute('href', david.canonicalPath);
+    expect(profile).not.toHaveAttribute('aria-label'); // nome acessível = texto visível (WCAG 2.5.3)
     for (const p of david.bio) expect(screen.getByText(p)).toBeInTheDocument();
   });
 

@@ -3,6 +3,7 @@ import { PageHero } from '@/components/page/PageHero';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ArticleCard } from '@/components/ui/ArticleCard';
 import { content } from '@/content';
+import { localDate } from '@/lib/dates';
 import { buildClinicNode, buildGraph, buildWebSiteNode, schemaIds } from '@/lib/seo/jsonld';
 
 export const POSTS_PER_PAGE = 12;
@@ -46,7 +47,7 @@ export async function BlogIndex({ page }: { page: number }) {
           {slice.map((p) => (
             <li key={p.slug}>
               <ArticleCard
-                article={{ slug: p.slug, title: p.title, href: `/${p.slug}/`, excerpt: p.excerpt, publishedAt: p.publishedAt.slice(0, 10), image: p.image }}
+                article={{ slug: p.slug, title: p.title, href: `/${p.slug}/`, excerpt: p.excerpt, publishedAt: localDate(p.publishedAt), image: p.image }}
                 headingLevel={2}
               />
             </li>

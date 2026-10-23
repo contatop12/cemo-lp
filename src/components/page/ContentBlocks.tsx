@@ -3,10 +3,10 @@ import type { FaqItem, JourneyStep, OptionItem, ProseSection } from '@/content/t
 
 // Blocos de texto das páginas de conteúdo médico. Todos server components: o texto inteiro está no HTML inicial.
 
-export function DirectAnswer({ question, text }: { question: string; text: string }) {
+export function DirectAnswer({ id = 'resposta', question, text }: { id?: string; question: string; text: string }) {
   return (
-    <section aria-labelledby="resposta-direta" className="rounded-lg border-l-4 border-azul-cemo bg-nevoa px-6 py-6 sm:px-8">
-      <h2 id="resposta-direta" className="text-h3">
+    <section id={id} aria-labelledby={`${id}-titulo`} className="scroll-mt-28 rounded-lg border-l-4 border-azul-cemo bg-nevoa px-6 py-6 sm:px-8">
+      <h2 id={`${id}-titulo`} className="text-h3">
         {question}
       </h2>
       <p className="mt-3 max-w-[66ch] text-lead">{text}</p>

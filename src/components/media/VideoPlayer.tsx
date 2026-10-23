@@ -1,20 +1,31 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics/events';
 import type { VideoItem } from '@/content/types';
 
+/** Só o que o player precisa: notas internas e transcrição ficam fora do payload enviado ao navegador. */
+export type PlayerVideo = Pick<VideoItem, 'title' | 'src' | 'poster' | 'orientation' | 'captionsSrc'>;
+
 // Fachada: só pôster e botão até o clique; aí o <video> nativo entra com autoplay, controles e legenda.
 // Nenhum byte do vídeo é baixado antes da intenção do usuário (briefing §65/§109).
-export function VideoPlayer({ video, location, sizes }: { video: VideoItem; location: string; sizes: string }) {
+export function VideoPlayer({ video, location, sizes }: { video: PlayerVideo; location: string; sizes: string }) {
   const [playing, setPlaying] = useState(false);
+  const player = useRef<HTMLVideoElement>(null);
+  // O botão sai do DOM ao virar player: o foco vai para o vídeo, não para o <body>.
+  useEffect(() => {
+    if (playing) player.current?.focus();
+  }, [playing]);
   const aspect = video.orientation === 'vertical' ? 'aspect-[9/16]' : 'aspect-video';
 
   if (playing) {
     return (
       <div className={`relative overflow-hidden rounded-lg bg-azul-profundo ${aspect}`}>
         <video
+          ref={player}
+          aria-label={video.title}
+          tabIndex={0}
           src={video.src}
           poster={video.poster.src}
           controls

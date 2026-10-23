@@ -65,10 +65,9 @@ export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
             {doctor.published ? (
               <Link
                 href={doctor.canonicalPath}
-                aria-label={`Ver o perfil do ${fullName}`}
                 className="inline-flex min-h-12 items-center justify-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
               >
-                Ver o perfil completo
+                {`Ver o perfil do ${doctor.honorific} ${doctor.name.split(' ')[0]}`}
               </Link>
             ) : null}
             <Link

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { TrackView } from '@/components/analytics/TrackView';
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { VideoCard } from '@/components/media/VideoCard';
 import { PageCta } from '@/components/page/PageCta';
@@ -22,7 +23,8 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
     content.listExams(),
   ]);
   const name = `${d.honorific} ${d.name}`;
-  const areas = specialties.filter((s) => d.specialtyIds.includes(s.id));
+  // Na ordem do próprio médico (a primeira área define o interesse já marcado no formulário).
+  const areas = d.specialtyIds.flatMap((id) => specialties.filter((s) => s.id === id));
   const examLinks = exams.filter((e) => e.related.doctors.includes(d.slug)).map((e) => ({ name: e.name, summary: e.summary, href: e.canonicalPath }));
   const interest = areas[0]?.leadInterest ?? 'consulta';
   const graph = buildGraph([
@@ -36,6 +38,7 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
   return (
     <>
       <JsonLd data={graph} />
+      <TrackView event="doctor_view" location="perfil_medico" />
       <section aria-labelledby="page-title" className="border-b border-borda bg-nevoa">
         <div className="mx-auto grid max-w-wide gap-10 px-[var(--gutter)] pb-14 pt-6 lg:grid-cols-12 lg:gap-8 lg:pb-20">
           <div className="lg:col-span-7">

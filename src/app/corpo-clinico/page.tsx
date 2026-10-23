@@ -3,6 +3,7 @@ import { DoctorsDirectory } from '@/components/page/DoctorsDirectory';
 import { PageCta } from '@/components/page/PageCta';
 import { PageHero } from '@/components/page/PageHero';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { toDoctorCardData } from '@/components/ui/DoctorCard';
 import { content } from '@/content';
 import { buildClinicNode, buildGraph, buildPersonNode, buildWebSiteNode, schemaIds } from '@/lib/seo/jsonld';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -47,7 +48,7 @@ export default async function CorpoClinicoPage() {
       />
       <div className="mx-auto max-w-wide px-[var(--gutter)] py-[var(--space-section)]">
         <DoctorsDirectory
-          doctors={doctors}
+          doctors={doctors.map(toDoctorCardData)}
           areas={specialties.filter((s) => s.kind === 'especialidade').map((s) => ({ id: s.id, label: s.shortName }))}
         />
       </div>

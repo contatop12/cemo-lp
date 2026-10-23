@@ -22,7 +22,7 @@ describe('VideoCard', () => {
   });
 
   it('o clique carrega o player com controles, legenda em português e registra video_play sem dado de saúde', async () => {
-    const { container } = render(<VideoCard video={withCaptions} location="catarata" />);
+    const { container } = render(<VideoCard video={withCaptions} location="pagina_hero" />);
     await userEvent.click(screen.getByRole('button', { name: `Assistir: ${withCaptions.title}` }));
     const video = container.querySelector('video');
     expect(video).not.toBeNull();
@@ -33,7 +33,10 @@ describe('VideoCard', () => {
     expect(track).toHaveAttribute('kind', 'captions');
     expect(track).toHaveAttribute('srclang', 'pt-BR');
     expect(track).toHaveAttribute('src', withCaptions.captionsSrc);
-    expect((window as DataLayerWindow).dataLayer).toEqual([{ event: 'video_play', location: 'catarata' }]);
+    expect((window as DataLayerWindow).dataLayer).toEqual([{ event: 'video_play', location: 'pagina_hero' }]);
+    // O foco do teclado não se perde quando o botão vira player.
+    expect(video).toHaveFocus();
+    expect(video).toHaveAttribute('aria-label', withCaptions.title);
   });
 
   it('vídeo com legenda aberta não ganha <track>', async () => {

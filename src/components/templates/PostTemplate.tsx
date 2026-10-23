@@ -8,22 +8,22 @@ import { content } from '@/content';
 import type { LeadInterestId, Post } from '@/content/types';
 import { buildBlogPostingNode, buildClinicNode, buildGraph, buildWebSiteNode } from '@/lib/seo/jsonld';
 
-const dateFmt = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+import { formatDatePt as dateFmt, localDate } from '@/lib/dates';
 
 // Destino do link contextual e do CTA de cada post (docs/information-architecture.md §6.5).
-async function entityLink(entity: Post['entity']): Promise<{ name: string; href: string; interest: LeadInterestId } | null> {
+async function entityLink(entity: Post['entity']): Promise<{ label: string; href: string; interest: LeadInterestId } | null> {
   if (!entity) return null;
-  if (entity.kind === 'home') return { name: 'Clínica de oftalmologia em Taboão da Serra', href: '/', interest: 'consulta' };
+  if (entity.kind === 'home') return { label: 'Conheça o CEMO', href: '/', interest: 'consulta' };
   if (entity.kind === 'specialty') {
     const s = await content.getSpecialty(entity.id);
-    return s?.published ? { name: s.name, href: s.canonicalPath, interest: s.leadInterest } : null;
+    return s?.published ? { label: `Conheça a página de ${s.name}`, href: s.canonicalPath, interest: s.leadInterest } : null;
   }
   if (entity.kind === 'exam') {
     const e = await content.getExam(entity.id);
-    return e?.published ? { name: e.name, href: e.canonicalPath, interest: 'exames' } : null;
+    return e?.published ? { label: `Conheça a página de ${e.name}`, href: e.canonicalPath, interest: 'exames' } : null;
   }
   const c = await content.getCondition(entity.id);
-  return c?.published ? { name: c.name, href: c.canonicalPath, interest: 'consulta' } : null;
+  return c?.published ? { label: `Conheça a página de ${c.name}`, href: c.canonicalPath, interest: 'consulta' } : null;
 }
 
 export async function PostTemplate({ post }: { post: Post }) {
@@ -43,8 +43,8 @@ export async function PostTemplate({ post }: { post: Post }) {
   const siblings = posts
     .filter((p) => p.slug !== post.slug && p.entity?.kind === post.entity?.kind && p.entity?.id === post.entity?.id)
     .slice(0, 3)
-    .map((p) => ({ slug: p.slug, title: p.title, href: `/${p.slug}/`, excerpt: p.excerpt, publishedAt: p.publishedAt.slice(0, 10), image: p.image }));
-  const updated = post.modifiedAt.slice(0, 10) !== post.publishedAt.slice(0, 10);
+    .map((p) => ({ slug: p.slug, title: p.title, href: `/${p.slug}/`, excerpt: p.excerpt, publishedAt: localDate(p.publishedAt), image: p.image }));
+  const updated = localDate(post.modifiedAt) > localDate(post.publishedAt);
 
   return (
     <>
@@ -86,9 +86,9 @@ export async function PostTemplate({ post }: { post: Post }) {
             <aside aria-label="Próximo passo" className="mt-12 rounded-lg border-l-4 border-azul-cemo bg-nevoa px-6 py-6">
               <p className="font-display text-h4 font-semibold">Quer avaliar isso de perto?</p>
               <p className="mt-2 text-tinta-suave">
-                Conheça como o CEMO cuida de{' '}
+                No CEMO, a consulta e os exames acontecem no mesmo lugar.{' '}
                 <Link href={target.href} className="font-bold text-azul-700 underline underline-offset-[3px]">
-                  {target.name.charAt(0).toLowerCase() + target.name.slice(1)}
+                  {target.label}
                 </Link>{' '}
                 ou agende uma consulta logo abaixo.
               </p>
