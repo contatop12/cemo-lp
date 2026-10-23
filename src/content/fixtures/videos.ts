@@ -1,4 +1,5 @@
-// Vídeos entregues pela CEMO (Drive), versões web geradas por scripts/encode-videos.mjs. Transcrições revisadas a
+// Vídeos entregues pela CEMO (Drive), versões web (AV1/WebM + H.264/MP4) geradas por scripts/encode-videos.mjs e
+// servidas do R2 (bucket cemo-videos) por /v/ com suporte a Range. Transcrições revisadas a
 // partir do Whisper (medium) — trechos incompreensíveis ficam marcados como [inaudível], nunca adivinhados.
 // uploadDate = data de criação do arquivo no Drive. Duração = ffprobe da versão web.
 import type { ImageAsset, VideoItem } from '../types';
@@ -19,6 +20,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dr. David Ribeiro de Mendonça Filho',
     speakerSlug: 'david-ribeiro-de-mendonca-filho',
     src: '/v/tudo-em-um-lugar-so.mp4',
+    srcAv1: '/v/tudo-em-um-lugar-so.webm',
     poster: poster('tudo-em-um-lugar-so', 'Dr. David sentado à mesa do consultório, de jaleco'),
     orientation: 'vertical',
     durationSeconds: 65,
@@ -40,6 +42,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dr. David Ribeiro de Mendonça Filho',
     speakerSlug: 'david-ribeiro-de-mendonca-filho',
     src: '/v/especialidades.mp4',
+    srcAv1: '/v/especialidades.webm',
     poster: poster('especialidades', 'Dr. David falando à câmera no consultório'),
     orientation: 'vertical',
     durationSeconds: 35,
@@ -59,6 +62,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dr. David Ribeiro de Mendonça Filho',
     speakerSlug: 'david-ribeiro-de-mendonca-filho',
     src: '/v/exames-que-realizamos.mp4',
+    srcAv1: '/v/exames-que-realizamos.webm',
     poster: poster('exames-que-realizamos', 'Dr. David explicando os exames, sentado à mesa'),
     orientation: 'vertical',
     durationSeconds: 56,
@@ -79,6 +83,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dr. Adriano de Morais Ferreira',
     speakerSlug: 'adriano-de-morais-ferreira',
     src: '/v/dr-adriano-catarata.mp4',
+    srcAv1: '/v/dr-adriano-catarata.webm',
     poster: poster('dr-adriano-catarata', 'Dr. Adriano de roupa cirúrgica, no centro cirúrgico do CEMO'),
     orientation: 'vertical',
     durationSeconds: 48,
@@ -104,6 +109,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dr. David Ribeiro de Mendonça Filho',
     speakerSlug: 'david-ribeiro-de-mendonca-filho',
     src: '/v/dr-david-oculos.mp4',
+    srcAv1: '/v/dr-david-oculos.webm',
     poster: poster('dr-david-oculos', 'Dr. David sentado em cadeira de consultório, respondendo a perguntas'),
     orientation: 'vertical',
     durationSeconds: 97,
@@ -126,6 +132,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dra. Danielle Longo',
     speakerSlug: null,
     src: '/v/dra-daniele-calazio.mp4',
+    srcAv1: '/v/dra-daniele-calazio.webm',
     poster: poster('dra-daniele-calazio', 'Dra. Danielle Longo falando à câmera'),
     orientation: 'vertical',
     durationSeconds: 48,
@@ -145,6 +152,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dra. Danielle Longo',
     speakerSlug: null,
     src: '/v/dra-daniele-excesso-de-pele.mp4',
+    srcAv1: '/v/dra-daniele-excesso-de-pele.webm',
     poster: poster('dra-daniele-excesso-de-pele', 'Dra. Danielle Longo falando à câmera em sala de atendimento'),
     orientation: 'vertical',
     durationSeconds: 41,
@@ -165,6 +173,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dra. Danielle Longo',
     speakerSlug: null,
     src: '/v/dra-daniele-palpebra-caida.mp4',
+    srcAv1: '/v/dra-daniele-palpebra-caida.webm',
     poster: poster('dra-daniele-palpebra-caida', 'Dra. Danielle Longo explicando, com as mãos em movimento'),
     orientation: 'vertical',
     durationSeconds: 43,
@@ -184,6 +193,7 @@ export const videos: VideoItem[] = [
     speakerName: 'Dra. Danielle Longo',
     speakerSlug: null,
     src: '/v/dra-daniele-vias-lacrimais.mp4',
+    srcAv1: '/v/dra-daniele-vias-lacrimais.webm',
     poster: poster('dra-daniele-vias-lacrimais', 'Dra. Danielle Longo se apresentando em sala de atendimento'),
     orientation: 'vertical',
     durationSeconds: 31,

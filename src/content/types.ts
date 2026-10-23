@@ -303,8 +303,10 @@ export interface VideoItem {
   speakerName: string;
   /** Slug do médico que fala, quando o perfil existe. */
   speakerSlug: string | null;
-  /** MP4 web (H.264) servido de public/videos. */
+  /** MP4 H.264 (compatível com tudo, inclusive Safari/iPhone), servido do R2 por /v/. */
   src: string;
+  /** WebM AV1 (~40% menor) para navegadores que tocam AV1; o MP4 fica como alternativa. */
+  srcAv1: string;
   poster: ImageAsset;
   orientation: 'vertical' | 'horizontal';
   durationSeconds: number;

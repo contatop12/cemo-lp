@@ -37,3 +37,9 @@ test('vídeo atende pedido de trecho (206) — o Safari do iPhone exige', async 
   expect(res.headers()['content-range']).toMatch(/^bytes 0-1023\/\d+$/);
   expect((await res.body()).byteLength).toBe(1024);
 });
+
+test('versão AV1/WebM também atende trecho, com o tipo certo', async ({ request }) => {
+  const res = await request.get('/v/especialidades.webm', { headers: { range: 'bytes=0-511' } });
+  expect(res.status()).toBe(206);
+  expect(res.headers()['content-type']).toBe('video/webm');
+});

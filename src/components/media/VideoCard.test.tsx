@@ -26,7 +26,9 @@ describe('VideoCard', () => {
     await userEvent.click(screen.getByRole('button', { name: `Assistir: ${withCaptions.title}` }));
     const video = container.querySelector('video');
     expect(video).not.toBeNull();
-    expect(video).toHaveAttribute('src', withCaptions.src);
+    const sources = [...video!.querySelectorAll('source')];
+    expect(sources.map((s) => s.getAttribute('src'))).toEqual([withCaptions.srcAv1, withCaptions.src]);
+    expect(sources[0]?.getAttribute('type')).toContain('av01');
     expect(video).toHaveAttribute('controls');
     expect(video).toHaveAttribute('playsinline');
     const track = container.querySelector('track');

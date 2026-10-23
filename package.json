@@ -15,6 +15,7 @@
     "test:e2e": "npm run build:e2e && playwright test",
     "redirects:generate": "node scripts/generate-redirects.ts",
     "assets:optimize": "node scripts/optimize-images.mjs",
+    "videos:upload": "node scripts/cloudflare-env.mjs node scripts/upload-videos.mjs",
     "launch:check": "node -e \"process.env.LAUNCH_CHECK='1';require('child_process').execSync('npx vitest run src/content/launch.test.ts && node scripts/check-redirect-targets.ts',{stdio:'inherit',env:process.env})\"",
     "todos": "node scripts/list-todos.mjs",
     "redirects:check-targets": "node scripts/check-redirect-targets.ts",

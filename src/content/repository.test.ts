@@ -100,7 +100,8 @@ describe('content repository (fixtures)', () => {
     const videos = await content.listVideos();
     expect(videos.length).toBe(9);
     for (const v of videos) {
-      expect(v.src).toMatch(/^\/v\/[a-z0-9-]+\.mp4$/); // rota com suporte a Range (src/app/v/[file])
+      expect(v.src).toBe(`/v/${v.id}.mp4`); // rota com suporte a Range, lida do R2 (src/app/v/[file])
+      expect(v.srcAv1).toBe(`/v/${v.id}.webm`);
       expect(v.poster.src).toMatch(/-poster\.jpg$/);
       expect(v.durationSeconds).toBeGreaterThan(0);
       expect(v.transcript.length).toBeGreaterThan(0);

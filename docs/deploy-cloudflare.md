@@ -73,3 +73,18 @@ Tudo isso foi verificado localmente no `workerd` (`npm run preview`) antes do pr
 3. `npm run cf:whoami` (confere o token) e depois `npm run deploy`.
 
 **Nunca coloque credenciais do Cloudflare em `.env`, `.env.local` ou `.env.production`.** O OpenNext embute os valores desses arquivos no Worker publicado (`.open-next/cloudflare/next-env.mjs`) — o token ficaria dentro do código do site. O `npm run deploy` usa `scripts/cloudflare-env.mjs`, que carrega `.env.cloudflare` só para o wrangler e **bloqueia o deploy** se encontrar variáveis `*CLOUDFLARE*` nos arquivos lidos pelo build.
+
+## Vídeos no R2 (bucket `cemo-videos`)
+
+Os vídeos não ficam no repositório nem nos assets do Worker: os assets estáticos do Workers não atendem pedidos de
+trecho (`Range`) e o Safari do iPhone só toca vídeo com resposta `206`. Fluxo:
+
+1. `node scripts/encode-videos.mjs` → `media/videos/<id>.webm` (AV1 + Opus) e `<id>.mp4` (H.264 + AAC, faststart),
+   540×960, 30 fps, áudio normalizado; pôster em `public/videos/<id>-poster.jpg`. `media/` é ignorado pelo git.
+2. `npm run videos:upload` → envia tudo para o R2 `cemo-videos` (credenciais só do `.env.cloudflare`; o token precisa
+   de "Workers R2 Storage: Edit").
+3. O Worker lê pelo binding `VIDEOS` (`wrangler.jsonc`) na rota `/v/<arquivo>` (`src/app/v/[file]/route.ts`), que
+   responde `206` com `Content-Range`. O player oferece o AV1 primeiro e o MP4 como alternativa.
+
+Novo vídeo: copiar o original para `_materiais/videos/src/`, incluir o id em `scripts/encode-videos.mjs`, codificar,
+enviar e cadastrar em `src/content/fixtures/videos.ts` (com transcrição) — não precisa de novo deploy só pelo arquivo.

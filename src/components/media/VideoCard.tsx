@@ -26,7 +26,7 @@ export function VideoCard({
   return (
     <figure className={cn('relative flex flex-col', className)}>
       <VideoPlayer
-        video={{ title: video.title, src: video.src, poster: video.poster, orientation: video.orientation, captionsSrc: video.captionsSrc }}
+        video={{ title: video.title, src: video.src, srcAv1: video.srcAv1, poster: video.poster, orientation: video.orientation, captionsSrc: video.captionsSrc }}
         location={location}
         sizes={sizes}
       />

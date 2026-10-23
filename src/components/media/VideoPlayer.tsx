@@ -6,7 +6,7 @@ import { track } from '@/lib/analytics/events';
 import type { VideoItem } from '@/content/types';
 
 /** Só o que o player precisa: notas internas e transcrição ficam fora do payload enviado ao navegador. */
-export type PlayerVideo = Pick<VideoItem, 'title' | 'src' | 'poster' | 'orientation' | 'captionsSrc'>;
+export type PlayerVideo = Pick<VideoItem, 'title' | 'src' | 'srcAv1' | 'poster' | 'orientation' | 'captionsSrc'>;
 
 // Fachada: só pôster e botão até o clique; aí o <video> nativo entra com autoplay, controles e legenda.
 // Nenhum byte do vídeo é baixado antes da intenção do usuário (briefing §65/§109).
@@ -26,7 +26,6 @@ export function VideoPlayer({ video, location, sizes }: { video: PlayerVideo; lo
           ref={player}
           aria-label={video.title}
           tabIndex={0}
-          src={video.src}
           poster={video.poster.src}
           controls
           autoPlay
@@ -34,6 +33,9 @@ export function VideoPlayer({ video, location, sizes }: { video: PlayerVideo; lo
           preload="auto"
           className="absolute inset-0 h-full w-full object-cover"
         >
+          {/* AV1 primeiro (menor); quem não toca AV1 (Safari antigo, iPhone sem decodificador) cai no H.264. */}
+          <source src={video.srcAv1} type='video/webm; codecs="av01.0.04M.08, opus"' />
+          <source src={video.src} type='video/mp4; codecs="avc1.640028, mp4a.40.2"' />
           {video.captionsSrc ? <track kind="captions" src={video.captionsSrc} srcLang="pt-BR" label="Português" default /> : null}
         </video>
       </div>

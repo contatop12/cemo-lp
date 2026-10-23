@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Classes montadas em variável (proporção do player de vídeo): o scanner pode não vê-las no arquivo. */
+@source inline("aspect-[9/16] aspect-video");
 
 @theme {
   /* ---------- Cores ---------- */
