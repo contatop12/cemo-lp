@@ -652,3 +652,8 @@ Removidos por serem "cara de template": eyebrows em caixa-alta com tracking, met
 para conteúdo que não é coleção, faixa de números duplicada logo abaixo do hero (os números viraram a base do hero).
 
 Header: logo horizontal (o subtítulo fica legível); menu completo a partir de 1280 px, gaveta abaixo disso.
+
+**Tipografia v2 (pedido do cliente: "moderno" e "fontes menores"):** títulos em **Manrope** 700 com tracking negativo
+(substitui a Literata); corpo continua em Atkinson Hyperlegible Next. Escala: corpo 16–17 px, lead 17–19 px, H4 17–19,
+H3 19–23, H2 24–34, H1 30–42, display 32–52 px. Botões em pílula com 48 px de altura (acima dos 44 px da WCAG 2.5.5).
+Os valores das seções 3 e 14 acima ficam como histórico da v1; a fonte da verdade é `src/app/globals.css`.
