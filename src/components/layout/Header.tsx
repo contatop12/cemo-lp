@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TrackedLink } from '@/components/analytics/TrackedLink';
+import { ScheduleLink } from '@/components/analytics/ScheduleLink';
 import { Logo } from '@/components/brand/Logo';
 import type { NavGroup, SiteSettings } from '@/content/types';
 import { MobileNav } from './MobileNav';
@@ -21,16 +21,14 @@ export function Header({ settings, navigation }: { settings: SiteSettings; navig
           <nav aria-label="Principal" className="hidden xl:block">
             <NavMenu groups={navigation} />
           </nav>
-          <TrackedLink
-            event="schedule_click"
+          <ScheduleLink
             location="header"
-            href="/#agendar"
             aria-label="Agendar consulta"
             className="hidden min-h-[3.25rem] shrink-0 items-center whitespace-nowrap rounded-md bg-azul-cemo px-5 py-3 text-[1.0625rem] font-bold 2xl:text-ui text-papel no-underline hover:bg-azul-700 xl:inline-flex"
           >
             <span aria-hidden="true" className="2xl:hidden">Agendar</span>
             <span aria-hidden="true" className="hidden 2xl:inline">Agendar consulta</span>
-          </TrackedLink>
+          </ScheduleLink>
           <MobileNav groups={navigation} settings={settings} />
         </div>
       </header>

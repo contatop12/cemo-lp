@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useSyncExternalStore } from 'react';
+import { ScheduleLink } from '@/components/analytics/ScheduleLink';
 import { TrackedLink } from '@/components/analytics/TrackedLink';
 import { WhatsappIcon } from '@/components/ui/icons';
 import type { SiteSettings } from '@/content/types';
@@ -43,9 +44,9 @@ export function StickyMobileCTA({ settings }: { settings: SiteSettings }) {
           <WhatsappIcon className="size-5" />
           WhatsApp
         </TrackedLink>
-        <TrackedLink event="schedule_click" location="sticky_mobile" href="/#agendar" className={`${button} bg-azul-cemo text-papel`}>
+        <ScheduleLink location="sticky_mobile" className={`${button} bg-azul-cemo text-papel`}>
           Agendar
-        </TrackedLink>
+        </ScheduleLink>
       </div>
     </div>
   );

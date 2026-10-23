@@ -5,6 +5,8 @@ import type {
   ConditionLink,
   Doctor,
   Exam,
+  Post,
+  PostSummary,
   EditorialContent,
   EquipmentItem,
   InsurancePlan,
@@ -44,6 +46,12 @@ export interface ContentRepository {
   listEquipment(): Promise<EquipmentItem[]>;
   getEditorial(id: 'catarata' | 'refrativa'): Promise<EditorialContent>;
   listFeaturedArticles(limit: number): Promise<ArticleLink[]>;
+  /** Posts migrados (resumos), mais novos primeiro. */
+  listPosts(): Promise<PostSummary[]>;
+  /** Post completo (HTML sanitizado) ou null. Só no build: os posts são páginas estáticas. */
+  getPost(slug: string): Promise<Post | null>;
+  /** Cartões de artigo para os slugs pedidos, na ordem; slugs desconhecidos são ignorados. */
+  listArticles(slugs: string[]): Promise<ArticleLink[]>;
   getNavigation(): Promise<NavGroup[]>;
 }
 

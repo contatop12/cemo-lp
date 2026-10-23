@@ -12,7 +12,7 @@ function setup() {
   render(
     <div id="app-root">
       <MobileNav groups={navigation} settings={siteSettings} />
-      <a href="/x/">conteúdo da página</a>
+      <a href="#conteudo">conteúdo da página</a>
     </div>,
   );
   return user;

@@ -91,7 +91,7 @@ describe('fix: foco de teclado sai do menu', () => {
     render(
       <div>
         <NavMenu groups={navigation} />
-        <a href="/fora/">link fora do menu</a>
+        <a href="#fora">link fora do menu</a>
       </div>,
     );
     const button = screen.getByRole('button', { name: 'Especialidades' });

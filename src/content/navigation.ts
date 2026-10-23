@@ -49,6 +49,7 @@ export const navigation: NavGroup[] = [
       { label: 'Ceratoscopia (Topografia de Córnea)', href: '/ceratoscopia-para-que-serve-o-exame/' },
       { label: 'Microscopia Especular', href: '/o-que-e-exame-de-microscopia/' },
       { label: 'Curva Tensional Diária', href: '/exame-de-ctd-curva-tensional-diaria-tudo-sobre/' },
+      { label: 'Tomografia de Coerência Óptica (OCT)', href: '/exames/tomografia-de-coerencia-optica/' },
       { label: 'Tonometria', href: '/exames/tonometria/' },
       { label: 'Paquimetria', href: '/exames/paquimetria/' },
       { label: 'Gonioscopia', href: '/exames/gonioscopia/' },

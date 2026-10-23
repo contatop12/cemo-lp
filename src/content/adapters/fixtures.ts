@@ -1,4 +1,6 @@
 import type { ContentRepository } from '../index';
+import type { ArticleLink, Post, PostSummary } from '../types';
+import postIndex from '../posts/index.json';
 import { articles } from '../fixtures/articles';
 import { conditionLinks, conditions } from '../fixtures/conditions';
 import { doctors } from '../fixtures/doctors';
@@ -14,6 +16,17 @@ import { siteStats } from '../fixtures/stats';
 import { testimonials } from '../fixtures/testimonials';
 import { videos } from '../fixtures/videos';
 import { navigation } from '../navigation';
+
+const posts = postIndex as PostSummary[];
+
+function toArticles(slugs: string[]): ArticleLink[] {
+  return slugs.flatMap((slug) => {
+    const p = posts.find((post) => post.slug === slug);
+    return p
+      ? [{ slug, title: p.title, href: `/${slug}/`, excerpt: p.excerpt, publishedAt: p.publishedAt.slice(0, 10), image: p.image }]
+      : [];
+  });
+}
 
 export function createFixturesRepository(): ContentRepository {
   return {
@@ -82,7 +95,21 @@ export function createFixturesRepository(): ContentRepository {
       return editorial[id];
     },
     async listFeaturedArticles(limit) {
-      return articles.slice(0, limit);
+      // Curadoria da Home (posts de tráfego), com título, data e imagem vindos do post migrado.
+      return toArticles(articles.map((a) => a.slug)).slice(0, limit);
+    },
+    async listPosts() {
+      return posts;
+    },
+    async getPost(slug) {
+      if (!posts.some((p) => p.slug === slug)) return null;
+      // Lido do disco só durante o build (todas as rotas de post são estáticas): o HTML não entra no Worker.
+      const [{ readFile }, { join }] = await Promise.all([import('node:fs/promises'), import('node:path')]);
+      const raw = await readFile(join(process.cwd(), 'src/content/posts', `${slug}.json`), 'utf8');
+      return JSON.parse(raw) as Post;
+    },
+    async listArticles(slugs) {
+      return toArticles(slugs);
     },
     async getNavigation() {
       return navigation;

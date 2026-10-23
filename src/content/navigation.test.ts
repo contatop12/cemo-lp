@@ -7,7 +7,7 @@ describe('navigation', () => {
     expect(navigation.map((g) => g.id)).toEqual(['especialidades', 'cirurgias', 'exames', 'corpo-clinico', 'conteudos', 'a-cemo']);
   });
 
-  it('Exames lista 11 exames com as URLs preservadas', () => {
+  it('Exames lista 12 exames com as URLs preservadas (OCT incluído)', () => {
     const exames = navigation.find((g) => g.id === 'exames');
     expect(exames?.links.map((l) => l.href)).toEqual([
       '/exames/mapeamento/',
@@ -16,6 +16,7 @@ describe('navigation', () => {
       '/ceratoscopia-para-que-serve-o-exame/',
       '/o-que-e-exame-de-microscopia/',
       '/exame-de-ctd-curva-tensional-diaria-tudo-sobre/',
+      '/exames/tomografia-de-coerencia-optica/',
       '/exames/tonometria/',
       '/exames/paquimetria/',
       '/exames/gonioscopia/',
@@ -52,5 +53,33 @@ describe('navigation', () => {
 
   it('o repositório expõe a navegação', async () => {
     expect(await content.getNavigation()).toBe(navigation);
+  });
+});
+
+describe('navegação × conteúdo', () => {
+  it('todo link publicado do menu aponta para uma página que existe', async () => {
+    const { content } = await import('./index');
+    const [specialties, exams, conditions, links, posts] = await Promise.all([
+      content.listSpecialties(),
+      content.listExams(),
+      content.listConditions(),
+      content.listConditionLinks(),
+      content.listPosts(),
+    ]);
+    const known = new Set([
+      '/', '/sobre/', '/estrutura-e-tecnologia/', '/convenios/', '/contato/', '/corpo-clinico/', '/especialidades/', '/tratamentos/',
+      '/exames/', '/condicoes-oculares/', '/blog/',
+      ...specialties.map((s) => s.canonicalPath),
+      ...exams.map((e) => e.canonicalPath),
+      ...conditions.map((c) => c.canonicalPath),
+      ...links.map((c) => c.href),
+      ...posts.map((p) => `/${p.slug}/`),
+    ]);
+    for (const group of navigation) {
+      for (const l of [...group.links, group.viewAll, group.featured, ...(group.href ? [{ href: group.href }] : [])]) {
+        if (!l || ('external' in l && l.external) || ('published' in l && l.published === false)) continue;
+        expect(known.has(l.href), l.href).toBe(true);
+      }
+    }
   });
 });
