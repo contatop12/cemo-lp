@@ -304,3 +304,13 @@ Nada abaixo deve ser publicado como fato até ser confirmado. Itens estão marca
 - Reexport do GSC com consulta × página (12-16 meses) para validar as atribuições `[inferido]`, em especial: qual URL ranqueia "oftalmologista taboão da serra" (candidata: Home), "campo visual" (pos. 2,5) e "ceratocone" (pos. 5,6).
 - Backlinks por URL (GSC Links / ferramenta) para todas as URLs marcadas REMOVE ou CONSOLIDATE.
 - Snapshot de posições das 50 principais consultas na semana anterior ao corte; monitorar por 8 semanas.
+
+---
+
+## 12. Ajustes da fase 2 (2026-10-22)
+
+- **Nova rota** `/exames/tomografia-de-coerencia-optica/` (OCT): exame citado pelo Dr. David no vídeo "Exames que realizamos"; entra no mega menu de Exames e no sitemap. Tipos de OCT a confirmar (TODO).
+- **Tratamentos não confirmados** (crosslinking, anel, transplante): páginas prontas com `published: false` (fora de menu, sitemap, relacionados e JSON-LD). Os 7 redirects que apontavam para elas foram para `/especialidades/cornea/`, como a §8 previa.
+- **Perfis médicos publicados** (8): `/corpo-clinico/{slug}/`. Dra. Danielle Longo (vídeos de plástica ocular) fica sem perfil até a validação.
+- **Blog**: 113 posts em `/{slug}/`, índice `/blog/` + `/blog/pagina/{n}/` (canonical própria, fora do sitemap). Filtro por tema (`?tema=`) não implementado no MVP.
+- **Sitemap**: arquivo único gerado do conteúdo (ver `docs/seo-checklist.md`).

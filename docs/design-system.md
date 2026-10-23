@@ -630,3 +630,25 @@ Salva em `_materiais/fotos/dr-david.jpeg`.
 5. **Painel `estudio` cinza** pode parecer "sujo" ao lado de branco: validar em protótipo; plano B: levar o fundo da seção para `nevoa-2` ao redor do painel, ou refotografar com fundo azul-profundo.
 6. **Mira sobre a foto**: validar alinhamento por breakpoint (SVG posicionado em % da imagem).
 7. **Aprovação do cliente** dos dispositivos pálpebra e mira (derivados do logo) antes de produzir assets.
+
+---
+
+## 17. Design v2 — "Foco" (fase 2, 2026-10-22)
+
+Evolução aprovada pelo pedido do cliente de um design "mais criativo e otimizado". Tokens, tipografia e paleta continuam
+os mesmos; mudam os dispositivos de marca e a composição.
+
+| Dispositivo | Onde | Regra |
+|---|---|---|
+| **Lente de prova** (anéis de Plácido + arco 0°–180°) | Hero da Home (assinatura, um lugar só); eco discreto no CTA final, no topo das páginas internas e na moldura dos retratos | Linhas de 1–1,25 px em `azul-cemo` (claro) ou `ciano-cemo` (escuro), opacidade baixa; anéis mais próximos na periferia; desenho único no carregamento, só com `prefers-reduced-motion: no-preference` |
+| **Recorte do retrato** | Hero (Dr. David de corpo inteiro), cartões e perfis | Só o fundo de estúdio sai (modelo BiRefNet local, `scripts/portraits/`); nada no rosto ou no corpo. Revisa a decisão do §1.3 ("não recortar"), cujo risco era alterar o corpo |
+| **Moldura em arco** (`PortraitFrame`) | Todos os retratos | Campo `nevoa-2`, topo em arco (a pálpebra do logo), 4:5, anéis a 12% ao fundo |
+| **Tabela de leitura** | "Como podemos cuidar da sua visão?" | Linhas inteiras clicáveis; três tamanhos (ênfase 1–3) que caem como numa tabela de acuidade; o menor ≥ 22 px |
+| **Vídeo vertical** (`VideoCard`) | Blocos editoriais, páginas comerciais, hubs, perfis | 9:16, pôster + botão; player só no clique; quem fala + duração; transcrição em `<details>` |
+| **Resposta direta** | Topo de toda página de conteúdo médico | Caixa `nevoa` com filete azul à esquerda, pergunta como h2, 40–100 palavras |
+| **Jornada numerada** | Só onde o conteúdo é sequência real (etapas do paciente) | Círculo com número em Literata + filete vertical |
+
+Removidos por serem "cara de template": eyebrows em caixa-alta com tracking, metadados unidos por "·", cards idênticos
+para conteúdo que não é coleção, faixa de números duplicada logo abaixo do hero (os números viraram a base do hero).
+
+Header: logo horizontal (o subtítulo fica legível); menu completo a partir de 1280 px, gaveta abaixo disso.

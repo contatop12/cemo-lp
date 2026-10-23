@@ -4,7 +4,7 @@ test.beforeEach(async ({ context }) => {
   await context.addInitScript(() => localStorage.setItem('cemo.consent.v1', 'denied'));
 });
 
-const SECTIONS = ['inicio', 'agendar', 'especialidades', 'catarata', 'refrativa', 'diretor-tecnico', 'estrutura', 'corpo-clinico', 'avaliacoes', 'convenios', 'localizacao', 'conteudos', 'agende'];
+const SECTIONS = ['inicio', 'agendar', 'especialidades', 'catarata', 'refrativa', 'diretor-tecnico', 'estrutura', 'video', 'corpo-clinico', 'avaliacoes', 'convenios', 'localizacao', 'conteudos', 'agende'];
 
 test('Home responde e tem um único h1', async ({ page }) => {
   const res = await page.goto('/');
@@ -15,7 +15,7 @@ test('Home responde e tem um único h1', async ({ page }) => {
 
 test('foto do hero é o LCP, com prioridade alta e sem lazy', async ({ page }) => {
   await page.goto('/');
-  const img = page.locator('#inicio picture img');
+  const img = page.locator('#inicio img[fetchpriority="high"]');
   await expect(img).toHaveAttribute('fetchpriority', 'high');
   expect(await img.getAttribute('loading')).not.toBe('lazy');
   expect(await page.locator('link[rel="preload"][as="image"]').count()).toBeGreaterThan(0);

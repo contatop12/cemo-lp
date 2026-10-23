@@ -57,7 +57,7 @@ export const plasticaOcular: Specialty = {
       id: 'equipe',
       title: 'Quem atende na CEMO',
       paragraphs: [
-        'A plástica ocular da CEMO conta com a Dra. Cintia Gomes Galvão. Os vídeos da clínica sobre calázio, excesso de pele, pálpebra caída e vias lacrimais são apresentados pela Dra. Danielle Longo, que atua em plástica ocular, vias lacrimais e órbita.',
+        'A plástica ocular da CEMO conta com a Dra. Cintia Gomes Galvão. Os vídeos da clínica sobre calázio, excesso de pele, entrópio e ectrópio e vias lacrimais são apresentados pela Dra. Danielle Longo, que atua em plástica ocular, vias lacrimais e órbita.',
       ],
     },
   ],
@@ -73,10 +73,6 @@ export const plasticaOcular: Specialty = {
       {
         name: 'Blefaroplastia (excesso de pele e bolsas de gordura)',
         text: 'É a cirurgia que remove o excesso de pele da pálpebra superior e as bolsas de gordura. É considerada quando a pele sobra a ponto de pesar sobre os cílios ou reduzir o campo de visão, o que o médico confirma na avaliação. Também pode ter um objetivo estético, avaliado em conjunto com o aspecto funcional.',
-      },
-      {
-        name: 'Pálpebra caída (ptose)',
-        text: 'Ocorre quando a pálpebra superior fica mais baixa do que o normal e pode cobrir parte da pupila. Pode estar presente desde o nascimento ou surgir com o tempo, e a causa orienta o tratamento. Quando há indicação, a correção cirúrgica visa reposicionar a pálpebra.',
       },
       {
         name: 'Entrópio',

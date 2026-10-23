@@ -122,3 +122,24 @@ Uma revisão independente do branch inteiro não encontrou falhas críticas. Cor
 - **Ajuste de código:** a API de leads passou a aceitar também a própria origem da requisição (além do domínio configurado), para o staging em `*.workers.dev` funcionar sem depender de a URL de build estar perfeita — sites de terceiros continuam recusados.
 - **Verificação:** build completo (Next + OpenNext) e smoke test no `workerd` local: Home, redirects 301 em um salto, 410, staging noindex, imagens AVIF e falha fechada da API sem webhook.
 - **Risco aceito:** o middleware Node.js (proxy de redirects) é experimental no OpenNext para Cloudflare — monitorar após o deploy. Guia completo em `docs/deploy-cloudflare.md`.
+
+## 2026-10-22 — Fase 2: direção de arte "Foco"
+
+- **Problema:** a Home da fundação estava correta, mas com cara de kit (cards iguais, eyebrows em caixa-alta, monogramas no lugar de fotos). O cliente pediu um design "mais criativo e otimizado".
+- **Decisão:** buscar a linguagem no próprio mundo da oftalmologia. Hero "lente de prova": Dr. David recortado do fundo de estúdio diante dos anéis de Plácido (topografia de córnea) e do arco graduado 0°–180° das armações de prova; os anéis se desenham uma vez no carregamento. Especialidades como **tabela de leitura** (tamanhos caindo como numa tabela de acuidade, revelando a prioridade comercial). Retratos dos 8 médicos recortados e recolocados no mesmo campo de cor com topo em arco (a pálpebra do logo): corpo clínico coeso sem retocar ninguém.
+- **Benefício esperado:** identidade própria e reconhecível sem sacrificar legibilidade (tamanho mínimo 22 px na tabela, contraste AA, nada dependente de hover) nem performance (foto LCP nunca anima; um único movimento automático).
+
+## 2026-10-22 — Vídeos reais como prova
+
+- 9 vídeos do Drive da CEMO (Dr. David, Dr. Adriano, Dra. Danielle) viraram MP4 web de ~3 MB (de .MOV de até 174 MB), sem metadados de GPS, com pôster, legenda WebVTT e transcrição no HTML. Transcrição por Whisper local com vocabulário médico; trechos incompreensíveis ficaram marcados, não adivinhados. Player só carrega no clique.
+- Ficaram de fora: depoimento de paciente (sem autorização documentada) e vídeo de botox (afasta a imagem de clínica estética).
+
+## 2026-10-22 — Conteúdo médico em escala, com freio
+
+- 39 páginas (especialidades, tratamentos, exames, condições) redigidas em paralelo a partir do conteúdo da própria CEMO (site atual, posts, falas dos vídeos), com brief comum de CFM/tom/estrutura e `TODO_CONTENT_VALIDATION` para todo fato não confirmado. Tudo nasce em `MEDICAL_REVIEW`; o gate `npm run launch:check` impede produção sem aprovação médica.
+- Teste de integridade do grafo: todo vínculo entre páginas aponta para algo publicado; nenhuma URL é servida por duas entidades.
+
+## 2026-10-22 — Migração do blog sem perder patrimônio
+
+- 113 posts migrados da API REST do WordPress: slug, título e datas preservados; shortcodes do Divi removidos; HTML sanitizado por lista branca; links internos reescritos direto para o destino final (inclusive permalinks antigos por data); 132 imagens servidas no **mesmo caminho** `/wp-content/uploads/...` (preserva o tráfego de imagem).
+- Teste E2E cobre as 526 linhas do mapa de migração: 200, 301 em um salto para 200, ou 410.

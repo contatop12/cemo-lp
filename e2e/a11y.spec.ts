@@ -53,3 +53,32 @@ test('alvos de toque: controles ≥ 44×44 (links dentro de frases são exceçã
   );
   expect(small).toEqual([]);
 });
+
+// Templates internos: uma página de cada tipo, com a escolha de cookies já feita.
+const PAGES = [
+  '/especialidades/catarata/',
+  '/consulta-oftalmologica/',
+  '/exame-de-campo-visual-o-que-e-para-que-serve-e-como-e-feito/',
+  '/exames/tomografia-de-coerencia-optica/',
+  '/condicoes-oculares/ceratocone/',
+  '/corpo-clinico/',
+  '/corpo-clinico/david-ribeiro-de-mendonca-filho/',
+  '/especialidades/',
+  '/exames/',
+  '/blog/',
+  '/hipermetropia-como-e-a-visao/',
+  '/sobre/',
+  '/convenios/',
+  '/contato/',
+];
+
+for (const path of PAGES) {
+  test(`axe: 0 violações em ${path}`, async ({ page }) => {
+    await page.context().addInitScript(() => localStorage.setItem('cemo.consent.v1', 'denied'));
+    const res = await page.goto(path);
+    expect(res?.status()).toBe(200);
+    await expect(page.locator('h1')).toHaveCount(1);
+    const result = await new AxeBuilder({ page }).withTags(TAGS).analyze();
+    expect(result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`)).toEqual([]);
+  });
+}

@@ -15,7 +15,7 @@ export function Header({ settings, navigation }: { settings: SiteSettings; navig
       <UtilityBar settings={settings} />
       <header className="site-header sticky top-0 z-30 border-b border-borda bg-papel">
         <div className="mx-auto flex h-[var(--header-h,5rem)] max-w-wide items-center justify-between gap-4 px-[var(--gutter)]">
-          <Link href="/" className="shrink-0 rounded-sm">
+          <Link href="/" className="inline-flex min-h-12 shrink-0 items-center rounded-sm">
             <Logo layout="horizontal" height={40} className="h-9 w-auto 2xl:h-10" />
           </Link>
           <nav aria-label="Principal" className="hidden xl:block">

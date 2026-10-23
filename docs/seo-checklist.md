@@ -17,8 +17,8 @@ Para quem cria ou revisa páginas e para o lançamento. A infraestrutura fica em
 
 ## Sitemap e robots
 
-- `src/app/sitemap.ts` lista **apenas** rotas existentes e indexáveis (`sitemapRoutes` em `src/lib/seo/routes.ts`; um teste confere que cada rota tem `page.tsx`). Utilitárias, `/lp/`, paginação e `/api/` são descartadas mesmo se listadas por engano.
-- **Decisão:** arquivo único `sitemap.xml` nesta fase. Quando o blog migrar (157 posts), dividir em sitemap index por grupo (`pages`, `services`, `doctors`, `blog`).
+- `src/app/sitemap.ts` é gerado do conteúdo (`src/lib/seo/sitemap-routes.ts`): institucionais, hubs, entidades **publicadas**, perfis publicados e os 113 posts migrados, com `lastmod` real (revisão do conteúdo / modificação do post). Utilitárias, `/lp/`, paginação do blog, tratamentos não confirmados e URLs que redirecionam ficam de fora (testado).
+- **Decisão (fase 2):** arquivo único `sitemap.xml` (~170 URLs, muito abaixo do limite de 50 mil); o grupo de cada URL fica no dado.
 - `robots.txt`: produção = `Allow: /`, `Disallow: /api/` e `Sitemap:`; staging/development = `Disallow: /` sem sitemap.
 - Além disso, fora de produção todo HTML sai com `<meta name="robots" content="noindex, nofollow">` e header `X-Robots-Tag: noindex, nofollow`.
 
@@ -74,7 +74,7 @@ Medido com os domínios do antivírus Kaspersky bloqueados no navegador de teste
 ## Portões de lançamento (bloqueiam o apontamento do domínio)
 
 - [ ] `npm run todos` sem pendências críticas — hoje: **95 ocorrências em 20 arquivos** (src: médicos 26, NAP 4, prova social 3, vídeo 2, convênios 2, equipamentos 2, editoriais 2, demais 1 cada; o restante em docs).
-- [ ] `npm run redirects:check-targets` com lista vazia (hoje 52 destinos dependem dos próximos planos).
+- [x] `npm run redirects:check-targets` com lista vazia (fase 2: 51 de 51 destinos gerados pelo build; o script falha com código 1 se faltar algum).
 - [ ] `SITE_ENV=production` e `NEXT_PUBLIC_SITE_URL=https://oftalmologiacemo.com.br` no build de produção; staging com `SITE_ENV=staging`.
 - [ ] `LEAD_WEBHOOK_URL` e `LEAD_WEBHOOK_SECRET` configurados (sem eles o formulário falha fechado em produção). `SITE_ENV` definido no build **e** em runtime.
 - [ ] HTTPS forçado pela hospedagem (o proxy do site só canonicaliza `www.` → apex). HSTS está com `max-age=31536000`; acrescentar `includeSubDomains; preload` apenas após o dono do domínio confirmar HTTPS em todos os subdomínios.
@@ -82,5 +82,5 @@ Medido com os domínios do antivírus Kaspersky bloqueados no navegador de teste
 - [ ] GTM de produção, Consent Mode e conversões revisados (`docs/analytics-plan.md`).
 - [ ] Textos de privacidade e cookies revisados pelo jurídico.
 - [ ] Foto do Dr. David em alta resolução; vetor original do logo (ou aprovação do SVG vetorizado); vídeo "Tudo em um lugar só" publicado.
-- [ ] Revisão médica dos textos de Catarata e Refrativa.
+- [ ] Revisão médica de todas as páginas de conteúdo (`npm run launch:check`; roteiro completo em `docs/launch-checklist.md`).
 - [ ] Backlinks conferidos antes dos 410 (não havia export de backlinks na análise).

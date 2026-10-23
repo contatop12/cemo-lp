@@ -1,20 +1,22 @@
-// Informativo (exit 0): lista destinos do mapa de redirects que ainda não existem como rota do app.
-// Gate de lançamento: a lista precisa estar vazia antes de apontar o domínio (docs/seo-checklist.md).
-import { existsSync } from 'node:fs';
+// Gate de lançamento: todo destino do mapa de redirects precisa ser uma rota gerada pelo build (senão 301 → 404).
+// Lê .next/prerender-manifest.json (rode `npm run build` antes). Sai com código 1 se faltar destino.
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { redirectTables } from '../src/lib/redirects/generated.ts';
 
 const root = process.cwd();
-
-function routeExists(path: string): boolean {
-  const file = path === '/' ? 'src/app/page.tsx' : `src/app${path}page.tsx`;
-  return existsSync(join(root, file));
+const manifestPath = join(root, '.next/prerender-manifest.json');
+if (!existsSync(manifestPath)) {
+  console.error('Sem build: rode `npm run build` (ou `npx next build`) antes desta checagem.');
+  process.exit(1);
 }
+const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as { routes: Record<string, unknown> };
+const built = new Set(Object.keys(manifest.routes).map((r) => (r === '/' ? '/' : `${r.replace(/\/$/, '')}/`)));
 
-const targets = [...new Set(Object.values(redirectTables.redirects).map((t) => t.split('?')[0] ?? t))].sort();
-const missing = targets.filter((t) => !routeExists(t));
+const targets = [...new Set(Object.values(redirectTables.redirects).map((t) => (t.split('?')[0] ?? t).split('#')[0] ?? t))].sort();
+const missing = targets.filter((t) => !built.has(t));
 
-console.log(`${targets.length} destinos únicos; ${targets.length - missing.length} existem; ${missing.length} ainda não existem.`);
+console.log(`${targets.length} destinos únicos; ${targets.length - missing.length} gerados pelo build; ${missing.length} ausentes.`);
 for (const path of missing) {
   const sources = Object.entries(redirectTables.redirects)
     .filter(([, to]) => to === path)
@@ -22,5 +24,6 @@ for (const path of missing) {
   console.log(`  ${path}  ← ${sources.length} origem(ns)`);
 }
 if (missing.length > 0) {
-  console.log('\nATENÇÃO: não aponte o domínio de produção enquanto houver destinos ausentes (gerariam 301 → 404).');
+  console.log('\nNão aponte o domínio de produção enquanto houver destinos ausentes (gerariam 301 → 404).');
+  process.exit(1);
 }

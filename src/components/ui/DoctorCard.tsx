@@ -31,7 +31,7 @@ export function DoctorCard({ doctor, headingLevel = 3 }: { doctor: Doctor; headi
         {doctor.published ? (
           <Link
             href={doctor.canonicalPath}
-            className="text-tinta no-underline after:absolute after:inset-0 hover:text-azul-700 hover:underline hover:underline-offset-[3px]"
+            className="flex min-h-11 items-center text-tinta no-underline after:absolute after:inset-0 hover:text-azul-700 hover:underline hover:underline-offset-[3px]"
           >
             {name}
           </Link>

@@ -56,3 +56,20 @@ Regras: nada é inventado (RQE, preço, prazo, técnica, nota, formação); núm
 - **Vídeo:** publicação web de "Tudo em um lugar só", poster e transcrição.
 - **Editoriais:** revisão médica dos textos de Catarata e Refrativa; técnicas refrativas efetivamente oferecidas.
 - **Equipamentos:** identificação e função de cada aparelho fotografado.
+
+
+## Fase 2 — entidades de conteúdo médico (2026-10-22)
+
+| Entidade | Tipo (`types.ts`) | Onde mora | Rota |
+|---|---|---|---|
+| Especialidade / serviço / consulta / tratamento | `Specialty` | `fixtures/specialties/*.ts` | `/especialidades/{slug}/`, `/consulta-oftalmologica/`, `/tratamentos/{slug}/` (só `published`) |
+| Exame | `Exam` (template §26) | `fixtures/exams/*.ts` | `canonicalPath` (6 em slug de artigo preservado, servidos por `/[slug]/`) |
+| Condição ocular | `Condition` + `ConditionLink` (condições que moram em post) | `fixtures/conditions/*.ts` | `/condicoes-oculares/{slug}/` |
+| Médico | `Doctor` (+ `bio`, `specialtyIds`, `videoIds`) | `fixtures/doctors.ts` | `/corpo-clinico/{slug}/` (só `published`) |
+| Vídeo | `VideoItem` (MP4 local, pôster, VTT, transcrição) | `fixtures/videos.ts` | — |
+| Post do blog | `PostSummary` / `Post` (HTML sanitizado) | `src/content/posts/*.json` (gerado por `scripts/migrate-wp.mjs`) | `/{slug}/`, `/blog/`, `/blog/pagina/{n}/` |
+
+- Toda entidade médica tem `review: MedicalReview` (`status`, `author`, `medicalReviewerSlug`, `reviewedAt`, `updatedAt`, `sources`) — fluxo em `docs/medical-content-workflow.md`.
+- `related` (`doctors`, `specialties`, `exams`, `conditions`, `articles`) liga as entidades; `src/content/integrity.test.ts` garante que todo id existe e está publicado.
+- `answer` = resposta direta de 40–100 palavras (GEO/AEO); `faq` vira `FAQPage` só porque está visível na página.
+- Para trocar fixtures por um CMS (Sanity), o adapter novo implementa a mesma interface `ContentRepository` (`src/content/index.ts`).
