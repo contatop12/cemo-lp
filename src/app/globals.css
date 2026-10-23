@@ -162,14 +162,17 @@
   }
 }
 
-/* Entrada única do hero: só o texto sobe 12px; a foto nunca depende de animação (LCP) */
+/* Único movimento não acionado pelo usuário: os anéis da lente do hero se desenham uma vez, de dentro para fora.
+   A foto (LCP) nunca anima; sem preferência declarada por movimento, os anéis aparecem prontos. */
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes hero-rise {
-    from { transform: translateY(12px); }
-    to { transform: translateY(0); }
+  @keyframes lens-ring-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
   }
-  .animate-hero-rise {
-    animation: hero-rise var(--duration-slow) var(--ease-out) both;
+  .lens-ring {
+    stroke-dasharray: 1;
+    animation: lens-ring-draw 1.1s var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 70ms + 150ms);
   }
 }
 

@@ -50,7 +50,7 @@ export function Footer({
     <footer className="on-dark bg-azul-profundo text-texto-escuro-suave">
       <div className="mx-auto grid max-w-wide gap-10 px-[var(--gutter)] py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
         <div>
-          <Logo variant="white" height={64} />
+          <Logo variant="white" layout="horizontal" height={52} />
           <address className="mt-6 not-italic">
             <p className="font-bold text-papel">{settings.name}</p>
             <p className="mt-2">{formatAddress(settings)}</p>

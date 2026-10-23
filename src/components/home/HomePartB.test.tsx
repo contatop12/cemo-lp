@@ -10,7 +10,6 @@ import { videos } from '@/content/fixtures/videos';
 import type { Testimonial } from '@/content/types';
 import { directionsHref, formatAddress, mapsEmbedSrc } from '@/lib/contact';
 import { LazyMap } from '@/components/media/LazyMap';
-import { VideoFacade } from '@/components/media/VideoFacade';
 import { ContentSection } from './ContentSection';
 import { DoctorsSection } from './DoctorsSection';
 import { FinalCta } from './FinalCta';
@@ -47,19 +46,18 @@ describe('ReviewsSection', () => {
   });
 });
 
-describe('VideoSection / VideoFacade', () => {
-  it('sem vídeo publicado a seção não existe', () => {
-    const { container } = render(<VideoSection video={videos[0]!} />);
+describe('VideoSection', () => {
+  it('sem vídeos a seção não existe', () => {
+    const { container } = render(<VideoSection videos={[]} />);
     expect(container.firstChild).toBeNull();
   });
 
-  it('facade só carrega o player (youtube-nocookie) após o clique', async () => {
-    const { container } = render(<VideoFacade title="Tudo em um lugar só" youtubeId="abc123" poster={null} />);
-    expect(container.querySelector('iframe')).toBeNull();
-    await userEvent.click(screen.getByRole('button', { name: 'Assistir: Tudo em um lugar só' }));
-    const iframe = container.querySelector('iframe');
-    expect(iframe?.getAttribute('src')?.startsWith('https://www.youtube-nocookie.com/embed/abc123')).toBe(true);
-    expect(iframe).toHaveAttribute('title', 'Tudo em um lugar só');
+  it('um cartão por vídeo, nenhum player antes do clique e transcrição no HTML', () => {
+    const list = videos.slice(0, 3);
+    const { container } = render(<VideoSection videos={list} />);
+    for (const v of list) expect(screen.getByRole('button', { name: `Assistir: ${v.title}` })).toBeInTheDocument();
+    expect(container.querySelector('video')).toBeNull();
+    expect(container.querySelectorAll('details')).toHaveLength(3);
   });
 });
 
@@ -97,13 +95,22 @@ describe('TechStructure', () => {
 });
 
 describe('DoctorsSection', () => {
-  it('8 médicos com CRM, sem RQE nem links de perfil', () => {
-    render(<DoctorsSection doctors={doctors} />);
-    for (const d of doctors) expect(screen.getByText(new RegExp(d.crm))).toBeInTheDocument();
+  const published = doctors.filter((d) => d.published);
+
+  it('médicos publicados com CRM e link de perfil; sem RQE', () => {
+    render(<DoctorsSection doctors={published} />);
+    for (const d of published) {
+      expect(screen.getByText(d.crm)).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: `${d.honorific} ${d.name}` })).toHaveAttribute('href', d.canonicalPath);
+    }
     expect(document.body.textContent).not.toContain('RQE');
-    const links = screen.getAllByRole('link').map((a) => a.getAttribute('href'));
-    expect(links).toEqual(['/corpo-clinico/']);
-    expect(screen.getAllByText(/^[A-ZÁÉÍÓÚ]{2}$/).length).toBe(doctors.filter((d) => !d.photo).length);
+    expect(screen.getByRole('link', { name: 'Conhecer o corpo clínico' })).toHaveAttribute('href', '/corpo-clinico/');
+  });
+
+  it('áreas sem separador "·" e retrato com alt', () => {
+    const { container } = render(<DoctorsSection doctors={published} />);
+    expect(container.textContent).not.toContain('·');
+    for (const img of container.querySelectorAll('img')) expect(img.getAttribute('alt')?.length).toBeGreaterThan(10);
   });
 });
 

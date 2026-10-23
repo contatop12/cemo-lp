@@ -11,6 +11,7 @@ export const leadInterests: LeadInterest[] = [
   { id: 'oftalmopediatria', label: 'Oftalmopediatria' },
   { id: 'estrabismo', label: 'Estrabismo' },
   { id: 'plastica-ocular', label: 'Plástica ocular' },
+  { id: 'lentes-de-contato', label: 'Lentes de contato' },
   { id: 'exames', label: 'Exames' },
   { id: 'convenios', label: 'Convênios' },
   { id: 'outro', label: 'Outro assunto' },

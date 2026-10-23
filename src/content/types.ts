@@ -55,12 +55,184 @@ export interface Doctor {
   role: string | null;
   areas: string[];
   credentials: string[];
+  /** Retrato recortado (fundo removido), 4:5, usado em cards e perfis. */
   photo: ImageAsset | null;
   photoMobile?: ImageAsset;
+  /** Parágrafos de apresentação — só fatos já publicados pela CEMO; o resto fica em `todos`. */
+  bio: string[];
+  /** Ids de especialidades/serviços (Specialty.id) em que atua — alimenta links recíprocos. */
+  specialtyIds: string[];
+  videoIds: string[];
   canonicalPath: string;
   published: boolean;
   featured: boolean;
   todos: string[];
+}
+
+// ---------- Workflow de conteúdo médico (briefing §76) ----------
+
+export type ReviewStatus = 'DRAFT' | 'MEDICAL_REVIEW' | 'APPROVED' | 'PUBLISHED';
+
+export interface SourceRef {
+  label: string;
+  url: string;
+}
+
+export interface MedicalReview {
+  status: ReviewStatus;
+  /** Quem redigiu (ex.: "Equipe editorial CEMO"). */
+  author: string;
+  /** Slug do médico revisor; null enquanto não revisado. */
+  medicalReviewerSlug: string | null;
+  /** ISO (AAAA-MM-DD) da revisão médica; null enquanto não revisado. */
+  reviewedAt: string | null;
+  /** ISO da última mudança substantiva do texto. */
+  updatedAt: string;
+  sources: SourceRef[];
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string[];
+}
+
+export interface ProseSection {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
+export interface JourneyStep {
+  title: string;
+  text: string;
+}
+
+export interface OptionItem {
+  name: string;
+  text: string;
+}
+
+export interface SeoFields {
+  title: string;
+  description: string;
+}
+
+export interface Related {
+  doctors: string[];
+  specialties: string[];
+  exams: string[];
+  conditions: string[];
+  /** Slugs de posts do blog. */
+  articles: string[];
+}
+
+/** Especialidades, serviços (lentes de contato), consulta e tratamentos (crosslinking etc.). */
+export interface Specialty {
+  id: string;
+  kind: 'especialidade' | 'servico' | 'consulta' | 'tratamento';
+  name: string;
+  /** Rótulo curto para menus e cards. */
+  shortName: string;
+  canonicalPath: string;
+  /** Tratamento: especialidade-mãe (breadcrumb e links). */
+  parentId?: string;
+  published: boolean;
+  seo: SeoFields;
+  h1: string;
+  lead: string;
+  /** Resumo de 1 frase para hubs, cards e relacionados. */
+  summary: string;
+  leadInterest: LeadInterestId;
+  ctaLabel: string;
+  /** Resposta direta (40–100 palavras) à pergunta principal da página (briefing §80). */
+  answer: { question: string; text: string };
+  signs?: { title: string; intro: string; items: string[] };
+  sections: ProseSection[];
+  journey?: { title: string; intro?: string; steps: JourneyStep[] };
+  options?: { title: string; intro: string; items: OptionItem[]; note?: string };
+  faq: FaqItem[];
+  related: Related;
+  videoIds: string[];
+  review: MedicalReview;
+  todos: string[];
+}
+
+/** Template de exame (briefing §26). */
+export interface Exam {
+  id: string;
+  name: string;
+  /** Outros nomes pelos quais o exame é buscado. */
+  aka: string[];
+  canonicalPath: string;
+  published: boolean;
+  seo: SeoFields;
+  h1: string;
+  lead: string;
+  summary: string;
+  answer: { question: string; text: string };
+  purpose: string[];
+  whenRequested: string[];
+  howDone: string[];
+  preparation: string[];
+  duration: string[];
+  aftercare: string[];
+  faq: FaqItem[];
+  related: Related;
+  videoIds: string[];
+  review: MedicalReview;
+  todos: string[];
+}
+
+/** Condição ocular evergreen (organiza a entidade; artigos respondem perguntas específicas). */
+export interface Condition {
+  id: string;
+  name: string;
+  canonicalPath: string;
+  published: boolean;
+  seo: SeoFields;
+  h1: string;
+  lead: string;
+  summary: string;
+  answer: { question: string; text: string };
+  signs?: { title: string; intro: string; items: string[] };
+  sections: ProseSection[];
+  faq: FaqItem[];
+  related: Related;
+  review: MedicalReview;
+  todos: string[];
+}
+
+/** Página institucional listada no hub de condições, mas que mora num post (presbiopia etc.). */
+export interface ConditionLink {
+  id: string;
+  name: string;
+  summary: string;
+  href: string;
+}
+
+export interface PostImage extends ImageAsset {
+  /** URL original no WordPress (preservada em /wp-content/uploads/...). */
+  original: string;
+}
+
+export interface PostSummary {
+  slug: string;
+  title: string;
+  excerpt: string;
+  description: string;
+  publishedAt: string;
+  modifiedAt: string;
+  image: PostImage | null;
+  topics: string[];
+  /** Entidade comercial para o link contextual e o CTA do fim do post. */
+  entity: { kind: 'specialty' | 'exam' | 'condition' | 'home'; id: string } | null;
+  readingMinutes: number;
+}
+
+export interface Post extends PostSummary {
+  /** HTML sanitizado na migração (lista branca de tags), links internos já no destino final. */
+  html: string;
 }
 
 export type ServiceId =
@@ -80,6 +252,8 @@ export interface Service {
   href: string;
   ctaLabel: string;
   homeOrder: number;
+  /** Tamanho na tabela de leitura da Home: 1 = maior (prioridade comercial). */
+  emphasis: 1 | 2 | 3;
 }
 
 export const LEAD_INTEREST_IDS = [
@@ -92,6 +266,7 @@ export const LEAD_INTEREST_IDS = [
   'oftalmopediatria',
   'estrabismo',
   'plastica-ocular',
+  'lentes-de-contato',
   'exames',
   'convenios',
   'outro',
@@ -123,9 +298,22 @@ export interface Testimonial {
 export interface VideoItem {
   id: string;
   title: string;
-  youtubeId: string | null;
-  poster: ImageAsset | null;
-  transcriptUrl: string | null;
+  /** Resumo editorial (1–2 frases) — também vai para o VideoObject. */
+  description: string;
+  speakerName: string;
+  /** Slug do médico que fala, quando o perfil existe. */
+  speakerSlug: string | null;
+  /** MP4 web (H.264) servido de public/videos. */
+  src: string;
+  poster: ImageAsset;
+  orientation: 'vertical' | 'horizontal';
+  durationSeconds: number;
+  /** ISO (AAAA-MM-DD): data em que o arquivo foi entregue pela CEMO (Drive). */
+  uploadDate: string;
+  /** Legenda WebVTT; null quando o vídeo já tem legenda aberta (queimada na imagem). */
+  captionsSrc: string | null;
+  /** Transcrição editada (parágrafos), exibida em <details> abaixo do vídeo. */
+  transcript: string[];
   todos: string[];
 }
 

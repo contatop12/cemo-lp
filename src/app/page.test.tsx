@@ -19,6 +19,7 @@ describe('Home', () => {
       'refrativa',
       'diretor-tecnico',
       'estrutura',
+      'video',
       'corpo-clinico',
       'avaliacoes',
       'convenios',

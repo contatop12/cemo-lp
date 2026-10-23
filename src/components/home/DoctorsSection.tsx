@@ -21,9 +21,9 @@ export function DoctorsSection({ doctors }: { doctors: Doctor[] }) {
             Conhecer o corpo clínico
           </Link>
         </div>
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4">
           {doctors.map((doctor) => (
-            <li key={doctor.slug}>
+            <li key={doctor.slug} className="relative">
               <DoctorCard doctor={doctor} />
             </li>
           ))}

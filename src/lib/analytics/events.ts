@@ -9,7 +9,9 @@ export type AnalyticsEventName =
   | 'schedule_click'
   | 'directions_click'
   | 'reviews_click'
-  | 'service_cta_click';
+  | 'service_cta_click'
+  | 'video_play'
+  | 'doctor_view';
 
 export interface TrackParams {
   location?: string;

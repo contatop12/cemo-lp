@@ -52,7 +52,7 @@ describe('assets', () => {
     const equipment = await content.listEquipment();
     expect(equipment.map((e) => e.photo.src)).toEqual(assets.equipment.map((a) => a.src));
     const david = await content.getDoctorBySlug('david-ribeiro-de-mendonca-filho');
-    expect(david?.photo?.src).toBe(assets.drDavid.src);
+    expect(david?.photo?.src).toBe('/images/medicos/david-ribeiro-de-mendonca-filho.webp');
     expect(david?.photoMobile?.src).toBe(assets.drDavidMobile.src);
   });
 });

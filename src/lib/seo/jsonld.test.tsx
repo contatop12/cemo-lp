@@ -39,12 +39,13 @@ describe('JSON-LD', () => {
     expect(hours[0]).toMatchObject({ opens: '08:00', closes: '18:00' });
   });
 
-  it('pessoa do Dr. David vinculada à clínica, sem RQE e sem url enquanto o perfil não existe', () => {
+  it('pessoa do Dr. David vinculada à clínica, sem RQE; url só quando o perfil está publicado', () => {
     const person = buildPersonNode(david, siteSettings);
     expect(person['@type']).toBe('Person');
     expect((person.worksFor as Record<string, unknown>)['@id']).toBe(schemaIds(SITE).organization);
     expect(person.jobTitle).toBe('Diretor Técnico');
-    expect(person.url).toBeUndefined();
+    expect(person.url).toBe(`${SITE}${david.canonicalPath}`);
+    expect(buildPersonNode({ ...david, published: false }, siteSettings).url).toBeUndefined();
   });
 
   it('o grafo nunca traz avaliação, preço, geo aproximado ou RQE', () => {

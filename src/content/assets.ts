@@ -15,9 +15,29 @@ const equipmentAlts = [
 
 const LOGO_ALT = 'CEMO – Centro de Microcirurgia Ocular';
 
+// Retratos do corpo clínico com o fundo removido (scripts/portraits/): mesma moldura e mesmo campo de cor
+// para todos, sem retoque. Dimensões = arquivo gerado por scripts/portraits/frame.mjs.
+const PORTRAIT_SIZES: Record<string, [number, number]> = {
+  'david-ribeiro-de-mendonca-filho': [553, 691],
+  'adriano-de-morais-ferreira': [453, 566],
+  'cintia-gomes-galvao': [341, 426],
+  'adriana-bizzarri': [480, 600],
+  'bruna-de-andrade-nascimento': [350, 438],
+  'priscilla-pires': [444, 555],
+  'roberta-andrade-e-nascimento': [406, 508],
+  'rodrigo-arantes': [640, 800],
+};
+
+export function portrait(slug: string, alt: string): ImageAsset | null {
+  const size = PORTRAIT_SIZES[slug];
+  return size ? { src: `/images/medicos/${slug}.webp`, width: size[0], height: size[1], alt } : null;
+}
+
 export const assets: {
   drDavid: ImageAsset;
   drDavidMobile: ImageAsset;
+  /** Corpo inteiro com fundo removido — hero da Home (LCP). */
+  drDavidCutout: ImageAsset;
   ogHome: ImageAsset;
   logoPng: ImageAsset;
   // Reconstruído do PNG original (scripts/logo/): mira e ponto geométricos, demais formas em traço suavizado.
@@ -34,6 +54,7 @@ export const assets: {
   logoHorizontalWhite: { src: '/brand/logo-cemo-horizontal-white.svg', width: 1111.25, height: 211.3, alt: LOGO_ALT },
   drDavid: { src: '/images/dr-david.jpg', width: 853, height: 1280, alt: DAVID_ALT },
   drDavidMobile: { src: '/images/dr-david-mobile.jpg', width: 728, height: 910, alt: DAVID_ALT },
+  drDavidCutout: { src: '/images/dr-david-recorte.webp', width: 853, height: 1280, alt: DAVID_ALT },
   ogHome: { src: '/images/og-home.png', width: 1200, height: 630, alt: 'CEMO – Centro de Microcirurgia Ocular' },
   logoPng: { src: '/brand/logo-cemo.png', width: 1000, height: 799, alt: 'CEMO – Centro de Microcirurgia Ocular' },
   equipment: equipmentAlts.map((alt, i) => ({

@@ -1,7 +1,10 @@
 import { createFixturesRepository } from './adapters/fixtures';
 import type {
   ArticleLink,
+  Condition,
+  ConditionLink,
   Doctor,
+  Exam,
   EditorialContent,
   EquipmentItem,
   InsurancePlan,
@@ -10,6 +13,7 @@ import type {
   Service,
   SiteSettings,
   SiteStats,
+  Specialty,
   Testimonial,
   VideoItem,
 } from './types';
@@ -19,13 +23,24 @@ import type {
 export interface ContentRepository {
   getSiteSettings(): Promise<SiteSettings>;
   getSiteStats(): Promise<SiteStats>;
+  /** Só perfis publicados, Dr. David (featured) primeiro. */
   listDoctors(): Promise<Doctor[]>;
+  /** Qualquer médico (publicado ou não) — a página decide o que fazer com `published`. */
   getDoctorBySlug(slug: string): Promise<Doctor | null>;
   listServices(): Promise<Service[]>;
   listLeadInterests(): Promise<LeadInterest[]>;
   listInsurancePlans(): Promise<InsurancePlan[]>;
   listTestimonials(): Promise<Testimonial[]>;
-  getVideo(id: 'tudo-em-um-lugar-so'): Promise<VideoItem>;
+  listVideos(ids?: string[]): Promise<VideoItem[]>;
+  getVideo(id: string): Promise<VideoItem>;
+  /** Publicadas, na ordem do menu. `includeUnpublished` só para checagens internas. */
+  listSpecialties(options?: { includeUnpublished?: boolean }): Promise<Specialty[]>;
+  getSpecialty(id: string): Promise<Specialty | null>;
+  listExams(): Promise<Exam[]>;
+  getExam(id: string): Promise<Exam | null>;
+  listConditions(): Promise<Condition[]>;
+  getCondition(id: string): Promise<Condition | null>;
+  listConditionLinks(): Promise<ConditionLink[]>;
   listEquipment(): Promise<EquipmentItem[]>;
   getEditorial(id: 'catarata' | 'refrativa'): Promise<EditorialContent>;
   listFeaturedArticles(limit: number): Promise<ArticleLink[]>;

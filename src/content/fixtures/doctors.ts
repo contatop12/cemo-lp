@@ -1,224 +1,241 @@
-// Transcrito do site atual (/corpo-clinico/, auditoria 2026-10-22). Credenciais sem validação médica.
-import { assets } from '../assets';
+// Corpo clínico. Nomes, CRM, áreas e formação transcritos do site atual (/corpo-clinico/, auditoria 2026-10-22);
+// bios só recombinam esses fatos (nada novo). RQE: nenhum publicado no site atual → null até a CEMO validar.
+import { assets, portrait } from '../assets';
 import type { Doctor } from '../types';
+
+const RQE_TODO = 'TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)';
+const BIO_TODO = 'TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo próprio médico';
+const PHOTO_TODO = 'TODO_CONTENT_VALIDATION: autorização de uso de imagem; foto atual é a do site (500×600), pedir retrato profissional';
+
+function alt(honorific: string, name: string, attire: string): string {
+  return `${honorific} ${name}, oftalmologista do CEMO, ${attire}`;
+}
 
 export const doctors: Doctor[] = [
   {
-    "slug": "david-ribeiro-de-mendonca-filho",
-    "name": "David Ribeiro de Mendonça Filho",
-    "honorific": "Dr.",
-    "crm": "CRM/SP 98339",
-    "rqe": null,
-    "role": "Diretor Técnico",
-    "areas": [
-      "Cirurgias Refrativas",
-      "Catarata",
-      "Ceratocone",
-      "Retina Clínica"
+    slug: 'david-ribeiro-de-mendonca-filho',
+    name: 'David Ribeiro de Mendonça Filho',
+    honorific: 'Dr.',
+    crm: 'CRM/SP 98339',
+    rqe: null,
+    role: 'Diretor Técnico',
+    areas: ['Cirurgias Refrativas', 'Catarata', 'Ceratocone', 'Retina Clínica'],
+    credentials: [
+      'Graduação em Medicina pela Universidade do Oeste Paulista',
+      'Título de especialista em Oftalmologia pelo Ministério da Educação (MEC)',
+      'Título de especialista em Medicina do Tráfego pela Universidade de São Paulo (USP) e Associação Médica Brasileira (AMB)',
+      'Especialista em cirurgia refrativa pela Universidade de São Paulo (USP)',
+      'Diretor técnico do CEMO',
+      'Membro do corpo clínico e cirurgião oftalmológico do Hospital Israelita Albert Einstein – SP',
     ],
-    "credentials": [
-      "Graduação em Medicina pela Universidade do Oeste Paulista",
-      "Título especialista em Oftalmologia pelo Ministério da Educação (MEC)",
-      "Título de Especialista em Medicina do Tráfego pela Universidade de São Paulo (USP) e Associação Médica Brasileira (AMB)",
-      "Especialista em cirurgia refrativa pela Universidade de São Paulo (USP)",
-      "Diretor técnico CEMO",
-      "Membro do corpo clínico e cirurgião oftalmológico do Hosp. Israelita Albert Einstein – SP"
+    photo: portrait('david-ribeiro-de-mendonca-filho', alt('Dr.', 'David Ribeiro de Mendonça Filho', 'de jaleco')),
+    photoMobile: assets.drDavidMobile,
+    bio: [
+      'Diretor técnico do CEMO, o Dr. David Ribeiro de Mendonça Filho atua em cirurgia refrativa, catarata, ceratocone e retina clínica.',
+      'É especialista em cirurgia refrativa pela Universidade de São Paulo e membro do corpo clínico do Hospital Israelita Albert Einstein, em São Paulo, onde também atua como cirurgião oftalmológico.',
     ],
-    "photo": assets.drDavid,
-    "photoMobile": assets.drDavidMobile,
-    "canonicalPath": "/corpo-clinico/david-ribeiro-de-mendonca-filho/",
-    "published": false,
-    "featured": true,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional",
-      "TODO_CONTENT_VALIDATION: grafia do CRM: 98339 (corpo clínico) × 98.339 (rodapé)",
-      "TODO_CONTENT_VALIDATION: obter original em alta (≥ 2400 px de altura) da foto do Dr. David; arquivo atual 853×1280 muito comprimido"
-    ]
+    specialtyIds: ['refrativa', 'catarata', 'cornea', 'retina'],
+    videoIds: ['tudo-em-um-lugar-so', 'especialidades', 'exames-que-realizamos', 'dr-david-oculos'],
+    canonicalPath: '/corpo-clinico/david-ribeiro-de-mendonca-filho/',
+    published: true,
+    featured: true,
+    todos: [
+      RQE_TODO,
+      BIO_TODO,
+      'TODO_CONTENT_VALIDATION: grafia do CRM: 98339 (corpo clínico) × 98.339 (rodapé)',
+      'TODO_CONTENT_VALIDATION: obter original em alta (≥ 2400 px de altura) da foto do Dr. David; arquivo atual 853×1280 muito comprimido',
+    ],
   },
   {
-    "slug": "priscilla-pires",
-    "name": "Priscilla Pires",
-    "honorific": "Dra.",
-    "crm": "CRM/SP 84340",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Catarata",
-      "Refrativa"
+    slug: 'priscilla-pires',
+    name: 'Priscilla Pires',
+    honorific: 'Dra.',
+    crm: 'CRM/SP 84340',
+    rqe: null,
+    role: null,
+    areas: ['Catarata', 'Refrativa'],
+    credentials: [
+      'Graduação em Medicina pela Faculdade Integrada Severino Sombra – Vassouras',
+      'Especialista em Oftalmologia pela Santa Casa de Santo Amaro – SP',
     ],
-    "credentials": [
-      "Graduação em Medicina pela Faculdade Integrada Severino Sombra – Vassouras",
-      "Especialista em Oftalmologia pela Santa Casa de Santo Amaro – SP"
-    ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/priscilla-pires/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
+    photo: portrait('priscilla-pires', alt('Dra.', 'Priscilla Pires', 'de jaleco')),
+    bio: ['A Dra. Priscilla Pires atende no CEMO nas áreas de catarata e cirurgia refrativa. É especialista em Oftalmologia pela Santa Casa de Santo Amaro, em São Paulo.'],
+    specialtyIds: ['catarata', 'refrativa'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/priscilla-pires/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
   },
   {
-    "slug": "cintia-gomes-galvao",
-    "name": "Cintia Gomes Galvão",
-    "honorific": "Dra.",
-    "crm": "CRM/SP 97952",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Plástica Ocular"
+    slug: 'cintia-gomes-galvao',
+    name: 'Cintia Gomes Galvão',
+    honorific: 'Dra.',
+    crm: 'CRM/SP 97952',
+    rqe: null,
+    role: null,
+    areas: ['Plástica Ocular'],
+    credentials: [
+      'Graduação em Medicina pela Universidade de Santo Amaro – Unisa',
+      'Residência médica – Unisa',
+      'Título de especialista em Oftalmologia',
+      'Especialização em Plástica Ocular – Santa Casa de São Paulo',
     ],
-    "credentials": [
-      "Universidade de Santo Amaro - Unisa",
-      "Residência Médica – Unisa",
-      "Título de Especialista em Oftalmologia",
-      "Especialização em Plástica Ocular – Santa Casa de São Paulo"
-    ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/cintia-gomes-galvao/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
+    photo: portrait('cintia-gomes-galvao', alt('Dra.', 'Cintia Gomes Galvão', 'de jaleco')),
+    bio: ['A Dra. Cintia Gomes Galvão atua em plástica ocular no CEMO. Fez residência médica na Unisa e especialização em plástica ocular na Santa Casa de São Paulo.'],
+    specialtyIds: ['plastica-ocular'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/cintia-gomes-galvao/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
   },
   {
-    "slug": "rodrigo-arantes",
-    "name": "Rodrigo Arantes",
-    "honorific": "Dr.",
-    "crm": "CRM/SP 141481",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Catarata"
+    slug: 'rodrigo-arantes',
+    name: 'Rodrigo Arantes',
+    honorific: 'Dr.',
+    crm: 'CRM/SP 141481',
+    rqe: null,
+    role: null,
+    areas: ['Catarata'],
+    credentials: [
+      'Graduação em Medicina pela Universidade Federal do Rio de Janeiro – UFRJ (2009)',
+      'Residência médica em Oftalmologia na Universidade Federal de São Paulo/Escola Paulista de Medicina (UNIFESP/EPM)',
+      'Mestrado profissionalizante em Medicina (Oftalmologia) na UNIFESP/EPM',
+      'Título de especialista em Oftalmologia concedido pelo Conselho Brasileiro de Oftalmologia',
+      'Aprovado nos exames do International Council of Ophthalmology (Optics and Refraction; Basic Sciences; Clinical Sciences)',
+      'Orientador cirúrgico do Instituto da Catarata (INCAT/UNIFESP/EPM)',
+      'Chefe de equipe do Pronto Socorro de Oftalmologia do Hospital São Paulo (UNIFESP/EPM)',
     ],
-    "credentials": [
-      "Graduação em Medicina pela Universidade Federal do Rio de Janeiro – UFRJ (2009)",
-      "Residência Médica em Oftalmologia na Universidade Federal de São Paulo/Escola Paulista de Medicina (UNIFESP/EPM)",
-      "Mestrado profissionalizante em Medicina (Oftalmologia) na Universidade Federal de São Paulo (UNIFESP/EPM)",
-      "Título de Especialista em Oftalmologia concedido pelo Conselho Brasileiro de Oftalmologia",
-      "Aprovado nos exames do International Council of Ophthalmology (Optics and Refraction; Basics Sciences; Clinical Sciences)",
-      "Orientador Cirúrgico do Instituto da Catarata (INCAT/UNIFESP/EPM)",
-      "Chefe de equipe do Pronto Socorro de Oftalmologia do Hospital São Paulo (UNIFESP/EPM)"
+    photo: portrait('rodrigo-arantes', alt('Dr.', 'Rodrigo Arantes', 'de jaleco')),
+    bio: [
+      'O Dr. Rodrigo Arantes atua em catarata no CEMO. Fez residência e mestrado em Oftalmologia na Universidade Federal de São Paulo (UNIFESP/EPM), onde é orientador cirúrgico do Instituto da Catarata.',
     ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/rodrigo-arantes/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
+    specialtyIds: ['catarata'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/rodrigo-arantes/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, 'TODO_CONTENT_VALIDATION: foto atual é um arquivo de WhatsApp (2024); pedir retrato profissional'],
   },
   {
-    "slug": "adriana-bizzarri",
-    "name": "Adriana Bizzarri",
-    "honorific": "Dra.",
-    "crm": "CRM/SP 91030",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Estrabismo",
-      "Oftalmopediatria"
+    slug: 'adriana-bizzarri',
+    name: 'Adriana Bizzarri',
+    honorific: 'Dra.',
+    crm: 'CRM/SP 91030',
+    rqe: null,
+    role: null,
+    areas: ['Estrabismo', 'Oftalmopediatria'],
+    credentials: [
+      'Graduação em Medicina pela Faculdade de Medicina da Fundação do ABC',
+      'Especialização em Estrabismo pelo CEMA – Hospital Especializado',
+      'Título de especialista em Oftalmologia pela Associação Médica Brasileira (AMB) e Conselho Brasileiro de Oftalmologia (CBO)',
+      'Título de especialista em Medicina do Tráfego pela AMB e Associação Brasileira de Medicina de Tráfego (ABRAMET)',
     ],
-    "credentials": [
-      "Graduação em Medicina pela Faculdade de Medicina da Fundação do ABC",
-      "Especialização em Estrabismo pelo CEMA – Hospital Especializado",
-      "Título de Especialista em Oftalmologia pela Associação Médica Brasileira (AMB) e Conselho Brasileiro de Oftalmologia (CBO)",
-      "Título de Especialista em Medicina do Tráfego pela Associação Médica Brasileira (AMB) e Associação Brasileira de Medicina de Tráfego (ABRAMET)"
-    ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/adriana-bizzarri/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
+    photo: portrait('adriana-bizzarri', alt('Dra.', 'Adriana Bizzarri', 'de jaleco')),
+    bio: ['A Dra. Adriana Bizzarri atende estrabismo e oftalmopediatria no CEMO. É especializada em estrabismo pelo CEMA – Hospital Especializado e tem título de especialista em Oftalmologia pela AMB e pelo Conselho Brasileiro de Oftalmologia.'],
+    specialtyIds: ['estrabismo', 'oftalmopediatria'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/adriana-bizzarri/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
   },
   {
-    "slug": "adriano-de-morais-ferreira",
-    "name": "Adriano de Morais Ferreira",
-    "honorific": "Dr.",
-    "crm": "CRM/SP 152423",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Retina"
+    slug: 'adriano-de-morais-ferreira',
+    name: 'Adriano de Morais Ferreira',
+    honorific: 'Dr.',
+    crm: 'CRM/SP 152423',
+    rqe: null,
+    role: null,
+    areas: ['Retina'],
+    credentials: [
+      'Residência médica pela Universidade Federal de São Paulo',
+      'Especialista em retina clínica e cirúrgica pela Universidade Federal de São Paulo',
+      'Médico assistente do Pronto Socorro de Oftalmologia do Hospital São Paulo',
     ],
-    "credentials": [
-      "Residência Médica pela Universidade Federal de São Paulo",
-      "Especialista em Retina Clínica e Cirúrgica pela Universidade Federal de São Paulo",
-      "Médico Assistente do Pronto Socorro de Oftalmologia do Hospital São Paulo"
+    photo: portrait('adriano-de-morais-ferreira', alt('Dr.', 'Adriano de Morais Ferreira', 'de terno')),
+    bio: ['O Dr. Adriano de Morais Ferreira atua em retina no CEMO. É especialista em retina clínica e cirúrgica pela Universidade Federal de São Paulo e médico assistente do Pronto Socorro de Oftalmologia do Hospital São Paulo.'],
+    specialtyIds: ['retina'],
+    videoIds: ['dr-adriano-catarata'],
+    canonicalPath: '/corpo-clinico/adriano-de-morais-ferreira/',
+    published: true,
+    featured: false,
+    todos: [
+      RQE_TODO,
+      BIO_TODO,
+      PHOTO_TODO,
+      'TODO_CONTENT_VALIDATION: confirmar que o "Dr. Adriano" do vídeo de catarata é o Dr. Adriano de Morais Ferreira e se ele também opera catarata',
     ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/adriano-de-morais-ferreira/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
   },
   {
-    "slug": "bruna-de-andrade-nascimento",
-    "name": "Bruna de Andrade Nascimento",
-    "honorific": "Dra.",
-    "crm": "CRM/SP 128889",
-    "rqe": null,
-    "role": null,
-    "areas": [
-      "Catarata",
-      "Refrativa"
+    slug: 'bruna-de-andrade-nascimento',
+    name: 'Bruna de Andrade Nascimento',
+    honorific: 'Dra.',
+    crm: 'CRM/SP 128889',
+    rqe: null,
+    role: null,
+    areas: ['Catarata', 'Refrativa'],
+    credentials: [
+      'Graduação em Medicina pela Universidade Federal de São Paulo – EPM',
+      'Residência médica em Oftalmologia pela Universidade Federal de São Paulo – EPM',
+      'Fellow em retina clínica e cirúrgica pela Universidade Federal de São Paulo – EPM',
+      'Título de especialista em Oftalmologia pelo Conselho Brasileiro de Oftalmologia',
+      'Médica assistente e orientadora dos residentes de Oftalmologia no Hospital de Transplantes Dr. Euclides de Jesus Zerbini, setores de retina e catarata',
     ],
-    "credentials": [
-      "Graduação em Medicina pela Universidade Federal de São Paulo – EPM",
-      "Residência médica em oftalmologia pela Universidade Federal de São Paulo – EPM.",
-      "Fellow em retina clínica e cirúrgica pela Universidade Federal de São Paulo – EPM.",
-      "Título especialista em Oftalmologia pelo Conselho Brasileiro de Oftalmologia.",
-      "Médica assistente e orientador dos residentes de oftalmologia no Hospital de transplantes Dr Euclides de Jesus Zerbini, setores de retina e catarata."
-    ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/bruna-de-andrade-nascimento/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
+    photo: portrait('bruna-de-andrade-nascimento', alt('Dra.', 'Bruna de Andrade Nascimento', 'de blazer')),
+    bio: ['A Dra. Bruna de Andrade Nascimento atende catarata e cirurgia refrativa no CEMO. Formada e com residência em Oftalmologia pela Universidade Federal de São Paulo, onde também fez fellow em retina clínica e cirúrgica.'],
+    specialtyIds: ['catarata', 'refrativa'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/bruna-de-andrade-nascimento/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
   },
   {
-    "slug": "roberta-andrade-e-nascimento",
-    "name": "Roberta Andrade e Nascimento",
-    "honorific": "Dra.",
-    "crm": "CRM/SP 144576",
-    "rqe": null,
-    "role": null,
-    "areas": ["Glaucoma clínico e cirúrgico", "Catarata"],
-    "credentials": [
-      "Graduação em Medicina pela Universidade Federal de São Paulo – EPM.",
-      "Residência médica em oftalmologia pela Universidade Federal de São Paulo – EPM.",
-      "Fellow em glaucoma clínico e cirúrgico pela Universidade Federal de São Paulo – EPM",
-      "Título especialista em Oftalmologia pelo Conselho Brasileiro."
+    slug: 'roberta-andrade-e-nascimento',
+    name: 'Roberta Andrade e Nascimento',
+    honorific: 'Dra.',
+    crm: 'CRM/SP 144576',
+    rqe: null,
+    role: null,
+    areas: ['Glaucoma clínico e cirúrgico', 'Catarata'],
+    credentials: [
+      'Graduação em Medicina pela Universidade Federal de São Paulo – EPM',
+      'Residência médica em Oftalmologia pela Universidade Federal de São Paulo – EPM',
+      'Fellow em glaucoma clínico e cirúrgico pela Universidade Federal de São Paulo – EPM',
+      'Título de especialista em Oftalmologia pelo Conselho Brasileiro de Oftalmologia',
     ],
-    "photo": null,
-    "canonicalPath": "/corpo-clinico/roberta-andrade-e-nascimento/",
-    "published": false,
-    "featured": false,
-    "todos": [
-      "TODO_CONTENT_VALIDATION: confirmar RQE (não aparece no site atual)",
-      "TODO_CONTENT_VALIDATION: bio humanizada e formação revisadas pelo médico",
-      "TODO_CONTENT_VALIDATION: autorização de uso de imagem e foto profissional"
-    ]
-  }
+    photo: portrait('roberta-andrade-e-nascimento', alt('Dra.', 'Roberta Andrade e Nascimento', 'de jaleco')),
+    bio: ['A Dra. Roberta Andrade e Nascimento atende glaucoma clínico e cirúrgico e catarata no CEMO. Fez residência em Oftalmologia e fellow em glaucoma na Universidade Federal de São Paulo.'],
+    specialtyIds: ['glaucoma', 'catarata'],
+    videoIds: [],
+    canonicalPath: '/corpo-clinico/roberta-andrade-e-nascimento/',
+    published: true,
+    featured: false,
+    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
+  },
+  {
+    // Aparece nos vídeos de plástica ocular entregues pela CEMO (2026), mas não no site atual: perfil só publica
+    // depois da validação de nome completo, CRM e formação.
+    slug: 'danielle-longo',
+    name: 'Danielle Longo',
+    honorific: 'Dra.',
+    crm: '',
+    rqe: null,
+    role: null,
+    areas: ['Plástica Ocular', 'Vias Lacrimais', 'Órbita'],
+    credentials: [],
+    photo: null,
+    bio: [],
+    specialtyIds: ['plastica-ocular'],
+    videoIds: ['dra-daniele-calazio', 'dra-daniele-excesso-de-pele', 'dra-daniele-palpebra-caida', 'dra-daniele-vias-lacrimais'],
+    canonicalPath: '/corpo-clinico/danielle-longo/',
+    published: false,
+    featured: false,
+    todos: [
+      'TODO_CONTENT_VALIDATION: Dra. Danielle Longo — confirmar nome completo, CRM, RQE, formação e foto para publicar o perfil',
+      RQE_TODO,
+    ],
+  },
 ];

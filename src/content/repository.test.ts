@@ -5,7 +5,7 @@ import { LEAD_INTEREST_IDS } from './types';
 const TODO_PREFIX = 'TODO_CONTENT_VALIDATION:';
 
 describe('content repository (fixtures)', () => {
-  it('lista os 8 médicos com Dr. David primeiro', async () => {
+  it('lista os 8 médicos publicados com Dr. David primeiro', async () => {
     const doctors = await content.listDoctors();
     expect(doctors).toHaveLength(8);
     const [first] = doctors;
@@ -17,7 +17,9 @@ describe('content repository (fixtures)', () => {
     for (const d of doctors) {
       expect(d.rqe).toBeNull();
       expect(d.canonicalPath).toBe(`/corpo-clinico/${d.slug}/`);
-      expect(d.published).toBe(false);
+      expect(d.published).toBe(true);
+      expect(d.photo?.src).toBe(`/images/medicos/${d.slug}.webp`);
+      expect(d.bio.length).toBeGreaterThan(0);
       expect(d.todos.length).toBeGreaterThan(0);
     }
   });
@@ -30,9 +32,9 @@ describe('content repository (fixtures)', () => {
   it('lista os 8 serviços da Home na ordem e com as URLs canônicas', async () => {
     const services = await content.listServices();
     expect(services.map((s) => s.href)).toEqual([
-      '/consulta-oftalmologica/',
       '/especialidades/catarata/',
       '/especialidades/refrativa/',
+      '/consulta-oftalmologica/',
       '/especialidades/retina/',
       '/especialidades/glaucoma/',
       '/especialidades/cornea/',
@@ -42,7 +44,7 @@ describe('content repository (fixtures)', () => {
     expect(services.map((s) => s.homeOrder)).toEqual([...services.map((s) => s.homeOrder)].sort((a, b) => a - b));
   });
 
-  it('lista as 12 opções de interesse do formulário', async () => {
+  it('lista as 13 opções de interesse do formulário', async () => {
     const interests = await content.listLeadInterests();
     expect(interests.map((i) => i.id)).toEqual([...LEAD_INTEREST_IDS]);
     expect(interests.find((i) => i.id === 'cornea')?.label).toBe('Córnea / Ceratocone');
@@ -94,10 +96,18 @@ describe('content repository (fixtures)', () => {
     ]);
   });
 
-  it('vídeo institucional ainda sem asset', async () => {
-    const video = await content.getVideo('tudo-em-um-lugar-so');
-    expect(video.title).toBe('Tudo em um lugar só');
-    expect(video.youtubeId).toBeNull();
+  it('vídeos: versão web local, pôster, duração e transcrição; legenda WebVTT ou legenda aberta', async () => {
+    const videos = await content.listVideos();
+    expect(videos.length).toBe(9);
+    for (const v of videos) {
+      expect(v.src).toMatch(/^\/videos\/[a-z0-9-]+\.mp4$/);
+      expect(v.poster.src).toMatch(/-poster\.jpg$/);
+      expect(v.durationSeconds).toBeGreaterThan(0);
+      expect(v.transcript.length).toBeGreaterThan(0);
+      expect(v.uploadDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      if (v.captionsSrc) expect(v.captionsSrc).toBe(v.src.replace('.mp4', '.vtt'));
+    }
+    await expect(content.getVideo('nao-existe')).rejects.toThrow();
   });
 
   it('editoriais de Catarata e Refrativa existem e pedem revisão médica', async () => {
@@ -120,7 +130,7 @@ describe('content repository (fixtures)', () => {
       ...(await content.getSiteStats()).todos,
       ...(await content.listDoctors()).flatMap((d) => d.todos),
       ...(await content.listInsurancePlans()).flatMap((p) => p.todos),
-      ...(await content.getVideo('tudo-em-um-lugar-so')).todos,
+      ...(await content.listVideos()).flatMap((v) => v.todos),
       ...(await content.getEditorial('catarata')).todos,
       ...(await content.getEditorial('refrativa')).todos,
       ...(await content.listEquipment()).flatMap((e) => e.todos),
