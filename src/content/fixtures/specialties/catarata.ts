@@ -201,12 +201,7 @@ export const catarata: Specialty = {
     },
   ],
   related: {
-    doctors: [
-      'david-ribeiro-de-mendonca-filho',
-      'rodrigo-arantes',
-      'priscilla-pires',
-      'bruna-de-andrade-nascimento',
-    ],
+    doctors: ['david-ribeiro-de-mendonca-filho', 'roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['consulta', 'retina'],
     exams: ['biometria', 'microscopia-especular', 'mapeamento-de-retina', 'tonometria'],
     conditions: [],

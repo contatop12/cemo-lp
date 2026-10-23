@@ -1,4 +1,5 @@
-// Exames — ordem do mega menu (docs/information-architecture.md §4.1); OCT entrou pelo vídeo "Exames que realizamos".
+// Exames — ordem do mega menu (docs/information-architecture.md §4.1); OCT entrou pelo vídeo "Exames que realizamos";
+// ultrassom ocular, pelos ajustes da CEMO de 23/10/2026.
 import type { Exam } from '../../types';
 import { biometria } from './biometria';
 import { campoVisual } from './campo-visual';
@@ -12,6 +13,7 @@ import { paquimetria } from './paquimetria';
 import { retinografia } from './retinografia';
 import { tomografiaDeCoerenciaOptica } from './tomografia-de-coerencia-optica';
 import { tonometria } from './tonometria';
+import { ultrassomOcular } from './ultrassom-ocular';
 
 export const exams: Exam[] = [
   mapeamentoDeRetina,
@@ -26,4 +28,5 @@ export const exams: Exam[] = [
   gonioscopia,
   biometria,
   estereofotoDePapila,
+  ultrassomOcular,
 ];

@@ -1,19 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { initials } from '@/components/home/DoctorSpotlight';
 import type { Doctor } from '@/content/types';
+import { AvatarPlaceholder } from './AvatarPlaceholder';
 import { PortraitFrame } from './PortraitFrame';
 
 /** O que o cartão mostra — também é o que vai para o navegador quando ele é usado em componente cliente. */
-export type DoctorCardData = Pick<Doctor, 'slug' | 'name' | 'honorific' | 'role' | 'areas' | 'crm' | 'photo' | 'canonicalPath' | 'published' | 'specialtyIds'>;
+export type DoctorCardData = Pick<Doctor, 'slug' | 'name' | 'honorific' | 'role' | 'areas' | 'crm' | 'rqe' | 'photo' | 'canonicalPath' | 'published' | 'specialtyIds'>;
 
 export function toDoctorCardData(d: Doctor): DoctorCardData {
-  const { slug, name, honorific, role, areas, crm, photo, canonicalPath, published, specialtyIds } = d;
-  return { slug, name, honorific, role, areas, crm, photo, canonicalPath, published, specialtyIds };
+  const { slug, name, honorific, role, areas, crm, rqe, photo, canonicalPath, published, specialtyIds } = d;
+  return { slug, name, honorific, role, areas, crm, rqe, photo, canonicalPath, published, specialtyIds };
 }
 
 // Cartão do corpo clínico: retrato na moldura comum, nome como único link (perfil publicado), áreas e CRM.
-// Sem RQE enquanto não validado.
+// RQE só quando informado pela CEMO (nunca inventado).
 export function DoctorCard({ doctor, headingLevel = 3 }: { doctor: DoctorCardData; headingLevel?: 2 | 3 }) {
   const name = `${doctor.honorific} ${doctor.name}`;
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
@@ -30,9 +30,7 @@ export function DoctorCard({ doctor, headingLevel = 3 }: { doctor: DoctorCardDat
             className="h-full w-full object-cover object-top transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] group-hover:scale-[1.02]"
           />
         ) : (
-          <div aria-hidden="true" className="flex h-full items-center justify-center font-display text-h1 text-azul-cemo">
-            {initials(doctor.name)}
-          </div>
+          <AvatarPlaceholder className="h-full w-full" />
         )}
       </PortraitFrame>
       <Heading className="mt-4 text-h4">
@@ -49,7 +47,10 @@ export function DoctorCard({ doctor, headingLevel = 3 }: { doctor: DoctorCardDat
       </Heading>
       {doctor.role ? <p className="mt-1 font-bold text-azul-700">{doctor.role}</p> : null}
       {doctor.areas.length > 0 ? <p className="mt-1 text-tinta-suave">{doctor.areas.join(', ')}</p> : null}
-      <p className="mt-auto pt-2 text-small text-tinta-suave">{doctor.crm}</p>
+      <p className="mt-auto pt-2 text-small text-tinta-suave">
+        {doctor.crm}
+        {doctor.rqe ? `, RQE ${doctor.rqe}` : ''}
+      </p>
     </article>
   );
 }

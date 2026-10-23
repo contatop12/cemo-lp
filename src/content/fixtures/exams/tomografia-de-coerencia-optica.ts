@@ -83,7 +83,7 @@ export const tomografiaDeCoerenciaOptica: Exam = {
     },
   ],
   related: {
-    doctors: ['adriano-de-morais-ferreira', 'david-ribeiro-de-mendonca-filho', 'roberta-andrade-e-nascimento'],
+    doctors: ['adriano-de-morais-ferreira', 'roberta-andrade-e-nascimento', 'jose-pereira-do-rego-neto'],
     specialties: ['retina', 'glaucoma'],
     exams: ['retinografia', 'mapeamento-de-retina', 'campo-visual', 'estereofoto-de-papila'],
     conditions: ['degeneracao-macular'],

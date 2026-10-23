@@ -1,11 +1,13 @@
 'use client';
 
 import { useId, useState } from 'react';
+import { InsuranceCard } from '@/components/ui/InsuranceGrid';
+import type { ImageAsset } from '@/content/types';
 
 const normalize = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
 // Busca por nome do convênio (briefing §90). Sem JS a lista inteira continua visível.
-export function InsuranceSearch({ plans }: { plans: Array<{ id: string; name: string }> }) {
+export function InsuranceSearch({ plans }: { plans: Array<{ id: string; name: string; logo: ImageAsset | null }> }) {
   const [query, setQuery] = useState('');
   const id = useId();
   const visible = query ? plans.filter((p) => normalize(p.name).includes(normalize(query))) : plans;
@@ -29,9 +31,7 @@ export function InsuranceSearch({ plans }: { plans: Array<{ id: string; name: st
       </p>
       <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {visible.map((plan) => (
-          <li key={plan.id} className="flex min-h-16 items-center rounded-xl border border-borda bg-papel px-4 py-3 font-medium">
-            {plan.name}
-          </li>
+          <InsuranceCard key={plan.id} plan={plan} />
         ))}
       </ul>
     </div>

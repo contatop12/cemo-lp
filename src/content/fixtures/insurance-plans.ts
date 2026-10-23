@@ -1,42 +1,36 @@
-// Identificados pelo nome dos arquivos dos 17 logos de /convenios/ (sem texto nem alt no site atual).
-import type { InsurancePlan } from '../types';
+// Lista atualizada pela CEMO (PDF "Ajustes Novo site", 23/10/2026), na ordem do PDF.
+// Logos: arquivos do site atual (/wp-content/uploads/2020/08/logo-*.jpg) recortados por scripts/convenios-logos.mjs.
+import type { ImageAsset, InsurancePlan } from '../types';
 
-const LIST_TODO = 'TODO_CONTENT_VALIDATION: lista de convênios vem de logos de 2020–2022; confirmar os atuais e o 17º logo não identificado';
-
-const names = [
-  'Allianz',
-  'Amil',
-  'Bradesco Saúde',
-  'CAASP',
-  'Cassi',
-  'CNEN',
-  'Economus',
-  'Mediservice',
-  'Notre Dame Intermédica',
-  'Porto Seguro',
-  'Postal Saúde',
-  'Saúde Caixa',
-  'Saúde Itaú',
-  'Unimed Seguros',
-  'Vivest',
-  'Dr. Consulta',
-];
-
-function toId(name: string): string {
-  return name
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+function logo(id: string, name: string, width: number, height: number): ImageAsset {
+  return { src: `/images/convenios/${id}.webp`, width, height, alt: `Logo ${name}` };
 }
 
-export const insurancePlans: InsurancePlan[] = names.map((name) => ({
-  id: toId(name),
+const plans: Array<{ id: string; name: string; size: [number, number] | null }> = [
+  { id: 'amil', name: 'Amil', size: [177, 69] },
+  { id: 'allianz', name: 'Allianz', size: [179, 53] },
+  { id: 'bradesco-saude', name: 'Bradesco Saúde', size: [181, 71] },
+  { id: 'blue', name: 'Blue', size: null },
+  { id: 'saude-caixa', name: 'Saúde Caixa', size: [203, 83] },
+  { id: 'cassi', name: 'Cassi', size: [190, 99] },
+  { id: 'central-nacional-unimed', name: 'Central Nacional Unimed', size: [193, 70] },
+  { id: 'economus', name: 'Economus', size: [182, 36] },
+  { id: 'gama-saude', name: 'Gama Saúde', size: [198, 77] },
+  { id: 'mediservice', name: 'Mediservice', size: [171, 93] },
+  { id: 'notredame-intermedica', name: 'NotreDame Intermédica', size: [189, 73] },
+  { id: 'porto-seguro', name: 'Porto Seguro', size: [177, 63] },
+  { id: 'saude-itau', name: 'Saúde Itaú', size: [156, 78] },
+  { id: 'postal-saude', name: 'Postal Saúde', size: [202, 36] },
+  { id: 'unimed-seguros', name: 'Unimed Seguros', size: [202, 202] },
+  { id: 'vivest', name: 'Vivest', size: [182, 46] },
+];
+
+export const insurancePlans: InsurancePlan[] = plans.map(({ id, name, size }) => ({
+  id,
   name,
-  logo: null,
+  logo: size ? logo(id, name, size[0], size[1]) : null,
   todos:
-    name === 'Dr. Consulta'
-      ? [LIST_TODO, 'TODO_CONTENT_VALIDATION: Dr. Consulta é convênio ou cartão de desconto?']
-      : [LIST_TODO],
+    id === 'blue'
+      ? ['TODO_CONTENT_VALIDATION: "Blue" — confirmar o nome completo da operadora e enviar o logo (não existe no site atual)']
+      : [],
 }));

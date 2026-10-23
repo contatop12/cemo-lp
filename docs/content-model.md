@@ -27,7 +27,7 @@ páginas / componentes  ──►  content (ContentRepository)  ──►  adapt
 |---|---|---|---|
 | `SiteSettings` | `site-settings.ts` | NAP, horários, redes, GBP, responsável técnico | `SiteSettings` |
 | `SiteStats` | `stats.ts` | Nota Google, anos, atendimentos (prova social) | `SiteSettings` (bloco "prova") |
-| `Doctor` | `doctors.ts` | 8 médicos (CRM, áreas, formação transcrita) | `Doctors` |
+| `Doctor` | `doctors.ts` | 7 médicos publicados + Dra. Danielle (rascunho); CRM, RQE quando informado, áreas, formação | `Doctors` |
 | `Service` | `services.ts` | 8 cards da Home → URLs canônicas | `Specialties` / `Treatments` / `Exams` (hubs) |
 | `LeadInterest` | `lead-interests.ts` | Opções do campo "O que você está buscando?" | derivado de serviços confirmados |
 | `InsurancePlan` | `insurance-plans.ts` | 16 convênios identificados | `InsurancePlans` |

@@ -20,12 +20,9 @@ const LOGO_ALT = 'CEMO – Centro de Microcirurgia Ocular';
 const PORTRAIT_SIZES: Record<string, [number, number]> = {
   'david-ribeiro-de-mendonca-filho': [553, 691],
   'adriano-de-morais-ferreira': [453, 566],
-  'cintia-gomes-galvao': [341, 426],
   'adriana-bizzarri': [480, 600],
-  'bruna-de-andrade-nascimento': [350, 438],
   'priscilla-pires': [444, 555],
   'roberta-andrade-e-nascimento': [406, 508],
-  'rodrigo-arantes': [640, 800],
 };
 
 export function portrait(slug: string, alt: string): ImageAsset | null {

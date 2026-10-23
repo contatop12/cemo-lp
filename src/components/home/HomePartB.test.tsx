@@ -10,6 +10,7 @@ import { videos } from '@/content/fixtures/videos';
 import type { Testimonial } from '@/content/types';
 import { directionsHref, formatAddress, mapsEmbedSrc } from '@/lib/contact';
 import { LazyMap } from '@/components/media/LazyMap';
+import { InsuranceSearch } from '@/components/page/InsuranceSearch';
 import { ContentSection } from './ContentSection';
 import { DoctorsSection } from './DoctorsSection';
 import { FinalCta } from './FinalCta';
@@ -100,11 +101,24 @@ describe('DoctorsSection', () => {
   it('médicos publicados com CRM e link de perfil; sem RQE', () => {
     render(<DoctorsSection doctors={published} />);
     for (const d of published) {
-      expect(screen.getByText(d.crm)).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(d.crm.replace('/', '\/')))).toBeInTheDocument();
       expect(screen.getByRole('link', { name: `${d.honorific} ${d.name}` })).toHaveAttribute('href', d.canonicalPath);
     }
-    expect(document.body.textContent).not.toContain('RQE');
+    // RQE só para quem a CEMO informou (nunca inventado).
+    for (const d of published) {
+      if (d.rqe) expect(screen.getByText(new RegExp(`RQE ${d.rqe}`))).toBeInTheDocument();
+    }
+    expect(document.body.textContent?.match(/RQE/g)?.length ?? 0).toBe(published.filter((d) => d.rqe).length);
     expect(screen.getByRole('link', { name: 'Conhecer o corpo clínico' })).toHaveAttribute('href', '/corpo-clinico/');
+  });
+
+  it('sem foto: silhueta cinza no lugar do retrato (sem monograma)', () => {
+    const [d] = published;
+    const { container } = render(<DoctorsSection doctors={[{ ...d!, photo: null }]} />);
+    const avatar = container.querySelector('[data-avatar-placeholder]');
+    expect(avatar).not.toBeNull();
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+    expect(container.textContent).not.toMatch(/[A-Z]{2}/);
   });
 
   it('áreas sem separador "·" e retrato com alt', () => {
@@ -116,11 +130,34 @@ describe('DoctorsSection', () => {
 
 describe('InsuranceSection', () => {
   it('16 nomes em texto e aviso de cobertura', () => {
-    const { container } = render(<InsuranceSection plans={insurancePlans} settings={siteSettings} />);
+    render(<InsuranceSection plans={insurancePlans} settings={siteSettings} />);
     for (const p of insurancePlans) expect(screen.getByText(p.name)).toBeInTheDocument();
-    expect(container.querySelector('img[alt=""]')).toBeNull();
     expect(screen.getByText(/Consulte a cobertura do seu plano/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Ver convênios' })).toHaveAttribute('href', '/convenios/');
+  });
+
+  it('logo de cada convênio que tem logo; o nome continua em texto (logo decorativa)', () => {
+    const { container } = render(<InsuranceSection plans={insurancePlans} settings={siteSettings} />);
+    const withLogo = insurancePlans.filter((p) => p.logo);
+    const imgs = [...container.querySelectorAll('img')];
+    expect(imgs).toHaveLength(withLogo.length);
+    for (const p of withLogo) {
+      const img = imgs.find((i) => decodeURIComponent(i.getAttribute('src') ?? '').includes(`/images/convenios/${p.id}.webp`));
+      expect(img, p.name).toBeDefined();
+      expect(img).toHaveAttribute('alt', '');
+    }
+  });
+});
+
+describe('InsuranceSearch', () => {
+  it('mostra as logos e filtra pelo nome, sem acento', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<InsuranceSearch plans={insurancePlans.map(({ id, name, logo }) => ({ id, name, logo }))} />);
+    expect(container.querySelectorAll('img')).toHaveLength(insurancePlans.filter((p) => p.logo).length);
+    await user.type(screen.getByRole('searchbox', { name: 'Procure o seu convênio' }), 'itau');
+    expect(screen.getByText('Saúde Itaú')).toBeInTheDocument();
+    expect(screen.queryByText('Amil')).toBeNull();
+    expect(container.querySelectorAll('img')).toHaveLength(1);
   });
 });
 

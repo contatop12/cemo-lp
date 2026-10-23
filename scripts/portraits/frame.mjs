@@ -15,12 +15,9 @@ mkdirSync(OUT, { recursive: true });
 const FRAMES = [
   ['dr-david', 'david-ribeiro-de-mendonca-filho', 136, 43, 553],
   ['dr.adriano-de-morais', 'adriano-de-morais-ferreira', 47, 0, 453],
-  ['dra-cintia-gomes-novo', 'cintia-gomes-galvao', 54, 0, 341],
   ['dra.adriana-bizzarri', 'adriana-bizzarri', 8, 0, 480],
-  ['dra.bruna-andrade', 'bruna-de-andrade-nascimento', 73, 0, 350],
   ['dra.priscilla-pires', 'priscilla-pires', 30, 0, 444],
   ['dra.roberta-andrade', 'roberta-andrade-e-nascimento', 40, 0, 406],
-  ['rodrigo-arantes-2024', 'rodrigo-arantes', 433, 336, 647],
 ];
 const MAX_W = 640;
 

@@ -75,7 +75,7 @@ export const campoVisual: Exam = {
     },
   ],
   related: {
-    doctors: ['roberta-andrade-e-nascimento'],
+    doctors: ['roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['glaucoma', 'retina'],
     exams: ['curva-tensional-diaria', 'tonometria', 'tomografia-de-coerencia-optica'],
     conditions: ['degeneracao-macular'],

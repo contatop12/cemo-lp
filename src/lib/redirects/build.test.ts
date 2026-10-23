@@ -52,7 +52,8 @@ describe('buildRedirectTables (CSV real)', () => {
   });
 
   it('todas as linhas REDIRECT/CONSOLIDATE viram regra, menos as que só mudam o host', () => {
-    expect(t.stats.redirect + t.stats.consolidate).toBe(139 + 38 - t.stats.hostOnlyDropped);
+    // 39 CONSOLIDATE: o post de ultrassonografia virou /exames/ultrassom-ocular/ (ajustes 23/10)
+    expect(t.stats.redirect + t.stats.consolidate).toBe(139 + 39 - t.stats.hostOnlyDropped);
     expect(entries).toHaveLength(t.stats.redirect + t.stats.consolidate);
   });
 

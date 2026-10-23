@@ -57,7 +57,7 @@ export const plasticaOcular: Specialty = {
       id: 'equipe',
       title: 'Quem atende na CEMO',
       paragraphs: [
-        'A plástica ocular da CEMO conta com a Dra. Cintia Gomes Galvão. Os vídeos da clínica sobre calázio, excesso de pele, entrópio e ectrópio e vias lacrimais são apresentados pela Dra. Danielle Longo, que atua em plástica ocular, vias lacrimais e órbita.',
+        'Os vídeos da clínica sobre calázio, excesso de pele, entrópio e ectrópio e vias lacrimais são apresentados pela Dra. Danielle Longo, que atua em plástica ocular, vias lacrimais e órbita.',
       ],
     },
   ],
@@ -147,7 +147,7 @@ export const plasticaOcular: Specialty = {
     },
   ],
   related: {
-    doctors: ['cintia-gomes-galvao'],
+    doctors: [],
     specialties: ['consulta', 'oftalmopediatria'],
     exams: [],
     conditions: ['olho-seco'],
@@ -172,7 +172,7 @@ export const plasticaOcular: Specialty = {
     'TODO_CONTENT_VALIDATION: revisão médica do texto',
     'TODO_CONTENT_VALIDATION: incluir fontes e referências',
     'TODO_CONTENT_VALIDATION: Dra. Danielle Longo aparece nos vídeos mas não tem perfil publicado; incluí-la em related.doctors quando o perfil for validado',
-    'TODO_CONTENT_VALIDATION: confirmar com a Dra. Cintia e a Dra. Danielle quais condições e procedimentos de plástica ocular a CEMO realiza (ptose, órbita e tumores palpebrais além dos citados nos vídeos)',
+    'TODO_CONTENT_VALIDATION: confirmar com a Dra. Danielle quais condições e procedimentos de plástica ocular a CEMO realiza (ptose, órbita e tumores palpebrais além dos citados nos vídeos)',
     'TODO_CONTENT_VALIDATION: confirmar tipo de anestesia, local de realização das cirurgias e tempo de recuperação para citar na página',
     'TODO_CONTENT_VALIDATION: conferir os vídeos de plástica ocular com a transcrição revisada e ajustar as descrições de calázio, pálpebra caída e vias lacrimais ao que a Dra. Danielle disse',
     'TODO_CONTENT_VALIDATION: o site atual cita “preços acessíveis e parcelas”; a frase foi removida por conflito com a Resolução CFM nº 2.336/2023',

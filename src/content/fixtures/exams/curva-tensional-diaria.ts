@@ -83,7 +83,7 @@ export const curvaTensionalDiaria: Exam = {
     },
   ],
   related: {
-    doctors: ['roberta-andrade-e-nascimento'],
+    doctors: ['roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['glaucoma'],
     exams: ['tonometria', 'campo-visual', 'gonioscopia'],
     conditions: [],

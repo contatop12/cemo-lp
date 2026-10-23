@@ -91,7 +91,7 @@ export const retina: Specialty = {
       title: 'Como é o atendimento de retina na CEMO?',
       paragraphs: [
         'A CEMO reúne as especialidades da oftalmologia em um só lugar. O paciente passa na avaliação já com o especialista da área e faz os exames no mesmo dia, sem precisar voltar em outras datas.',
-        'Na retina, o atendimento envolve o Dr. Adriano de Morais Ferreira, especialista em retina clínica e cirúrgica, o Dr. David Ribeiro de Mendonça Filho, na retina clínica, e a Dra. Bruna de Andrade Nascimento, que fez fellow em retina clínica e cirúrgica.',
+        'Na retina, o atendimento envolve o Dr. Adriano de Morais Ferreira e o Dr. José Pereira do Rego Neto, especialistas em retina clínica e cirúrgica.',
       ],
     },
   ],
@@ -128,7 +128,7 @@ export const retina: Specialty = {
     },
   ],
   related: {
-    doctors: ['adriano-de-morais-ferreira', 'david-ribeiro-de-mendonca-filho', 'bruna-de-andrade-nascimento'],
+    doctors: ['adriano-de-morais-ferreira', 'jose-pereira-do-rego-neto'],
     specialties: ['consulta', 'glaucoma'],
     exams: ['mapeamento-de-retina', 'retinografia', 'tomografia-de-coerencia-optica'],
     conditions: ['degeneracao-macular', 'descolamento-de-retina'],
@@ -154,7 +154,6 @@ export const retina: Specialty = {
     'TODO_CONTENT_VALIDATION: incluir fontes e referências',
     'TODO_CONTENT_VALIDATION: confirmar quais tipos de laser e cirurgia de retina a CEMO realiza e quais doenças trata (o vídeo cita apenas injeções, laser e cirurgias de retina)',
     'TODO_CONTENT_VALIDATION: confirmar se mapeamento de retina, retinografia e OCT são feitos na clínica e se há tomografia disponível para retina',
-    'TODO_CONTENT_VALIDATION: confirmar a descrição da atuação da Dra. Bruna na retina (perfil publicado cita catarata e refrativa; fellow em retina)',
     'TODO_CONTENT_VALIDATION: validar a terminologia “retinoplastia” com a equipe médica antes de qualquer uso como serviço; o post retinoplastia-oque-e está linkado apenas como leitura de apoio',
     'TODO_CONTENT_VALIDATION: o site antigo informava recuperação de 45 a 60 dias após cirurgia de retina, sem fonte; confirmar antes de usar',
   ],

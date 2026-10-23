@@ -13,7 +13,8 @@ Público: quem coordena a virada do domínio (agência + CEMO). Ordem de execuç
 - [ ] ⚙ **Link do perfil do Google** (avaliações) em `site-settings.ts`.
 - [ ] ⚙ **Falas dos vídeos** revisadas pelo compliance (trechos com "eficaz", "rejuvenescida", "ímpares na região";
       dois trechos [inaudível] no vídeo do Dr. Adriano) → limpar `todos` de `videos.ts`.
-- [ ] RQE dos médicos (nenhum publicado no site atual) e bios revisadas por cada um.
+- [ ] RQE dos médicos (informado só para o Dr. José e o Dr. Igor, 23/10/2026) e bios revisadas por cada um.
+- [ ] Fotos profissionais do Dr. José e do Dr. Igor (hoje aparece a silhueta cinza) e logo do convênio "Blue".
 - [ ] Dra. Danielle Longo: nome completo, CRM, formação e foto → publicar o perfil.
 - [ ] Procedimentos a confirmar: crosslinking, anel intraestromal, transplante de córnea (páginas prontas,
       `published: false`), técnicas de refrativa, tipos de lente intraocular, ptose/órbita, adaptação de lentes.

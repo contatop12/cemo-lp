@@ -133,7 +133,7 @@ export const descolamentoDeRetina: Condition = {
     },
   ],
   related: {
-    doctors: ['adriano-de-morais-ferreira'],
+    doctors: ['adriano-de-morais-ferreira', 'jose-pereira-do-rego-neto'],
     specialties: ['retina'],
     exams: ['mapeamento-de-retina'],
     conditions: ['miopia', 'degeneracao-macular'],

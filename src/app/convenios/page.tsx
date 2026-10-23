@@ -43,7 +43,7 @@ export default async function ConveniosPage() {
         </TrackedLink>
       </PageHero>
       <section aria-label="Lista de convênios" className="mx-auto max-w-wide px-[var(--gutter)] py-[var(--space-section)]">
-        <InsuranceSearch plans={plans.map(({ id, name }) => ({ id, name }))} />
+        <InsuranceSearch plans={plans.map(({ id, name, logo }) => ({ id, name, logo }))} />
         <p className="mt-10 max-w-[66ch] text-small text-tinta-suave">
           A lista pode mudar. Planos com rede ou categoria específica, exames e cirurgias podem exigir autorização prévia da operadora —
           a equipe do CEMO ajuda a conferir.

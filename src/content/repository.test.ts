@@ -5,23 +5,36 @@ import { LEAD_INTEREST_IDS } from './types';
 const TODO_PREFIX = 'TODO_CONTENT_VALIDATION:';
 
 describe('content repository (fixtures)', () => {
-  it('lista os 8 médicos publicados com Dr. David primeiro', async () => {
+  it('corpo clínico atualizado (ajustes 23/10): 7 publicados, Dr. David primeiro, RQE só quando informado', async () => {
     const doctors = await content.listDoctors();
-    expect(doctors).toHaveLength(8);
+    expect(doctors.map((d) => d.slug)).toEqual([
+      'david-ribeiro-de-mendonca-filho',
+      'priscilla-pires',
+      'adriana-bizzarri',
+      'adriano-de-morais-ferreira',
+      'roberta-andrade-e-nascimento',
+      'jose-pereira-do-rego-neto',
+      'igor-seidi-sekiguchi',
+    ]);
     const [first] = doctors;
-    expect(first?.slug).toBe('david-ribeiro-de-mendonca-filho');
     expect(first?.role).toBe('Diretor Técnico');
     expect(first?.crm).toBe('CRM/SP 98339');
-    expect(first?.featured).toBe(true);
-    expect(new Set(doctors.map((d) => d.crm)).size).toBe(8);
+    expect(first?.areas).not.toContain('Retina Clínica');
+    expect(new Set(doctors.map((d) => d.crm)).size).toBe(7);
+    const rqe = Object.fromEntries(doctors.map((d) => [d.slug, d.rqe]));
+    expect(rqe).toMatchObject({ 'jose-pereira-do-rego-neto': '135836', 'igor-seidi-sekiguchi': '106176', 'david-ribeiro-de-mendonca-filho': null });
     for (const d of doctors) {
-      expect(d.rqe).toBeNull();
       expect(d.canonicalPath).toBe(`/corpo-clinico/${d.slug}/`);
-      expect(d.published).toBe(true);
-      expect(d.photo?.src).toBe(`/images/medicos/${d.slug}.webp`);
+      if (d.photo) expect(d.photo.src).toBe(`/images/medicos/${d.slug}.webp`);
       expect(d.bio.length).toBeGreaterThan(0);
-      expect(d.todos.length).toBeGreaterThan(0);
     }
+    for (const gone of ['bruna-de-andrade-nascimento', 'rodrigo-arantes', 'cintia-gomes-galvao']) expect(await content.getDoctorBySlug(gone)).toBeNull();
+  });
+
+  it('Dra. Priscilla é oftalmologista geral (não opera)', async () => {
+    const p = await content.getDoctorBySlug('priscilla-pires');
+    expect(p?.areas).toEqual(['Oftalmologia Geral']);
+    expect(p?.specialtyIds).toEqual(['consulta']);
   });
 
   it('encontra médico por slug e devolve null para slug desconhecido', async () => {
@@ -50,25 +63,26 @@ describe('content repository (fixtures)', () => {
     expect(interests.find((i) => i.id === 'cornea')?.label).toBe('Córnea / Ceratocone');
   });
 
-  it('lista os 16 convênios identificados', async () => {
+  it('lista de convênios atualizada (ajustes 23/10), com logo quando existe', async () => {
     const plans = await content.listInsurancePlans();
+    for (const p of plans.filter((x) => x.name !== 'Blue')) expect(p.logo?.src, p.name).toMatch(/^\/images\/convenios\/.+\.(png|webp|jpg)$/);
     expect(plans.map((p) => p.name)).toEqual([
-      'Allianz',
       'Amil',
+      'Allianz',
       'Bradesco Saúde',
-      'CAASP',
-      'Cassi',
-      'CNEN',
-      'Economus',
-      'Mediservice',
-      'Notre Dame Intermédica',
-      'Porto Seguro',
-      'Postal Saúde',
+      'Blue',
       'Saúde Caixa',
+      'Cassi',
+      'Central Nacional Unimed',
+      'Economus',
+      'Gama Saúde',
+      'Mediservice',
+      'NotreDame Intermédica',
+      'Porto Seguro',
       'Saúde Itaú',
+      'Postal Saúde',
       'Unimed Seguros',
       'Vivest',
-      'Dr. Consulta',
     ]);
   });
 

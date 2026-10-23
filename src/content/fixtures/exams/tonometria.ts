@@ -83,7 +83,7 @@ export const tonometria: Exam = {
     },
   ],
   related: {
-    doctors: ['roberta-andrade-e-nascimento'],
+    doctors: ['roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['glaucoma', 'consulta'],
     exams: ['curva-tensional-diaria', 'gonioscopia', 'paquimetria', 'campo-visual'],
     conditions: [],

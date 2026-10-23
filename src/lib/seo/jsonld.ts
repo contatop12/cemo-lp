@@ -68,7 +68,11 @@ export function buildPersonNode(d: Doctor, s: SiteSettings): JsonLdNode {
     name: `${d.honorific} ${d.name}`,
     ...(d.role ? { jobTitle: d.role } : {}),
     worksFor: { '@id': ids.organization },
-    identifier: { '@type': 'PropertyValue', propertyID: 'CRM', value: d.crm },
+    // RQE só quando informado pela CEMO (nunca inventado).
+    identifier: [
+      { '@type': 'PropertyValue', propertyID: 'CRM', value: d.crm },
+      ...(d.rqe ? [{ '@type': 'PropertyValue', propertyID: 'RQE', value: d.rqe }] : []),
+    ],
     ...(d.published ? { url: `${s.siteUrl}${d.canonicalPath}` } : {}),
     ...(d.photo ? { image: `${s.siteUrl}${d.photo.src}` } : {}),
   };

@@ -146,12 +146,7 @@ export const consulta: Specialty = {
     },
   ],
   related: {
-    doctors: [
-      'david-ribeiro-de-mendonca-filho',
-      'roberta-andrade-e-nascimento',
-      'adriana-bizzarri',
-      'adriano-de-morais-ferreira',
-    ],
+    doctors: ['priscilla-pires', 'david-ribeiro-de-mendonca-filho', 'roberta-andrade-e-nascimento', 'adriana-bizzarri'],
     specialties: ['catarata', 'glaucoma', 'retina', 'oftalmopediatria'],
     exams: ['tonometria', 'mapeamento-de-retina'],
     conditions: ['presbiopia', 'miopia'],

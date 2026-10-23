@@ -125,7 +125,7 @@ export const baixaVisao: Condition = {
     },
   ],
   related: {
-    doctors: ['adriano-de-morais-ferreira', 'roberta-andrade-e-nascimento'],
+    doctors: ['adriano-de-morais-ferreira', 'roberta-andrade-e-nascimento', 'jose-pereira-do-rego-neto'],
     specialties: ['retina', 'glaucoma', 'consulta'],
     exams: [],
     conditions: ['degeneracao-macular'],

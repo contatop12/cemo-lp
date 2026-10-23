@@ -137,6 +137,8 @@ export interface Specialty {
   canonicalPath: string;
   /** Tratamento: especialidade-mãe (breadcrumb e links). */
   parentId?: string;
+  /** Tratamento: cirurgia ou procedimento não cirúrgico (agrupa o hub e o menu). */
+  treatmentType?: 'cirurgia' | 'procedimento';
   published: boolean;
   seo: SeoFields;
   h1: string;

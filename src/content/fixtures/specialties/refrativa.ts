@@ -196,7 +196,7 @@ export const refrativa: Specialty = {
     },
   ],
   related: {
-    doctors: ['david-ribeiro-de-mendonca-filho', 'priscilla-pires', 'bruna-de-andrade-nascimento'],
+    doctors: ['david-ribeiro-de-mendonca-filho'],
     specialties: ['consulta', 'cornea', 'lentes-de-contato'],
     exams: ['ceratoscopia', 'paquimetria', 'microscopia-especular'],
     conditions: ['miopia', 'astigmatismo', 'hipermetropia', 'presbiopia'],

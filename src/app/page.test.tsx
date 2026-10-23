@@ -11,6 +11,7 @@ describe('Home', () => {
   it('estrutura, ordem das seções, headings e dados estruturados', async () => {
     const { container } = render(<main>{await HomePage()}</main>);
     expect(container.querySelectorAll('h1')).toHaveLength(1);
+    expect(container.textContent).not.toContain('médicos no corpo clínico'); // ajustes 23/10, item 7
     expect([...container.querySelectorAll('section[id]')].map((s) => s.id)).toEqual([
       'inicio',
       'agendar',

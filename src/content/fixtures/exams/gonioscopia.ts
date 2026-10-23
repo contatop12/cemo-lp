@@ -76,7 +76,7 @@ export const gonioscopia: Exam = {
     },
   ],
   related: {
-    doctors: ['roberta-andrade-e-nascimento'],
+    doctors: ['roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['glaucoma', 'consulta'],
     exams: ['tonometria', 'campo-visual', 'estereofoto-de-papila', 'retinografia'],
     conditions: [],

@@ -17,7 +17,7 @@ Para quem cria ou revisa páginas e para o lançamento. A infraestrutura fica em
 
 ## Sitemap e robots
 
-- `src/app/sitemap.ts` é gerado do conteúdo (`src/lib/seo/sitemap-routes.ts`): institucionais, hubs, entidades **publicadas**, perfis publicados e os 113 posts migrados, com `lastmod` real (revisão do conteúdo / modificação do post). Utilitárias, `/lp/`, paginação do blog, tratamentos não confirmados e URLs que redirecionam ficam de fora (testado).
+- `src/app/sitemap.ts` é gerado do conteúdo (`src/lib/seo/sitemap-routes.ts`): institucionais, hubs, entidades **publicadas**, perfis publicados e os 112 posts migrados, com `lastmod` real (revisão do conteúdo / modificação do post). Utilitárias, `/lp/`, paginação do blog, tratamentos não confirmados e URLs que redirecionam ficam de fora (testado).
 - **Decisão (fase 2):** arquivo único `sitemap.xml` (~170 URLs, muito abaixo do limite de 50 mil); o grupo de cada URL fica no dado.
 - `robots.txt`: produção = `Allow: /`, `Disallow: /api/` e `Sitemap:`; staging/development = `Disallow: /` sem sitemap.
 - Além disso, fora de produção todo HTML sai com `<meta name="robots" content="noindex, nofollow">` e header `X-Robots-Tag: noindex, nofollow`.
@@ -51,7 +51,7 @@ Para quem cria ou revisa páginas e para o lançamento. A infraestrutura fica em
 | Formulário funcional | ✅ | E2E: lead chega ao webhook com atribuição; falha fechada sem webhook; honeypot; rate limit |
 | Prova social | ⚠️ dados a validar | Nota Google, anos e atendimentos centralizados em `stats.ts` com `validated: false` |
 | Serviços | ✅ | 8 intenções → URLs canônicas |
-| Médicos | ⚠️ | 8 médicos com CRM; RQE, bios e fotos (exceto Dr. David) pendentes |
+| Médicos | ⚠️ | 7 médicos com CRM (RQE de 2); bios, RQE dos demais e fotos (2 com silhueta) pendentes |
 | Estrutura | ⚠️ | Composição editorial com 6 fotos reais; identificação dos aparelhos e fotos em alta pendentes |
 | Localização | ✅ | NAP central, horários, "Como chegar", mapa sob demanda |
 | Reviews | ⚠️ | Nota + link para o Google; depoimentos reais aguardam seleção da CEMO |

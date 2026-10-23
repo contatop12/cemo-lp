@@ -87,9 +87,9 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
 
       {proof.length > 0 ? (
         <div className="relative border-t border-borda bg-papel">
-          <ul aria-label="Números do CEMO" className="mx-auto grid max-w-wide grid-cols-2 px-[var(--gutter)] lg:grid-cols-4">
+          <ul aria-label="Números do CEMO" className="mx-auto grid max-w-wide grid-cols-2 px-[var(--gutter)] sm:grid-cols-3">
             {proof.map((item) => (
-              <li key={item.id} className="flex items-baseline gap-3 border-borda py-5 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0">
+              <li key={item.id} className="flex items-baseline gap-3 border-borda py-5 max-sm:last:odd:col-span-2 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0">
                 <span className="font-display text-h3 font-semibold text-azul-cemo">{item.value}</span>
                 <span className="text-small leading-snug text-tinta-suave">{item.label}</span>
               </li>

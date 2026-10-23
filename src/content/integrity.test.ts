@@ -15,13 +15,14 @@ const all = async () => ({
 });
 
 describe('integridade do conteúdo', () => {
-  it('posts migrados: 113, mais novos primeiro, nenhum consolidado ou exame em slug de artigo', async () => {
+  it('posts migrados: 112, mais novos primeiro, nenhum consolidado ou exame em slug de artigo', async () => {
     const { posts, exams } = await all();
-    expect(posts).toHaveLength(113);
+    expect(posts).toHaveLength(112); // o de ultrassonografia virou página de exame (ajustes 23/10)
     expect(posts.map((p) => p.publishedAt)).toEqual([...posts.map((p) => p.publishedAt)].sort().reverse());
     const examRoots = exams.map((e) => e.canonicalPath).filter((p) => !p.startsWith('/exames/'));
     for (const p of posts) expect(examRoots).not.toContain(`/${p.slug}/`);
     expect(posts.find((p) => p.slug === 'tudo-sobre-glaucoma')).toBeUndefined();
+    expect(posts.find((p) => p.slug === 'tudo-o-que-voce-precisa-saber-sobre-exame-de-ultrassonografia-ocular')).toBeUndefined();
   });
 
   it('getPost devolve HTML limpo e null para slug desconhecido', async () => {
@@ -77,6 +78,12 @@ describe('integridade do conteúdo', () => {
     for (const id of ['crosslinking-corneano', 'anel-intraestromal', 'transplante-de-cornea']) {
       expect(published.find((s) => s.id === id)).toBeUndefined();
     }
+  });
+
+  it('todo tratamento publicado diz se é cirurgia ou procedimento (agrupa o hub /tratamentos/)', async () => {
+    const treatments = (await content.listSpecialties()).filter((s) => s.kind === 'tratamento');
+    expect(treatments.map((s) => s.id)).toEqual(['pterigio', 'calazio', 'yag-laser', 'fotocoagulacao-a-laser']);
+    for (const s of treatments) expect(['cirurgia', 'procedimento'], s.id).toContain(s.treatmentType);
   });
 
   it('listArticles devolve os posts pedidos, na ordem, com href na raiz', async () => {

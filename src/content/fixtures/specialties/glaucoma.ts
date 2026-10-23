@@ -145,7 +145,7 @@ export const glaucoma: Specialty = {
     },
   ],
   related: {
-    doctors: ['roberta-andrade-e-nascimento'],
+    doctors: ['roberta-andrade-e-nascimento', 'igor-seidi-sekiguchi'],
     specialties: ['consulta', 'catarata'],
     exams: [
       'tonometria',

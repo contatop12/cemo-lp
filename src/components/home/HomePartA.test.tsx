@@ -105,8 +105,8 @@ describe('DoctorSpotlight', () => {
     for (const p of david.bio) expect(screen.getByText(p)).toBeInTheDocument();
   });
 
-  it('sem foto renderiza monograma sem quebrar', () => {
-    render(<DoctorSpotlight doctor={{ ...david, photo: null }} />);
-    expect(screen.getByText('DR')).toBeInTheDocument();
+  it('sem foto mostra a silhueta cinza no lugar do retrato', () => {
+    const { container } = render(<DoctorSpotlight doctor={{ ...david, photo: null }} />);
+    expect(container.querySelector('[data-avatar-placeholder]')).not.toBeNull();
   });
 });

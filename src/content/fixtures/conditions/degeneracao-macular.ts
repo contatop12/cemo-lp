@@ -147,7 +147,7 @@ export const degeneracaoMacular: Condition = {
     },
   ],
   related: {
-    doctors: ['adriano-de-morais-ferreira', 'david-ribeiro-de-mendonca-filho'],
+    doctors: ['adriano-de-morais-ferreira', 'jose-pereira-do-rego-neto'],
     specialties: ['retina'],
     exams: ['tomografia-de-coerencia-optica', 'mapeamento-de-retina', 'retinografia'],
     conditions: ['baixa-visao', 'descolamento-de-retina'],

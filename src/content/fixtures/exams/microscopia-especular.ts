@@ -80,7 +80,7 @@ export const microscopiaEspecular: Exam = {
     },
   ],
   related: {
-    doctors: ['david-ribeiro-de-mendonca-filho', 'rodrigo-arantes'],
+    doctors: ['david-ribeiro-de-mendonca-filho', 'igor-seidi-sekiguchi'],
     specialties: ['cornea', 'catarata'],
     exams: ['paquimetria', 'ceratoscopia', 'biometria'],
     conditions: [],

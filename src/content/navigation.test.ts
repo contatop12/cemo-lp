@@ -7,7 +7,7 @@ describe('navigation', () => {
     expect(navigation.map((g) => g.id)).toEqual(['especialidades', 'cirurgias', 'exames', 'corpo-clinico', 'conteudos', 'a-cemo']);
   });
 
-  it('Exames lista 12 exames com as URLs preservadas (OCT incluído)', () => {
+  it('Exames lista 13 exames com as URLs preservadas (OCT e ultrassom incluídos)', () => {
     const exames = navigation.find((g) => g.id === 'exames');
     expect(exames?.links.map((l) => l.href)).toEqual([
       '/exames/mapeamento/',
@@ -22,6 +22,7 @@ describe('navigation', () => {
       '/exames/gonioscopia/',
       '/exames/biometria/',
       '/tudo-o-que-voce-precisa-saber-sobre-estereofoto-de-papila/',
+      '/exames/ultrassom-ocular/',
     ]);
     expect(exames?.viewAll?.href).toBe('/exames/');
   });
@@ -41,6 +42,21 @@ describe('navigation', () => {
       '/tratamentos/crosslinking-corneano/',
       '/tratamentos/anel-intraestromal/',
       '/tratamentos/transplante-de-cornea/',
+    ]);
+  });
+
+  it('Cirurgias e Tratamentos inclui pterígio, calázio, YAG laser e fotocoagulação (ajustes 23/10)', () => {
+    const cirurgias = navigation.find((g) => g.id === 'cirurgias');
+    const visible = cirurgias?.links.filter((l) => l.published !== false).map((l) => l.href);
+    expect(visible).toEqual([
+      '/especialidades/catarata/',
+      '/especialidades/refrativa/',
+      '/especialidades/glaucoma/',
+      '/tratamentos/pterigio/',
+      '/tratamentos/calazio/',
+      '/especialidades/plastica-ocular/',
+      '/tratamentos/yag-laser/',
+      '/tratamentos/fotocoagulacao-a-laser/',
     ]);
   });
 

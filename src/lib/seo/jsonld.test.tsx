@@ -95,3 +95,14 @@ describe('página médica e revisão', () => {
     expect(buildMedicalWebPageNode({ ...base, review: approved, reviewer: null }).lastReviewed).toBeUndefined();
   });
 });
+
+describe('RQE informado pela CEMO', () => {
+  it('entra como identificador da pessoa só quando existe', () => {
+    const jose = doctors.find((d) => d.slug === 'jose-pereira-do-rego-neto')!;
+    expect(buildPersonNode(jose, siteSettings).identifier).toEqual([
+      { '@type': 'PropertyValue', propertyID: 'CRM', value: jose.crm },
+      { '@type': 'PropertyValue', propertyID: 'RQE', value: '135836' },
+    ]);
+    expect(buildPersonNode(david, siteSettings).identifier).toEqual([{ '@type': 'PropertyValue', propertyID: 'CRM', value: david.crm }]);
+  });
+});

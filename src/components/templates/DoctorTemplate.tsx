@@ -6,7 +6,7 @@ import { VideoCard } from '@/components/media/VideoCard';
 import { PageCta } from '@/components/page/PageCta';
 import { RelatedList } from '@/components/page/RelatedBlocks';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { initials } from '@/components/home/DoctorSpotlight';
+import { AvatarPlaceholder } from '@/components/ui/AvatarPlaceholder';
 import { PortraitFrame } from '@/components/ui/PortraitFrame';
 import { content } from '@/content';
 import type { Doctor } from '@/content/types';
@@ -79,9 +79,7 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
               {d.photo ? (
                 <Image src={d.photo.src} width={d.photo.width} height={d.photo.height} alt={d.photo.alt} sizes="(min-width: 1024px) 26rem, 90vw" priority className="h-full w-full object-cover object-top" />
               ) : (
-                <div aria-hidden="true" className="flex h-full items-center justify-center font-display text-display text-azul-cemo">
-                  {initials(d.name)}
-                </div>
+                <AvatarPlaceholder className="h-full w-full" />
               )}
             </PortraitFrame>
           </div>

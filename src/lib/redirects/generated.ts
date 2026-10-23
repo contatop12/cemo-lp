@@ -34,6 +34,7 @@ export const redirectTables: RedirectTables = {
     "/o-que-voce-precisa-saber-sobre-exame-de-mapeamento-de-retina/": "/exames/mapeamento/",
     "/tudo-o-que-voce-precisa-saber-sobre-o-exame-de-paquimetria/": "/exames/paquimetria/",
     "/tudo-o-que-voce-precisa-saber-sobre-exame-de-biometria/": "/exames/biometria/",
+    "/tudo-o-que-voce-precisa-saber-sobre-exame-de-ultrassonografia-ocular/": "/exames/ultrassom-ocular/",
     "/tudo-o-que-voce-precisa-saber-sobre-gonioscopia/": "/exames/gonioscopia/",
     "/tudo-sobre-conjuntivite/": "/condicoes-oculares/conjuntivite/",
     "/entendendo-o-glaucoma-causas-sintomas-e-tratamentos/": "/especialidades/glaucoma/",
@@ -373,7 +374,7 @@ export const redirectTables: RedirectTables = {
   ],
   "stats": {
     "redirect": 120,
-    "consolidate": 38,
+    "consolidate": 39,
     "gone": 206,
     "hostOnlyDropped": 19,
     "naturalNotFound": 4

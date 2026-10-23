@@ -27,12 +27,15 @@ Regras:
 
 | Tema | Revisor sugerido (área no site atual) |
 |---|---|
-| Catarata, Refrativa, Ceratocone, Córnea, Retina clínica | Dr. David Ribeiro de Mendonça Filho |
-| Catarata | Dr. Rodrigo Arantes, Dra. Priscilla Pires, Dra. Bruna de Andrade Nascimento |
-| Glaucoma (e exames de glaucoma) | Dra. Roberta Andrade e Nascimento |
-| Retina (e mapeamento, retinografia) | Dr. Adriano de Morais Ferreira |
+| Catarata, Refrativa, Ceratocone, Córnea, Pterígio | Dr. David Ribeiro de Mendonça Filho |
+| Glaucoma e catarata (exames de glaucoma, biometria, YAG laser) | Dra. Roberta Andrade e Nascimento, Dr. Igor Seidi Sekiguchi |
+| Retina (mapeamento, retinografia, OCT, ultrassom ocular, fotocoagulação) | Dr. Adriano de Morais Ferreira, Dr. José Pereira do Rego Neto |
 | Estrabismo, Oftalmopediatria | Dra. Adriana Bizzarri |
-| Plástica ocular | Dra. Cintia Gomes Galvão |
+| Consulta oftalmológica | Dra. Priscilla Pires (oftalmologista geral; não opera) |
+| Plástica ocular, calázio | sem revisor publicado — Dra. Danielle Longo quando o perfil for validado |
+
+Corpo clínico atualizado pela CEMO em 23/10/2026: saíram Dra. Bruna de Andrade Nascimento, Dr. Rodrigo Arantes e
+Dra. Cintia Gomes Galvão; entraram Dr. José Pereira do Rego Neto e Dr. Igor Seidi Sekiguchi.
 
 ## 3. Regras de redação (valem para qualquer pessoa ou IA que escreva)
 

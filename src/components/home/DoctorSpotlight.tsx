@@ -1,20 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { AvatarPlaceholder } from '@/components/ui/AvatarPlaceholder';
 import { PortraitFrame } from '@/components/ui/PortraitFrame';
 import { Section } from '@/components/ui/Section';
 import type { Doctor } from '@/content/types';
 
-export function initials(name: string): string {
-  return name
-    .split(/\s+/)
-    .filter((part) => part.length > 2 || /^[A-ZÁÉÍÓÚ]/.test(part))
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? '')
-    .join('');
-}
-
 // Autoridade médica com dados do repositório: retrato no arco-pálpebra, bio só com fatos publicados, formação
-// completa. Sem RQE enquanto não validado.
+// completa. RQE só quando informado pela CEMO.
 export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
   const fullName = `${doctor.honorific} ${doctor.name}`;
   return (
@@ -32,9 +24,7 @@ export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
                 className="h-full w-full object-cover object-top"
               />
             ) : (
-              <div aria-hidden="true" className="flex h-full items-center justify-center font-display text-display text-azul-cemo">
-                {initials(doctor.name)}
-              </div>
+              <AvatarPlaceholder className="h-full w-full" />
             )}
           </PortraitFrame>
         </div>

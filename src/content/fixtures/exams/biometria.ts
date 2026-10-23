@@ -81,7 +81,7 @@ export const biometria: Exam = {
     },
   ],
   related: {
-    doctors: ['rodrigo-arantes', 'david-ribeiro-de-mendonca-filho'],
+    doctors: ['david-ribeiro-de-mendonca-filho', 'igor-seidi-sekiguchi'],
     specialties: ['catarata'],
     exams: ['ceratoscopia', 'microscopia-especular', 'campo-visual'],
     conditions: [],
