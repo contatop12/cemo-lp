@@ -259,7 +259,7 @@ export function LeadForm({ interests, defaultInterest, formId, location, whatsap
             event="whatsapp_click"
             location={location}
             href={whatsappFallbackHref}
-            className="mt-3 inline-flex min-h-[3.25rem] items-center gap-2 rounded-md bg-whatsapp px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+            className="mt-3 inline-flex min-h-12 items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
           >
             <WhatsappIcon />
             Falar no WhatsApp
@@ -278,7 +278,7 @@ export function LeadForm({ interests, defaultInterest, formId, location, whatsap
             event="whatsapp_click"
             location={location}
             href={whatsappFallbackHref}
-            className="mt-4 inline-flex min-h-[3.25rem] items-center gap-2 rounded-md bg-whatsapp px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+            className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
           >
             <WhatsappIcon />
             Falar no WhatsApp

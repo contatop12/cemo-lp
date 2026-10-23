@@ -112,7 +112,7 @@ export async function MedicalPage({
             event="whatsapp_click"
             location={`${formId}_hero`}
             href={whatsappHref(settings)}
-            className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-md bg-whatsapp px-6 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
           >
             <WhatsappIcon />
             Falar no WhatsApp

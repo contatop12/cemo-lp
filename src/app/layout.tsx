@@ -9,7 +9,7 @@ import { StickyMobileCTA } from '@/components/layout/StickyMobileCTA';
 import { SkipLink } from '@/components/ui/SkipLink';
 import { content } from '@/content';
 import { getSiteEnv, getSiteUrl } from '@/lib/env';
-import { atkinson, literata } from './fonts';
+import { atkinson, manrope } from './fonts';
 import './globals.css';
 
 // SITE_ENV é lido no build: staging nunca é indexado.
@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const technicalResponsible = await content.getDoctorBySlug(settings.technicalResponsibleSlug);
 
   return (
-    <html lang="pt-BR" className={`${literata.variable} ${atkinson.variable}`}>
+    <html lang="pt-BR" className={`${manrope.variable} ${atkinson.variable}`}>
       <body>
         <GtmScript />
         <SkipLink />

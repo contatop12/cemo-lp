@@ -34,7 +34,7 @@ export function LocationSection({ settings }: { settings: SiteSettings }) {
               event="directions_click"
               location="localizacao"
               href={directionsHref(settings)}
-              className="inline-flex min-h-[3.25rem] items-center rounded-md bg-azul-cemo px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-azul-700"
+              className="inline-flex min-h-12 items-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
             >
               Como chegar
             </TrackedLink>
@@ -42,7 +42,7 @@ export function LocationSection({ settings }: { settings: SiteSettings }) {
               event="phone_click"
               location="localizacao"
               href={telHref(settings)}
-              className="inline-flex min-h-[3.25rem] items-center rounded-md border-2 border-azul-cemo px-7 py-4 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
+              className="inline-flex min-h-12 items-center rounded-full border-2 border-azul-cemo px-6 py-3 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
             >
               Ligar {settings.phone.display}
             </TrackedLink>

@@ -30,7 +30,7 @@ export function InsuranceSearch({ plans }: { plans: InsurancePlan[] }) {
       </p>
       <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {visible.map((plan) => (
-          <li key={plan.id} className="flex min-h-16 items-center rounded-md border border-borda bg-papel px-4 py-3 font-medium">
+          <li key={plan.id} className="flex min-h-16 items-center rounded-xl border border-borda bg-papel px-4 py-3 font-medium">
             {plan.name}
           </li>
         ))}

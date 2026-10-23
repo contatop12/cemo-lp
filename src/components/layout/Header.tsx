@@ -24,7 +24,7 @@ export function Header({ settings, navigation }: { settings: SiteSettings; navig
           <ScheduleLink
             location="header"
             aria-label="Agendar consulta"
-            className="hidden min-h-[3.25rem] shrink-0 items-center whitespace-nowrap rounded-md bg-azul-cemo px-5 py-3 text-[1.0625rem] font-bold 2xl:text-ui text-papel no-underline hover:bg-azul-700 xl:inline-flex"
+            className="hidden min-h-12 shrink-0 items-center whitespace-nowrap rounded-full bg-azul-cemo px-5 py-3 text-[0.9375rem] font-bold 2xl:text-ui text-papel no-underline hover:bg-azul-700 xl:inline-flex"
           >
             <span aria-hidden="true" className="2xl:hidden">Agendar</span>
             <span aria-hidden="true" className="hidden 2xl:inline">Agendar consulta</span>

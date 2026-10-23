@@ -23,7 +23,7 @@ export function InsuranceSection({ plans, settings }: { plans: InsurancePlan[]; 
               event="whatsapp_click"
               location="convenios"
               href={whatsappHref(settings, 'Olá! Gostaria de confirmar a cobertura do meu convênio no CEMO.')}
-              className="inline-flex min-h-[3.25rem] w-fit items-center gap-2 rounded-md bg-whatsapp px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+              className="inline-flex min-h-12 w-fit items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
             >
               <WhatsappIcon />
               Confirmar cobertura

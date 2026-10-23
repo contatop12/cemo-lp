@@ -66,14 +66,14 @@ export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
               <Link
                 href={doctor.canonicalPath}
                 aria-label={`Ver o perfil do ${fullName}`}
-                className="inline-flex min-h-[3.25rem] items-center justify-center rounded-md bg-azul-cemo px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-azul-700"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
               >
                 Ver o perfil completo
               </Link>
             ) : null}
             <Link
               href="/corpo-clinico/"
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-md border-2 border-azul-cemo px-7 py-4 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-azul-cemo px-6 py-3 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
             >
               Ver todo o corpo clínico
             </Link>

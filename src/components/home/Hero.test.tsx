@@ -57,7 +57,7 @@ describe('Hero (lente de prova)', () => {
     const cta = screen.getByRole('link', { name: 'Agendar consulta' });
     expect(cta).toHaveAttribute('data-hero-cta');
     expect(cta).toHaveAttribute('href', '#agendar');
-    expect(cta.className).toContain('min-h-[3.25rem]');
+    expect(cta.className).toContain('min-h-12');
     expect(screen.getByRole('link', { name: 'Conhecer especialidades' })).toHaveAttribute('href', '#especialidades');
   });
 

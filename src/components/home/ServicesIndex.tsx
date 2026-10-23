@@ -6,11 +6,11 @@ import type { Service } from '@/content/types';
 import { cn } from '@/lib/cn';
 
 // Tabela de leitura: as intenções principais em linhas inteiras clicáveis, com o tamanho caindo como numa tabela de
-// acuidade — a prioridade comercial fica visível sem cards. O menor tamanho continua ≥ 22 px (público com baixa visão).
+// acuidade — a prioridade comercial fica visível sem cards. O menor tamanho continua ≥ 18 px (público com baixa visão).
 const SIZE: Record<Service['emphasis'], string> = {
-  1: 'text-[clamp(2.25rem,1.5rem+2.6vw,3.5rem)] leading-[1.05]',
-  2: 'text-[clamp(1.75rem,1.35rem+1.5vw,2.5rem)] leading-[1.1]',
-  3: 'text-[clamp(1.375rem,1.2rem+0.8vw,1.875rem)] leading-[1.15]',
+  1: 'text-[clamp(1.75rem,1.35rem+1.5vw,2.5rem)] leading-[1.08] tracking-[-0.03em]',
+  2: 'text-[clamp(1.375rem,1.2rem+0.8vw,1.875rem)] leading-[1.12] tracking-[-0.02em]',
+  3: 'text-[clamp(1.125rem,1.05rem+0.4vw,1.375rem)] leading-[1.2] tracking-[-0.01em]',
 };
 
 export function ServicesIndex({ services }: { services: Service[] }) {

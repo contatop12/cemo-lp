@@ -13,7 +13,7 @@ export function ReviewsSection({ stats, testimonials, reviewsHref }: { stats: Si
       <div className="mx-auto grid max-w-wide items-center gap-10 px-[var(--gutter)] lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
           <p role="img" aria-label={`Nota ${display} de 5 no Google, ${reviewsLabel}`} className="flex items-end gap-5">
-            <span aria-hidden="true" className="font-display text-[clamp(5rem,3.5rem+6vw,9rem)] font-semibold leading-[0.85] text-azul-cemo">
+            <span aria-hidden="true" className="font-display text-[clamp(3.5rem,2.5rem+4vw,6rem)] tracking-[-0.04em] font-semibold leading-[0.85] text-azul-cemo">
               {display}
             </span>
             <span aria-hidden="true" className="flex flex-col gap-2 pb-2">
@@ -37,7 +37,7 @@ export function ReviewsSection({ stats, testimonials, reviewsHref }: { stats: Si
             event="reviews_click"
             location="reviews"
             href={reviewsHref}
-            className="mt-7 inline-flex min-h-[3.25rem] items-center rounded-md border-2 border-azul-cemo px-7 py-4 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
+            className="mt-7 inline-flex min-h-12 items-center rounded-full border-2 border-azul-cemo px-6 py-3 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
           >
             Ver avaliações no Google
           </TrackedLink>

@@ -41,7 +41,7 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
           <div className="lg:col-span-7">
             <Breadcrumbs items={[{ name: 'Início', path: '/' }, { name: 'Corpo clínico', path: '/corpo-clinico/' }, { name, path: d.canonicalPath }]} />
             {d.role ? <p className="mt-8 text-ui font-bold text-azul-700">{d.role}</p> : null}
-            <h1 id="page-title" className={d.role ? 'mt-2 text-h1 lg:text-display' : 'mt-8 text-h1 lg:text-display'}>
+            <h1 id="page-title" className={d.role ? 'mt-2 text-h1' : 'mt-8 text-h1'}>
               {name}
             </h1>
             <p className="mt-3 text-lead text-tinta-suave">
@@ -66,7 +66,7 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
             ) : null}
             <a
               href="#agendar-final"
-              className="mt-8 inline-flex min-h-[3.25rem] items-center rounded-md bg-azul-cemo px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-azul-700"
+              className="mt-8 inline-flex min-h-12 items-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
             >
               Agendar consulta
             </a>

@@ -34,7 +34,7 @@ export function PageHero({
       >
         <div className={cn(aside ? 'lg:col-span-7' : 'lg:col-span-9')}>
           <Breadcrumbs items={breadcrumbs} />
-          <h1 id="page-title" className="mt-6 max-w-[18ch] text-h1 lg:mt-8 lg:text-display">
+          <h1 id="page-title" className="mt-6 max-w-[22ch] text-h1 lg:mt-8">
             {title}
           </h1>
           <p className="mt-5 max-w-[56ch] text-lead text-tinta-suave">{lead}</p>

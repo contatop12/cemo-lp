@@ -7,7 +7,7 @@ import { CONSENT_CHANGE_EVENT, readConsent, writeConsent, type ConsentChoice } f
 // "Aceitar" e "Recusar" com o mesmo peso visual (sem dark pattern). Enquanto a escolha está pendente,
 // html[data-consent="pending"] esconde o StickyMobileCTA para os dois nunca disputarem a base da tela.
 const choiceButton =
-  'min-h-[3.25rem] min-w-[8rem] rounded-md border-2 border-papel bg-papel px-6 py-3 text-ui font-bold text-azul-profundo ' +
+  'min-h-12 min-w-[8rem] rounded-full border-2 border-papel bg-papel px-6 py-3 text-ui font-bold text-azul-profundo ' +
   'transition-colors duration-[var(--duration-fast)] hover:bg-nevoa-2';
 
 const CHANGE_EVENT = CONSENT_CHANGE_EVENT;

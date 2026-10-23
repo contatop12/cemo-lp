@@ -1,9 +1,10 @@
-import { Atkinson_Hyperlegible_Next, Literata } from 'next/font/google';
+import { Atkinson_Hyperlegible_Next, Manrope } from 'next/font/google';
 
-// Títulos: serifa editorial variável (wght); usar 500/600. Sem o eixo opsz: o arquivo cai pela metade.
-export const literata = Literata({
+// Títulos: sans moderna variável (wght 200–800); usar 600/700 com tracking levemente negativo.
+// (Fase 2: substitui a serifa Literata — o cliente pediu um visual mais moderno e tipografia menor.)
+export const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-literata',
+  variable: '--font-manrope',
   display: 'swap',
 });
 

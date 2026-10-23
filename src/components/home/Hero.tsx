@@ -50,13 +50,13 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
               location="hero"
               href={primaryCta.href}
               data-hero-cta=""
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-md bg-azul-cemo px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-azul-700"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
             >
               {primaryCta.label}
             </TrackedLink>
             <a
               href={secondaryCta.href}
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-md border-2 border-azul-cemo px-7 py-4 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-azul-cemo px-6 py-3 text-ui font-bold text-azul-700 no-underline hover:bg-nevoa-2"
             >
               {secondaryCta.label}
             </a>

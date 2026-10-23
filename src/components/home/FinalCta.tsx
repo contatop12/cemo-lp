@@ -27,7 +27,7 @@ export function FinalCta({ settings }: { settings: SiteSettings }) {
               event="schedule_click"
               location="final"
               href="#agendar"
-              className="inline-flex min-h-[3.25rem] items-center justify-center rounded-md bg-papel px-7 py-4 text-ui font-bold text-azul-profundo no-underline hover:bg-nevoa-2"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-papel px-6 py-3 text-ui font-bold text-azul-profundo no-underline hover:bg-nevoa-2"
             >
               Agendar consulta
             </TrackedLink>
@@ -35,7 +35,7 @@ export function FinalCta({ settings }: { settings: SiteSettings }) {
               event="whatsapp_click"
               location="final"
               href={whatsappHref(settings)}
-              className="inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-md bg-whatsapp px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
             >
               <WhatsappIcon />
               Falar no WhatsApp

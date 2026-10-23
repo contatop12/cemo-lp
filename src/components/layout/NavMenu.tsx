@@ -83,7 +83,7 @@ export function NavMenu({ groups }: { groups: NavGroup[] }) {
         if (group.kind === 'link' && group.href) {
           return (
             <li key={group.id}>
-              <Link href={group.href} aria-current={current(group.href)} className="flex min-h-12 items-center whitespace-nowrap rounded-sm px-2.5 text-[1.0625rem] font-medium text-tinta no-underline hover:bg-nevoa-2 hover:text-azul-700 aria-[current=page]:font-bold aria-[current=page]:text-azul-700 2xl:px-3 2xl:text-ui">
+              <Link href={group.href} aria-current={current(group.href)} className="flex min-h-12 items-center whitespace-nowrap rounded-sm px-2.5 text-[0.9375rem] font-semibold text-tinta no-underline hover:bg-nevoa-2 hover:text-azul-700 aria-[current=page]:font-bold aria-[current=page]:text-azul-700 2xl:px-3 2xl:text-ui">
                 {group.label}
               </Link>
             </li>
@@ -111,7 +111,7 @@ export function NavMenu({ groups }: { groups: NavGroup[] }) {
               onClick={() => setOpenId(open ? null : group.id)}
               onKeyDown={(e) => onButtonKeyDown(e, group.id)}
               className={cn(
-                'flex min-h-12 items-center gap-1 whitespace-nowrap rounded-sm px-2.5 text-[1.0625rem] font-medium text-tinta hover:text-azul-700 2xl:px-3 2xl:text-ui',
+                'flex min-h-12 items-center gap-1 whitespace-nowrap rounded-sm px-2.5 text-[0.9375rem] font-semibold text-tinta hover:text-azul-700 2xl:px-3 2xl:text-ui',
                 open && 'text-azul-700',
               )}
             >

@@ -43,7 +43,7 @@ export function EditorialBlock({
             event="service_cta_click"
             location={`editorial-${content.id}`}
             href={content.href}
-            className="mt-9 inline-flex min-h-[3.25rem] items-center rounded-md bg-azul-cemo px-7 py-4 text-ui font-bold text-papel no-underline hover:bg-azul-700"
+            className="mt-9 inline-flex min-h-12 items-center rounded-full bg-azul-cemo px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-azul-700"
           >
             {content.ctaLabel}
           </TrackedLink>

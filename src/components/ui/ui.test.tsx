@@ -22,9 +22,9 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: 'Enviar' })).toHaveAttribute('type', 'submit');
   });
 
-  it('tem altura mínima de 52px', () => {
+  it('tem altura mínima de 48px (acima dos 44 px da WCAG 2.5.5)', () => {
     render(<Button>Enviar</Button>);
-    expect(screen.getByRole('button').className).toContain('min-h-[3.25rem]');
+    expect(screen.getByRole('button').className).toContain('min-h-12');
   });
 
   it('variante whatsapp usa a cor acessível do WhatsApp', () => {

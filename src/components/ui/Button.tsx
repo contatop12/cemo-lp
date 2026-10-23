@@ -12,7 +12,7 @@ export type ButtonProps = {
 } & Omit<ComponentPropsWithoutRef<'button'>, 'className' | 'children'>;
 
 const base =
-  'inline-flex min-h-[3.25rem] items-center justify-center gap-2 rounded-md px-7 py-4 text-ui font-bold no-underline ' +
+  'inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-ui font-bold no-underline ' +
   'transition-colors duration-[var(--duration-fast)] ease-standard active:translate-y-px ' +
   'aria-disabled:pointer-events-none aria-disabled:bg-nevoa-2 aria-disabled:text-tinta-suave ' +
   'disabled:bg-nevoa-2 disabled:text-tinta-suave';
@@ -23,7 +23,7 @@ const variants: Record<ButtonVariant, string> = {
   secondary: 'border-2 border-azul-cemo bg-transparent text-azul-700 hover:bg-nevoa-2',
   onDark: 'bg-papel text-azul-profundo hover:bg-nevoa-2',
   link:
-    'min-h-[3.25rem] px-0 bg-transparent text-azul-700 underline decoration-2 underline-offset-[3px] hover:decoration-[3px]',
+    'min-h-12 px-0 bg-transparent text-azul-700 underline decoration-2 underline-offset-[3px] hover:decoration-[3px]',
 };
 
 export function Button({ variant = 'primary', href, children, className, type, ...rest }: ButtonProps) {
