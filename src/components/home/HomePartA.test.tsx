@@ -43,16 +43,15 @@ describe('ServicesIndex (tabela de leitura)', () => {
       expect(links).toHaveLength(1);
       expect(links[0]).toHaveAttribute('href', services[i]!.href);
       expect(within(row).getByRole('heading', { level: 3 })).toHaveTextContent(services[i]!.title);
-      expect(row.querySelector('[data-emphasis]')?.getAttribute('data-emphasis')).toBe(String(services[i]!.emphasis));
     });
     expect(screen.getByRole('link', { name: 'Ver todas as especialidades' })).toHaveAttribute('href', '/especialidades/');
   });
 
-  it('tamanho do título diminui com a ênfase, como numa tabela de leitura', () => {
+  it('todos os títulos da lista têm o mesmo tamanho (pedido do cliente, 26/10)', () => {
     render(<ServicesIndex services={services} />);
-    const first = screen.getByRole('heading', { level: 3, name: services[0]!.title });
-    const last = screen.getByRole('heading', { level: 3, name: services[7]!.title });
-    expect(first.className).not.toBe(last.className);
+    const headings = within(screen.getByRole('list', { name: 'Especialidades e serviços' })).getAllByRole('heading', { level: 3 });
+    expect(new Set(headings.map((h) => h.className)).size).toBe(1);
+    expect(headings[0]!.className).toContain('text-h3');
   });
 
   it('clique registra service_cta_click sem o nome do serviço', async () => {

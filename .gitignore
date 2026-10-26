@@ -49,4 +49,4 @@ desktop.ini
 scripts/logo/build/
 
 # ── Vídeos web (gerados por scripts/encode-videos.mjs; ficam no R2 cemo-videos) ──
-media/
+/media/

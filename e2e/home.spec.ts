@@ -57,3 +57,17 @@ test('seções na ordem da jornada', async ({ page }) => {
   const ids = await page.$$eval('main section[id]', (els) => els.map((e) => e.id));
   expect(ids).toEqual(SECTIONS);
 });
+
+test('itens lado a lado ficam alinhados: títulos de especialidade, fotos da estrutura e transcrições dos vídeos', async ({ page }, info) => {
+  test.skip((info.project.use.viewport?.width ?? 0) < 1024, 'só no desktop (grade em colunas)');
+  await page.goto('/');
+  const sizes = await page.locator('#especialidades h3').evaluateAll((hs) => hs.map((h) => getComputedStyle(h).fontSize));
+  expect(new Set(sizes).size).toBe(1);
+  const photos = await page.locator('#estrutura figure img').evaluateAll((imgs) => imgs.map((i) => Math.round(i.getBoundingClientRect().height)));
+  expect(new Set(photos).size).toBe(1);
+  const summaries = await page.locator('#video summary').evaluateAll((ss) => ss.map((s) => Math.round(s.getBoundingClientRect().top)));
+  expect(new Set(summaries).size).toBe(1);
+  // botão "Assistir" com o ícone de 64 px dentro do pôster (classes de src/components/media/ geradas no CSS)
+  const play = await page.locator('#video button span.rounded-full').first().boundingBox();
+  expect(play?.width).toBe(64);
+});

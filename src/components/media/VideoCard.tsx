@@ -24,13 +24,14 @@ export function VideoCard({
 }) {
   const Heading = headingLevel === 3 ? 'h3' : 'h4';
   return (
-    <figure className={cn('relative flex flex-col', className)}>
+    // h-full + mt-auto na transcrição: lado a lado, os botões "Ler a transcrição" alinham mesmo com títulos de 1 ou 2 linhas.
+    <figure className={cn('relative flex h-full flex-col', className)}>
       <VideoPlayer
         video={{ title: video.title, src: video.src, srcAv1: video.srcAv1, poster: video.poster, orientation: video.orientation, captionsSrc: video.captionsSrc }}
         location={location}
         sizes={sizes}
       />
-      <figcaption className="mt-4">
+      <figcaption className="mb-3 mt-4">
         <Heading className="font-display text-h4 font-semibold text-tinta">{video.title}</Heading>
         <p className="mt-1 text-small text-tinta-suave">
           <span>{video.speakerName}</span>
@@ -39,7 +40,7 @@ export function VideoCard({
           <span>{formatDuration(video.durationSeconds)}</span>
         </p>
       </figcaption>
-      <details className="group mt-3 rounded-md border border-borda bg-papel">
+      <details className="group mt-auto rounded-md border border-borda bg-papel">
         <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 font-bold text-azul-700 [&::-webkit-details-marker]:hidden">
           Ler a transcrição
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" className="shrink-0 transition-transform group-open:rotate-180">

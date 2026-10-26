@@ -254,8 +254,6 @@ export interface Service {
   href: string;
   ctaLabel: string;
   homeOrder: number;
-  /** Tamanho na tabela de leitura da Home: 1 = maior (prioridade comercial). */
-  emphasis: 1 | 2 | 3;
 }
 
 export const LEAD_INTEREST_IDS = [

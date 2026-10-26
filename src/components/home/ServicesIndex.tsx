@@ -3,15 +3,9 @@ import { TrackedLink } from '@/components/analytics/TrackedLink';
 import { Reticle } from '@/components/ui/icons';
 import { Section } from '@/components/ui/Section';
 import type { Service } from '@/content/types';
-import { cn } from '@/lib/cn';
 
-// Tabela de leitura: as intenções principais em linhas inteiras clicáveis, com o tamanho caindo como numa tabela de
-// acuidade — a prioridade comercial fica visível sem cards. O menor tamanho continua ≥ 18 px (público com baixa visão).
-const SIZE: Record<Service['emphasis'], string> = {
-  1: 'text-[clamp(1.75rem,1.35rem+1.5vw,2.5rem)] leading-[1.08] tracking-[-0.03em]',
-  2: 'text-[clamp(1.375rem,1.2rem+0.8vw,1.875rem)] leading-[1.12] tracking-[-0.02em]',
-  3: 'text-[clamp(1.125rem,1.05rem+0.4vw,1.375rem)] leading-[1.2] tracking-[-0.01em]',
-};
+// Lista de intenções principais em linhas inteiras clicáveis, todas com o mesmo tamanho de título (a "tabela de
+// leitura" com tamanhos decrescentes saiu a pedido do cliente, 26/10/2026). A ordem continua sendo a prioridade.
 
 export function ServicesIndex({ services }: { services: Service[] }) {
   return (
@@ -42,7 +36,7 @@ export function ServicesIndex({ services }: { services: Service[] }) {
                 href={service.href}
                 className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 py-6 text-tinta no-underline transition-colors duration-[var(--duration-fast)] hover:bg-nevoa focus-visible:bg-nevoa md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto] md:px-4"
               >
-                <h3 data-emphasis={service.emphasis} className={cn('font-display font-semibold text-tinta group-hover:text-azul-700', SIZE[service.emphasis])}>
+                <h3 className="font-display text-h3 font-semibold text-tinta group-hover:text-azul-700">
                   {service.title}
                 </h3>
                 <span className="col-span-2 row-start-2 max-w-[44ch] text-small text-tinta-suave md:col-span-1 md:row-start-auto">

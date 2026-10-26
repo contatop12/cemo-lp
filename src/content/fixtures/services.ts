@@ -1,4 +1,4 @@
-// Índice "Como podemos cuidar da sua visão?" (tabela de leitura: ênfase 1 = maior) — URLs canônicas de docs/information-architecture.md.
+// Índice "Como podemos cuidar da sua visão?" na ordem de prioridade comercial — URLs canônicas de docs/information-architecture.md.
 import type { Service } from '../types';
 
 export const services: Service[] = [
@@ -9,7 +9,6 @@ export const services: Service[] = [
     href: '/consulta-oftalmologica/',
     ctaLabel: 'Conhecer a consulta',
     homeOrder: 3,
-    emphasis: 2,
   },
   {
     id: 'catarata',
@@ -18,7 +17,6 @@ export const services: Service[] = [
     href: '/especialidades/catarata/',
     ctaLabel: 'Saber mais sobre catarata',
     homeOrder: 1,
-    emphasis: 1,
   },
   {
     id: 'refrativa',
@@ -27,7 +25,6 @@ export const services: Service[] = [
     href: '/especialidades/refrativa/',
     ctaLabel: 'Saber mais sobre cirurgia refrativa',
     homeOrder: 2,
-    emphasis: 1,
   },
   {
     id: 'retina',
@@ -36,7 +33,6 @@ export const services: Service[] = [
     href: '/especialidades/retina/',
     ctaLabel: 'Saber mais sobre retina',
     homeOrder: 4,
-    emphasis: 2,
   },
   {
     id: 'glaucoma',
@@ -45,7 +41,6 @@ export const services: Service[] = [
     href: '/especialidades/glaucoma/',
     ctaLabel: 'Saber mais sobre glaucoma',
     homeOrder: 5,
-    emphasis: 2,
   },
   {
     id: 'cornea',
@@ -54,7 +49,6 @@ export const services: Service[] = [
     href: '/especialidades/cornea/',
     ctaLabel: 'Saber mais sobre córnea',
     homeOrder: 6,
-    emphasis: 3,
   },
   {
     id: 'oftalmopediatria',
@@ -63,7 +57,6 @@ export const services: Service[] = [
     href: '/especialidades/oftalmopediatria/',
     ctaLabel: 'Saber mais sobre oftalmologia infantil',
     homeOrder: 7,
-    emphasis: 3,
   },
   {
     id: 'exames',
@@ -72,6 +65,5 @@ export const services: Service[] = [
     href: '/exames/',
     ctaLabel: 'Ver exames',
     homeOrder: 8,
-    emphasis: 3,
   },
 ];

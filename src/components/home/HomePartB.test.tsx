@@ -75,10 +75,12 @@ describe('LazyMap', () => {
 });
 
 describe('TechStructure', () => {
-  it('6 itens: 1 âncora + 5 recortes, com alt, dimensões e legendas sem TODO', () => {
+  it('6 fotos do mesmo tamanho, alinhadas (pedido do cliente, 26/10), com alt, dimensões e legendas sem TODO', () => {
     const { container } = render(<TechStructure items={equipment} />);
-    expect(container.querySelectorAll('figure[data-anchor]')).toHaveLength(1);
-    expect(container.querySelectorAll('figure[data-detail]')).toHaveLength(5);
+    const figures = [...container.querySelectorAll('figure')];
+    expect(figures).toHaveLength(6);
+    expect(new Set(figures.map((f) => f.className)).size).toBe(1);
+    expect(new Set([...container.querySelectorAll('img')].map((i) => i.className)).size).toBe(1);
     for (const img of container.querySelectorAll('img')) {
       expect(img.getAttribute('alt')?.length).toBeGreaterThan(10);
       expect(img).toHaveAttribute('width');
