@@ -10,7 +10,7 @@ const plans: Array<{ id: string; name: string; size: [number, number] | null }> 
   { id: 'amil', name: 'Amil', size: [177, 69] },
   { id: 'allianz', name: 'Allianz', size: [179, 53] },
   { id: 'bradesco-saude', name: 'Bradesco Saúde', size: [181, 71] },
-  { id: 'blue', name: 'Blue', size: null },
+  { id: 'blue', name: 'Blue', size: [419, 177] }, // Blue Saúde; versão branca sobre azul (única publicada)
   { id: 'saude-caixa', name: 'Saúde Caixa', size: [203, 83] },
   { id: 'cassi', name: 'Cassi', size: [190, 99] },
   { id: 'central-nacional-unimed', name: 'Central Nacional Unimed', size: [193, 70] },
@@ -31,6 +31,6 @@ export const insurancePlans: InsurancePlan[] = plans.map(({ id, name, size }) =>
   logo: size ? logo(id, name, size[0], size[1]) : null,
   todos:
     id === 'blue'
-      ? ['TODO_CONTENT_VALIDATION: "Blue" — confirmar o nome completo da operadora e enviar o logo (não existe no site atual)']
+      ? ['TODO_CONTENT_VALIDATION: logo da Blue Saúde tirado de site de corretor (versão branca sobre azul); trocar pelo arquivo oficial da CEMO/operadora']
       : [],
 }));

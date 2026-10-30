@@ -35,3 +35,18 @@ for (const [file, id] of Object.entries(files)) {
     .toFile(`${OUT}/${id}.webp`);
   console.log(`${id}: ${info.width}×${info.height} ${info.size} B`);
 }
+
+// Blue Saúde: só existe publicada a versão branca sobre azul (ícone 512×512, "cropped-bluesaude_logo.jpeg");
+// recorta o fundo azul em volta da palavra (x 82–429, y 194–311 + margem) e arredonda os cantos, como o selo
+// da Unimed Seguros. Marca sem nenhuma alteração.
+{
+  const [w, h] = [419, 177];
+  const corner = Buffer.from(`<svg width="${w}" height="${h}"><rect width="${w}" height="${h}" rx="18" ry="18"/></svg>`);
+  const rounded = await sharp(`${SRC}/logo-blue-saude.jpeg`)
+    .extract({ left: 46, top: 164, width: w, height: h })
+    .composite([{ input: corner, blend: 'dest-in' }])
+    .png()
+    .toBuffer();
+  const info = await sharp(rounded).flatten({ background: '#ffffff' }).webp({ quality: 90 }).toFile(`${OUT}/blue.webp`);
+  console.log(`blue: ${info.width}×${info.height} ${info.size} B`);
+}

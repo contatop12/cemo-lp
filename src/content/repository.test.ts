@@ -76,7 +76,7 @@ describe('content repository (fixtures)', () => {
 
   it('lista de convênios atualizada (ajustes 23/10), com logo quando existe', async () => {
     const plans = await content.listInsurancePlans();
-    for (const p of plans.filter((x) => x.name !== 'Blue')) expect(p.logo?.src, p.name).toMatch(/^\/images\/convenios\/.+\.(png|webp|jpg)$/);
+    for (const p of plans) expect(p.logo?.src, p.name).toMatch(/^\/images\/convenios\/.+\.(png|webp|jpg)$/);
     expect(plans.map((p) => p.name)).toEqual([
       'Amil',
       'Allianz',
