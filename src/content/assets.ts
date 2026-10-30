@@ -23,6 +23,7 @@ const PORTRAIT_SIZES: Record<string, [number, number]> = {
   'adriana-bizzarri': [480, 600],
   'priscilla-pires': [444, 555],
   'roberta-andrade-e-nascimento': [406, 508],
+  'igor-seidi-sekiguchi': [640, 800],
 };
 
 export function portrait(slug: string, alt: string): ImageAsset | null {

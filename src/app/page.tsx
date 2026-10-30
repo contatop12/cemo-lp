@@ -5,6 +5,7 @@ import { DoctorsSection } from '@/components/home/DoctorsSection';
 import { EditorialBlock } from '@/components/home/EditorialBlock';
 import { FinalCta } from '@/components/home/FinalCta';
 import { Hero } from '@/components/home/Hero';
+import { formatRegistry } from '@/lib/registry';
 import { InsuranceSection } from '@/components/home/InsuranceSection';
 import { LocationSection } from '@/components/home/LocationSection';
 import { ReviewsSection } from '@/components/home/ReviewsSection';
@@ -68,7 +69,7 @@ export default async function HomePage() {
         doctor={{
           name: `${director.honorific} ${director.name}`,
           role: director.role ?? 'Diretor Técnico',
-          crm: director.crm,
+          registry: formatRegistry(director),
           image: assets.drDavidCutout,
         }}
       />

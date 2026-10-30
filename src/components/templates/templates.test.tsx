@@ -60,12 +60,12 @@ describe('templates de página', () => {
     expect(screen.getAllByText(/precisam de avaliação oftalmológica/).length).toBeGreaterThan(0);
   });
 
-  it('perfil do médico: CRM, formação, sem RQE inventado e JSON-LD de perfil', async () => {
+  it('perfil do médico: CRM, RQE informado pela CEMO, formação e JSON-LD de perfil', async () => {
     const d = (await content.getDoctorBySlug('david-ribeiro-de-mendonca-filho'))!;
     const { container } = render(await DoctorTemplate({ doctor: d }));
     expectSoundPage(container);
     expect(screen.getByText(new RegExp(d.crm))).toBeInTheDocument();
-    expect(container.textContent).not.toContain('RQE');
+    expect(screen.getByText(/Oftalmologista, CRM\/SP 98339, RQE 28385/)).toBeInTheDocument();
     for (const c of d.credentials) expect(screen.getByText(c)).toBeInTheDocument();
     expect(graphTypes(container)).toEqual(expect.arrayContaining(['ProfilePage', 'Person']));
   });

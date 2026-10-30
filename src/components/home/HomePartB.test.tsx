@@ -100,7 +100,7 @@ describe('TechStructure', () => {
 describe('DoctorsSection', () => {
   const published = doctors.filter((d) => d.published);
 
-  it('médicos publicados com CRM e link de perfil; sem RQE', () => {
+  it('médicos publicados com CRM, RQE quando informado e link de perfil', () => {
     render(<DoctorsSection doctors={published} />);
     for (const d of published) {
       expect(screen.getByText(new RegExp(d.crm.replace('/', '\/')))).toBeInTheDocument();

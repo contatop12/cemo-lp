@@ -91,11 +91,11 @@ describe('EditorialBlock', () => {
 });
 
 describe('DoctorSpotlight', () => {
-  it('foto, CRM do repositório, credenciais e sem RQE inventado', () => {
+  it('foto, CRM e RQE do repositório, credenciais', () => {
     render(<DoctorSpotlight doctor={david} />);
     expect(screen.getByRole('img', { name: david.photo!.alt })).toBeInTheDocument();
     expect(screen.getByText(new RegExp(david.crm))).toBeInTheDocument();
-    expect(document.body.textContent).not.toContain('RQE');
+    expect(screen.getByText('CRM/SP 98339, RQE 28385')).toBeInTheDocument();
     for (const c of david.credentials) expect(screen.getByText(c)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Ver todo o corpo clínico' })).toHaveAttribute('href', '/corpo-clinico/');
     const profile = screen.getByRole('link', { name: 'Ver o perfil do Dr. David' });

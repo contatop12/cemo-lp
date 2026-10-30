@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Doctor } from '@/content/types';
+import { formatRegistry } from '@/lib/registry';
 import { AvatarPlaceholder } from './AvatarPlaceholder';
 import { PortraitFrame } from './PortraitFrame';
 
@@ -48,8 +49,7 @@ export function DoctorCard({ doctor, headingLevel = 3 }: { doctor: DoctorCardDat
       {doctor.role ? <p className="mt-1 font-bold text-azul-700">{doctor.role}</p> : null}
       {doctor.areas.length > 0 ? <p className="mt-1 text-tinta-suave">{doctor.areas.join(', ')}</p> : null}
       <p className="mt-auto pt-2 text-small text-tinta-suave">
-        {doctor.crm}
-        {doctor.rqe ? `, RQE ${doctor.rqe}` : ''}
+        {formatRegistry(doctor)}
       </p>
     </article>
   );

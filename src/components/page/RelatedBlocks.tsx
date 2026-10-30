@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArticleCard } from '@/components/ui/ArticleCard';
 import { DoctorCard } from '@/components/ui/DoctorCard';
 import type { ArticleLink, Doctor, MedicalReview, SourceRef } from '@/content/types';
+import { formatRegistry } from '@/lib/registry';
 
 export interface RelatedLink {
   name: string;
@@ -85,7 +86,7 @@ export function ReviewNote({ review, reviewer, sources }: { review: MedicalRevie
           <Link href={reviewer.canonicalPath} className="font-bold text-azul-700 underline underline-offset-[3px]">
             {`${reviewer.honorific} ${reviewer.name}`}
           </Link>
-          , {reviewer.crm}, em <time dateTime={review.reviewedAt ?? undefined}>{dateFmt(review.reviewedAt ?? '')}</time>.
+          , {formatRegistry(reviewer)}, em <time dateTime={review.reviewedAt ?? undefined}>{dateFmt(review.reviewedAt ?? '')}</time>.
         </p>
       ) : null}
       <p className="mt-1">As informações desta página não substituem a consulta com o oftalmologista.</p>

@@ -4,6 +4,7 @@ import { AvatarPlaceholder } from '@/components/ui/AvatarPlaceholder';
 import { PortraitFrame } from '@/components/ui/PortraitFrame';
 import { Section } from '@/components/ui/Section';
 import type { Doctor } from '@/content/types';
+import { formatRegistry } from '@/lib/registry';
 
 // Autoridade médica com dados do repositório: retrato no arco-pálpebra, bio só com fatos publicados, formação
 // completa. RQE só quando informado pela CEMO.
@@ -33,7 +34,7 @@ export function DoctorSpotlight({ doctor }: { doctor: Doctor }) {
           <h2 id="destaque-medico" className="mt-2 text-h2">
             {fullName}
           </h2>
-          <p className="mt-2 text-tinta-suave">{doctor.crm}</p>
+          <p className="mt-2 text-tinta-suave">{formatRegistry(doctor)}</p>
           {doctor.bio.map((paragraph) => (
             <p key={paragraph} className="mt-5 max-w-[60ch] text-lead">
               {paragraph}

@@ -10,6 +10,7 @@ import { AvatarPlaceholder } from '@/components/ui/AvatarPlaceholder';
 import { PortraitFrame } from '@/components/ui/PortraitFrame';
 import { content } from '@/content';
 import type { Doctor } from '@/content/types';
+import { formatRegistry } from '@/lib/registry';
 import { buildClinicNode, buildGraph, buildPersonNode, buildProfilePageNode, buildVideoNode, buildWebSiteNode } from '@/lib/seo/jsonld';
 
 // Perfil do médico (briefing §72–§74): quem é, formação, onde atua no CEMO, vídeos e o caminho para agendar.
@@ -48,8 +49,7 @@ export async function DoctorTemplate({ doctor: d }: { doctor: Doctor }) {
               {name}
             </h1>
             <p className="mt-3 text-lead text-tinta-suave">
-              Oftalmologista, {d.crm}
-              {d.rqe ? `, RQE ${d.rqe}` : ''}
+              Oftalmologista, {formatRegistry(d)}
             </p>
             {d.bio.map((p) => (
               <p key={p} className="mt-5 max-w-[60ch] text-lead">

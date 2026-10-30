@@ -1,5 +1,5 @@
 // Corpo clínico. Nomes, CRM, áreas e formação transcritos do site atual (/corpo-clinico/, auditoria 2026-10-22);
-// bios só recombinam esses fatos (nada novo). RQE: nenhum publicado no site atual → null até a CEMO validar.
+// bios só recombinam esses fatos (nada novo). RQE: informados pela CEMO (23/10 e 30/10/2026); null enquanto não informado.
 import { assets, portrait } from '../assets';
 import type { Doctor } from '../types';
 
@@ -17,7 +17,7 @@ export const doctors: Doctor[] = [
     name: 'David Ribeiro de Mendonça Filho',
     honorific: 'Dr.',
     crm: 'CRM/SP 98339',
-    rqe: null,
+    rqe: '28385',
     role: 'Diretor Técnico',
     areas: ['Cirurgias Refrativas', 'Catarata', 'Ceratocone'],
     credentials: [
@@ -40,7 +40,6 @@ export const doctors: Doctor[] = [
     published: true,
     featured: true,
     todos: [
-      RQE_TODO,
       BIO_TODO,
       'TODO_CONTENT_VALIDATION: grafia do CRM: 98339 (corpo clínico) × 98.339 (rodapé)',
       'TODO_CONTENT_VALIDATION: obter original em alta (≥ 2400 px de altura) da foto do Dr. David; arquivo atual 853×1280 muito comprimido',
@@ -51,7 +50,7 @@ export const doctors: Doctor[] = [
     name: 'Priscilla Pires',
     honorific: 'Dra.',
     crm: 'CRM/SP 84340',
-    rqe: null,
+    rqe: '150712',
     role: null,
     areas: ['Oftalmologia Geral'],
     credentials: [
@@ -65,14 +64,14 @@ export const doctors: Doctor[] = [
     canonicalPath: '/corpo-clinico/priscilla-pires/',
     published: true,
     featured: false,
-    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
+    todos: [BIO_TODO, PHOTO_TODO],
   },
   {
     slug: 'adriana-bizzarri',
     name: 'Adriana Bizzarri',
     honorific: 'Dra.',
     crm: 'CRM/SP 91030',
-    rqe: null,
+    rqe: '41444',
     role: null,
     areas: ['Estrabismo', 'Oftalmopediatria'],
     credentials: [
@@ -88,14 +87,14 @@ export const doctors: Doctor[] = [
     canonicalPath: '/corpo-clinico/adriana-bizzarri/',
     published: true,
     featured: false,
-    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
+    todos: [BIO_TODO, PHOTO_TODO],
   },
   {
     slug: 'adriano-de-morais-ferreira',
     name: 'Adriano de Morais Ferreira',
     honorific: 'Dr.',
     crm: 'CRM/SP 152423',
-    rqe: null,
+    rqe: '58123',
     role: null,
     areas: ['Retina'],
     credentials: [
@@ -111,7 +110,6 @@ export const doctors: Doctor[] = [
     published: true,
     featured: false,
     todos: [
-      RQE_TODO,
       BIO_TODO,
       PHOTO_TODO,
       'TODO_CONTENT_VALIDATION: confirmar que o "Dr. Adriano" do vídeo de catarata é o Dr. Adriano de Morais Ferreira e se ele também opera catarata',
@@ -122,7 +120,7 @@ export const doctors: Doctor[] = [
     name: 'Roberta Andrade e Nascimento',
     honorific: 'Dra.',
     crm: 'CRM/SP 144576',
-    rqe: null,
+    rqe: '57974',
     role: null,
     areas: ['Glaucoma clínico e cirúrgico', 'Catarata'],
     credentials: [
@@ -138,7 +136,7 @@ export const doctors: Doctor[] = [
     canonicalPath: '/corpo-clinico/roberta-andrade-e-nascimento/',
     published: true,
     featured: false,
-    todos: [RQE_TODO, BIO_TODO, PHOTO_TODO],
+    todos: [BIO_TODO, PHOTO_TODO],
   },
   {
     // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica. Sem foto ainda.
@@ -160,7 +158,7 @@ export const doctors: Doctor[] = [
     todos: [BIO_TODO, 'TODO_CONTENT_VALIDATION: foto profissional do Dr. José Pereira do Rego Neto (hoje aparece a silhueta)'],
   },
   {
-    // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica. Sem foto ainda.
+    // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica; foto enviada em 30/10.
     slug: 'igor-seidi-sekiguchi',
     name: 'Igor Seidi Sekiguchi',
     honorific: 'Dr.',
@@ -169,14 +167,14 @@ export const doctors: Doctor[] = [
     role: null,
     areas: ['Glaucoma', 'Catarata'],
     credentials: ['Especialista em glaucoma e catarata'],
-    photo: null,
+    photo: portrait('igor-seidi-sekiguchi', alt('Dr.', 'Igor Seidi Sekiguchi', 'de jaleco')),
     bio: ['O Dr. Igor Seidi Sekiguchi atua em glaucoma e catarata no CEMO.'],
     specialtyIds: ['glaucoma', 'catarata'],
     videoIds: [],
     canonicalPath: '/corpo-clinico/igor-seidi-sekiguchi/',
     published: true,
     featured: false,
-    todos: [BIO_TODO, 'TODO_CONTENT_VALIDATION: foto profissional do Dr. Igor Seidi Sekiguchi (hoje aparece a silhueta)'],
+    todos: [BIO_TODO],
   },
   {
     // Aparece nos vídeos de plástica ocular entregues pela CEMO (2026), mas não no site atual: perfil só publica

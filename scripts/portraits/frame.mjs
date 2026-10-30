@@ -18,6 +18,8 @@ const FRAMES = [
   ['dra.adriana-bizzarri', 'adriana-bizzarri', 8, 0, 480],
   ['dra.priscilla-pires', 'priscilla-pires', 30, 0, 444],
   ['dra.roberta-andrade', 'roberta-andrade-e-nascimento', 40, 0, 406],
+  // Foto enviada pela CEMO em 30/10/2026 (853×1280): quadro máximo centrado no rosto, cabeça ≈ 37% (Dr. David: 36%).
+  ['dr.igor-seidi-sekiguchi', 'igor-seidi-sekiguchi', 195, 41, 658],
 ];
 const MAX_W = 640;
 

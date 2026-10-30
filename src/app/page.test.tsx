@@ -12,6 +12,7 @@ describe('Home', () => {
     const { container } = render(<main>{await HomePage()}</main>);
     expect(container.querySelectorAll('h1')).toHaveLength(1);
     expect(container.textContent).not.toContain('médicos no corpo clínico'); // ajustes 23/10, item 7
+    expect(container.querySelector('#inicio')?.textContent).toContain('CRM/SP 98339, RQE 28385');
     expect([...container.querySelectorAll('section[id]')].map((s) => s.id)).toEqual([
       'inicio',
       'agendar',

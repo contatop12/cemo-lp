@@ -11,7 +11,8 @@ export interface HeroProps {
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
   proof: Array<{ id: string; value: string; label: string }>;
-  doctor: { name: string; role: string; crm: string; image: ImageAsset };
+  /** registry: CRM e RQE já formatados (formatRegistry). */
+  doctor: { name: string; role: string; registry: string; image: ImageAsset };
 }
 
 // "Lente de prova" (docs/superpowers/plans/2026-10-22-cemo-fase-2-ecossistema.md, Design v2): o Dr. David, recortado do
@@ -37,7 +38,7 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
           <p className="text-small text-tinta-suave lg:hidden">
             <strong className="font-bold text-tinta">{doctor.name}</strong>
             <br />
-            {doctor.role}, {doctor.crm}
+            {doctor.role}, {doctor.registry}
           </p>
           <p className="hidden text-ui font-bold text-azul-700 lg:block">{kicker}</p>
           <h1 id="hero-title" className="mt-4 max-w-[13ch] text-h1 lg:mt-3 lg:text-display">
@@ -80,7 +81,7 @@ export function Hero({ kicker, headline, lead, primaryCta, secondaryCta, proof, 
           >
             <p className="font-display text-h4 font-semibold leading-snug text-tinta">{doctor.name}</p>
             <p className="mt-1 text-small font-bold text-azul-700">{doctor.role}</p>
-            <p className="text-small text-tinta-suave">{doctor.crm}</p>
+            <p className="text-small text-tinta-suave">{doctor.registry}</p>
           </div>
         </div>
       </div>

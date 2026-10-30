@@ -22,7 +22,18 @@ describe('content repository (fixtures)', () => {
     expect(first?.areas).not.toContain('Retina Clínica');
     expect(new Set(doctors.map((d) => d.crm)).size).toBe(7);
     const rqe = Object.fromEntries(doctors.map((d) => [d.slug, d.rqe]));
-    expect(rqe).toMatchObject({ 'jose-pereira-do-rego-neto': '135836', 'igor-seidi-sekiguchi': '106176', 'david-ribeiro-de-mendonca-filho': null });
+    // RQE informados pela CEMO (José e Igor em 23/10; os demais em 30/10)
+    expect(rqe).toEqual({
+      'david-ribeiro-de-mendonca-filho': '28385',
+      'priscilla-pires': '150712',
+      'adriana-bizzarri': '41444',
+      'adriano-de-morais-ferreira': '58123',
+      'roberta-andrade-e-nascimento': '57974',
+      'jose-pereira-do-rego-neto': '135836',
+      'igor-seidi-sekiguchi': '106176',
+    });
+    for (const d of doctors) expect(d.todos.join(' '), d.slug).not.toMatch(/confirmar RQE/);
+    expect(doctors.find((d) => d.slug === 'igor-seidi-sekiguchi')?.photo).toMatchObject({ src: '/images/medicos/igor-seidi-sekiguchi.webp', width: 640, height: 800 });
     for (const d of doctors) {
       expect(d.canonicalPath).toBe(`/corpo-clinico/${d.slug}/`);
       if (d.photo) expect(d.photo.src).toBe(`/images/medicos/${d.slug}.webp`);

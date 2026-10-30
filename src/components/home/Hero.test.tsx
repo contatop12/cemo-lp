@@ -20,7 +20,7 @@ const props: HeroProps = {
   doctor: {
     name: 'Dr. David Ribeiro de Mendonça Filho',
     role: 'Diretor Técnico',
-    crm: 'CRM/SP 00000',
+    registry: 'CRM/SP 00000',
     image: assets.drDavidCutout,
   },
 };

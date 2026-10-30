@@ -49,11 +49,11 @@ describe('JSON-LD', () => {
     expect(buildPersonNode({ ...david, published: false }, siteSettings).url).toBeUndefined();
   });
 
-  it('o grafo nunca traz avaliação, preço, geo aproximado ou RQE', () => {
+  it('o grafo nunca traz avaliação, preço ou geo aproximado; RQE só quando informado', () => {
     const graph = buildGraph([
       buildClinicNode(siteSettings),
       buildWebSiteNode(siteSettings),
-      buildPersonNode(david, siteSettings),
+      buildPersonNode({ ...david, rqe: null }, siteSettings),
       buildBreadcrumbNode([{ name: 'Início', path: '/' }], siteSettings),
     ]);
     expect(graph['@context']).toBe('https://schema.org');
@@ -103,6 +103,6 @@ describe('RQE informado pela CEMO', () => {
       { '@type': 'PropertyValue', propertyID: 'CRM', value: jose.crm },
       { '@type': 'PropertyValue', propertyID: 'RQE', value: '135836' },
     ]);
-    expect(buildPersonNode(david, siteSettings).identifier).toEqual([{ '@type': 'PropertyValue', propertyID: 'CRM', value: david.crm }]);
+    expect(buildPersonNode({ ...david, rqe: null }, siteSettings).identifier).toEqual([{ '@type': 'PropertyValue', propertyID: 'CRM', value: david.crm }]);
   });
 });

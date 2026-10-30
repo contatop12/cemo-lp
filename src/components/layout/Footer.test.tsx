@@ -34,7 +34,7 @@ describe('Footer', () => {
 
   it('responsável técnico vem do repositório', () => {
     renderFooter();
-    expect(screen.getByText(`Responsável técnico: ${david!.honorific} ${david!.name} — ${david!.crm}`)).toBeInTheDocument();
+    expect(screen.getByText(`Responsável técnico: ${david!.honorific} ${david!.name} — CRM/SP 98339, RQE 28385`)).toBeInTheDocument();
   });
 
   it('links legais, crédito e externos seguros', () => {

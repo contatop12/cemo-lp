@@ -3,6 +3,7 @@ import { TrackedLink } from '@/components/analytics/TrackedLink';
 import { Logo } from '@/components/brand/Logo';
 import type { Doctor, NavGroup, NavLink, SiteSettings } from '@/content/types';
 import { formatAddress, formatHoursLines, telHref, whatsappHref } from '@/lib/contact';
+import { formatRegistry } from '@/lib/registry';
 
 const linkClass = 'inline-flex min-h-12 min-w-12 items-center text-papel no-underline hover:text-ciano-claro hover:underline';
 
@@ -94,7 +95,7 @@ export function Footer({
           <div>
             {technicalResponsible ? (
               <p>
-                {`Responsável técnico: ${technicalResponsible.honorific} ${technicalResponsible.name} — ${technicalResponsible.crm}`}
+                {`Responsável técnico: ${technicalResponsible.honorific} ${technicalResponsible.name} — ${formatRegistry(technicalResponsible)}`}
               </p>
             ) : null}
             <p>© {settings.name}</p>
