@@ -7,6 +7,16 @@ export type RedirectDecision = { kind: 'redirect'; location: string } | { kind: 
 const BYPASS_PREFIXES = ['/_next/', '/api/'];
 const BYPASS_EXACT = new Set(['/api', '/favicon.ico', '/robots.txt', '/sitemap.xml']);
 const FILE_EXTENSION = /\.([a-z0-9]{1,6})$/i;
+// Sitemaps do WordPress/Yoast (o Search Console tem o sitemap_index.xml cadastrado) → sitemap do site novo.
+const WP_SITEMAPS = new Set([
+  '/sitemap_index.xml',
+  '/wp-sitemap.xml',
+  '/post-sitemap.xml',
+  '/page-sitemap.xml',
+  '/category-sitemap.xml',
+  '/post_tag-sitemap.xml',
+  '/author-sitemap.xml',
+]);
 // Páginas 2, 3… de arquivos do WordPress (categoria, tag, autor): mesmo destino da primeira página.
 const ARCHIVE_PAGE = /^(\/(?:category|tag|author)\/.+\/)page\/\d+\/$/;
 
@@ -34,6 +44,7 @@ export function resolveRedirect(
   tables: RedirectTables = redirectTables,
 ): RedirectDecision {
   const { pathname, search } = input;
+  if (WP_SITEMAPS.has(pathname.toLowerCase())) return { kind: 'redirect', location: '/sitemap.xml' };
   if (shouldBypass(pathname)) return { kind: 'pass' };
 
   const key = normalizePath(pathname);

@@ -31,6 +31,13 @@ describe('resolveRedirect (amostras do mapa de migração)', () => {
     expect(go('/blog/pagina/2/')).toEqual({ kind: 'pass' });
   });
 
+  it.each(['/sitemap_index.xml', '/wp-sitemap.xml', '/post-sitemap.xml', '/page-sitemap.xml', '/category-sitemap.xml', '/post_tag-sitemap.xml', '/author-sitemap.xml'])(
+    'sitemap do WordPress (cadastrado no Search Console) %s → 301 /sitemap.xml',
+    (from) => {
+      expect(go(from)).toEqual({ kind: 'redirect', location: '/sitemap.xml' });
+    },
+  );
+
   it('/post-list/ → 410', () => {
     expect(go('/post-list/')).toEqual({ kind: 'gone' });
   });
