@@ -76,6 +76,12 @@ describe('fix: CSP para Google tag/Ads e Meta Pixel via GTM', () => {
     expect(directive('img-src')).toContain('https://www.googleadservices.com');
   });
 
+  // O Cloudflare injeta o Web Analytics da zona em produção (beacon sem cookies).
+  it('Cloudflare Web Analytics liberado', () => {
+    expect(directive('script-src')).toContain('https://static.cloudflareinsights.com');
+    expect(directive('connect-src')).toContain('https://cloudflareinsights.com');
+  });
+
   it('frame-src permite o iframe de conversão do Google Ads', () => {
     expect(directive('frame-src')).toContain('https://td.doubleclick.net');
   });

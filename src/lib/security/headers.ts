@@ -12,6 +12,7 @@ function contentSecurityPolicy(env: SiteEnv): string {
     'https://googleads.g.doubleclick.net',
     'https://www.google.com',
     'https://connect.facebook.net',
+    'https://static.cloudflareinsights.com', // Web Analytics que o Cloudflare injeta na zona
   ];
   if (env === 'development') scriptSrc.push("'unsafe-eval'");
   return [
@@ -20,7 +21,7 @@ function contentSecurityPolicy(env: SiteEnv): string {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://googleads.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.google.com https://www.google.com.br https://www.facebook.com",
     "font-src 'self'",
-    "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.facebook.com https://connect.facebook.net",
+    "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://www.googleadservices.com https://pagead2.googlesyndication.com https://www.facebook.com https://connect.facebook.net https://cloudflareinsights.com",
     'frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net',
     "object-src 'none'",
     "base-uri 'self'",
