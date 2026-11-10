@@ -1,7 +1,10 @@
 import type { DayOfWeek, SiteSettings } from '@/content/types';
 
-// Mensagem genérica: nunca carrega informação de saúde (LGPD).
-const DEFAULT_WHATSAPP_MESSAGE = 'Olá! Gostaria de agendar uma consulta no CEMO.';
+// Saudação idêntica à do site WordPress: o gatilho da conversão de WhatsApp no GTM (GTM-PH3D5ZS) é
+// "Click URL contém api.whatsapp.com/send?phone=…&text=<saudação>". O assunto vem depois dela.
+const WHATSAPP_GREETING = 'Olá, Estou entrando em contato através do site CEMO!';
+// Assunto genérico: nunca carrega informação de saúde (LGPD).
+const DEFAULT_WHATSAPP_TOPIC = 'Gostaria de agendar uma consulta.';
 
 export function formatAddress(s: SiteSettings): string {
   const a = s.address;
@@ -13,8 +16,8 @@ function addressQuery(s: SiteSettings): string {
   return `${a.streetAddress}, ${a.city} - ${a.region}, ${a.postalCode}`;
 }
 
-export function whatsappHref(s: SiteSettings, message: string = DEFAULT_WHATSAPP_MESSAGE): string {
-  return `https://wa.me/${s.whatsapp.digits}?text=${encodeURIComponent(message)}`;
+export function whatsappHref(s: SiteSettings, topic: string = DEFAULT_WHATSAPP_TOPIC): string {
+  return `https://api.whatsapp.com/send?phone=${s.whatsapp.digits}&text=${encodeURIComponent(`${WHATSAPP_GREETING} ${topic}`)}`;
 }
 
 export function telHref(s: SiteSettings): string {

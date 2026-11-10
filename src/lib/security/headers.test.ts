@@ -68,6 +68,14 @@ describe('fix: CSP para Google tag/Ads e Meta Pixel via GTM', () => {
     }
   });
 
+  // Medido no navegador com o GTM-PH3D5ZS real (10/11/2026): a Google tag manda o page_view de conversão para
+  // pagead2.googlesyndication.com/ccm/collect (fetch e imagem); a conversão do Ads pode sair como imagem.
+  it('Google tag/Ads: ccm/collect e pixel de conversão liberados', () => {
+    expect(directive('connect-src')).toContain('https://pagead2.googlesyndication.com');
+    expect(directive('img-src')).toContain('https://pagead2.googlesyndication.com');
+    expect(directive('img-src')).toContain('https://www.googleadservices.com');
+  });
+
   it('frame-src permite o iframe de conversão do Google Ads', () => {
     expect(directive('frame-src')).toContain('https://td.doubleclick.net');
   });

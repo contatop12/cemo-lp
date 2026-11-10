@@ -10,13 +10,16 @@ import {
   whatsappHref,
 } from './contact';
 
-const DEFAULT_MESSAGE = 'Olá! Gostaria de agendar uma consulta no CEMO.';
+const DEFAULT_MESSAGE = 'Gostaria de agendar uma consulta.';
 
 describe('contact helpers', () => {
-  it('whatsappHref usa a mensagem genérica padrão', () => {
-    expect(whatsappHref(siteSettings)).toBe(
-      'https://wa.me/5511947016162?text=' + encodeURIComponent(DEFAULT_MESSAGE),
-    );
+  // Gatilho da conversão de WhatsApp no GTM-PH3D5ZS do site atual: "Click URL contém" exatamente este texto.
+  const GTM_WHATSAPP_TRIGGER =
+    'https://api.whatsapp.com/send?phone=5511947016162&text=Ol%C3%A1%2C%20Estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site%20CEMO!';
+
+  it('whatsappHref começa com o link que dispara a conversão do Google Ads no GTM', () => {
+    expect(whatsappHref(siteSettings).startsWith(GTM_WHATSAPP_TRIGGER)).toBe(true);
+    expect(whatsappHref(siteSettings)).toBe(`${GTM_WHATSAPP_TRIGGER}%20${encodeURIComponent(DEFAULT_MESSAGE)}`);
   });
 
   it('a mensagem padrão não carrega informação de saúde', () => {
@@ -24,9 +27,11 @@ describe('contact helpers', () => {
     expect(decodeURIComponent(whatsappHref(siteSettings))).not.toMatch(/catarata|glaucoma|cirurgia|diagn/i);
   });
 
-  it('whatsappHref aceita mensagem própria codificada', () => {
-    expect(whatsappHref(siteSettings, 'Olá & tudo bem?')).toBe(
-      'https://wa.me/5511947016162?text=' + encodeURIComponent('Olá & tudo bem?'),
+  it('whatsappHref aceita um assunto próprio, depois da saudação do gatilho, codificado', () => {
+    const href = whatsappHref(siteSettings, 'Convênio & cobertura?');
+    expect(href.startsWith(GTM_WHATSAPP_TRIGGER)).toBe(true);
+    expect(decodeURIComponent(new URL(href).searchParams.get('text') ?? '')).toBe(
+      'Olá, Estou entrando em contato através do site CEMO! Convênio & cobertura?',
     );
   });
 

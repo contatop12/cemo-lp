@@ -7,6 +7,8 @@ export type RedirectDecision = { kind: 'redirect'; location: string } | { kind: 
 const BYPASS_PREFIXES = ['/_next/', '/api/'];
 const BYPASS_EXACT = new Set(['/api', '/favicon.ico', '/robots.txt', '/sitemap.xml']);
 const FILE_EXTENSION = /\.([a-z0-9]{1,6})$/i;
+// Páginas 2, 3… de arquivos do WordPress (categoria, tag, autor): mesmo destino da primeira página.
+const ARCHIVE_PAGE = /^(\/(?:category|tag|author)\/.+\/)page\/\d+\/$/;
 
 export function shouldBypass(pathname: string): boolean {
   if (BYPASS_EXACT.has(pathname)) return true;
@@ -39,6 +41,10 @@ export function resolveRedirect(
 
   const target = tables.redirects[key];
   if (target) return { kind: 'redirect', location: `${target}${search}` };
+
+  const archive = key.match(ARCHIVE_PAGE)?.[1];
+  if (archive && goneSet(tables).has(archive)) return { kind: 'gone' };
+  if (archive && tables.redirects[archive]) return { kind: 'redirect', location: `${tables.redirects[archive]}${search}` };
 
   // Variação só de formato (caixa, barra, index.html…): compara na mesma codificação para nunca entrar em loop.
   if (key !== safeDecode(pathname)) return { kind: 'redirect', location: `${encodeURI(key)}${search}` };

@@ -39,5 +39,5 @@ test('404 humanizada e não indexável', async ({ page }) => {
   const robots = await page.$$eval('meta[name="robots"]', (els) => els.map((e) => e.getAttribute('content') ?? ''));
   expect(robots.length).toBeGreaterThan(0);
   for (const content of robots) expect(content).toContain('noindex');
-  await expect(page.getByRole('link', { name: 'Falar no WhatsApp' }).first()).toHaveAttribute('href', /wa\.me/);
+  await expect(page.getByRole('link', { name: 'Falar no WhatsApp' }).first()).toHaveAttribute('href', /^https:\/\/api\.whatsapp\.com\/send\?phone=/);
 });

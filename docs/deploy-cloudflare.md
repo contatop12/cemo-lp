@@ -88,3 +88,35 @@ trecho (`Range`) e o Safari do iPhone só toca vídeo com resposta `206`. Fluxo:
 
 Novo vídeo: copiar o original para `_materiais/videos/src/`, incluir o id em `scripts/encode-videos.mjs`, codificar,
 enviar e cadastrar em `src/content/fixtures/videos.ts` (com transcrição) — não precisa de novo deploy só pelo arquivo.
+
+## Produção (https://oftalmologiacemo.com.br) — migração de 10/11/2026
+
+**Como está montado.** O domínio continua no Cloudflare (zona `oftalmologiacemo.com.br`, conta Contato P12). O
+registro A do apex (com proxy) segue apontando para a hospedagem do WordPress na UOL, e o `www` é CNAME com proxy
+para o apex. O site novo entra por **Workers Routes** (`oftalmologiacemo.com.br/*` e `www.oftalmologiacemo.com.br/*`)
+do Worker `cemo-producao` (`env.production` no `wrangler.jsonc`): a rota intercepta a requisição antes da
+hospedagem. DNS e e-mail (MX, IMAP, SMTP, webmail da UOL) **não mudam**. O TXT de verificação do Search Console fica.
+
+**Deploy de produção:** `npm run deploy:producao` (build com `SITE_ENV=production`, URL canônica, GTM-PH3D5ZS e o
+pixel da Meta fora do GTM; token `CLOUDFLARE_API_TOKEN_ZONA_CEMO` do `.env.cloudflare`, o único com permissão na zona).
+Só build: `npm run build:producao`.
+
+**Segredos em runtime** (sem novo deploy): `LEAD_WEBHOOK_URL` e `LEAD_WEBHOOK_SECRET` no Worker `cemo-producao`
+(`npx wrangler secret put LEAD_WEBHOOK_URL --env production` pelo `scripts/cloudflare-env.mjs`). Sem webhook o
+formulário falha fechado e oferece o WhatsApp.
+
+**Configurações da zona ajustadas na troca:** "Always Use HTTPS" ligado (HTTP → HTTPS no Cloudflare; o Worker não
+decide protocolo) e "Email Obfuscation" desligado (reescreve o HTML e quebra a hidratação do React).
+
+**Voltar ao WordPress (segundos, sem mexer em DNS):** apagar as duas rotas do Worker `cemo-producao`
+(Painel → Workers Routes, ou `DELETE /zones/<zona>/workers/routes/<id>`). O WordPress na UOL volta a responder na
+hora. Para desfazer as configurações: Always Use HTTPS = off, Email Obfuscation = on (valores anteriores em
+`_materiais/backup-migracao-2026-11-10/cloudflare/settings.json`).
+
+**Backups (fora do git, em `_materiais/backup-migracao-2026-11-10/`):** zona do Cloudflare (DNS em JSON e BIND,
+configurações, regras), Search Console (páginas de 16 e 3 meses, Imagens), sitemaps e o HTML das 428 páginas do
+WordPress, e a validação das 551 URLs contra o build de produção.
+
+**Conferência depois da troca:** `/`, `/robots.txt` e `/sitemap.xml` no domínio; amostra das URLs antigas (200,
+301 e 410); `www` → apex; GTM e conversões do Ads (telefone, WhatsApp e `/obrigado/`); envio do sitemap novo no
+Search Console.

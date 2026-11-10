@@ -51,7 +51,7 @@ Para quem cria ou revisa páginas e para o lançamento. A infraestrutura fica em
 | Formulário funcional | ✅ | E2E: lead chega ao webhook com atribuição; falha fechada sem webhook; honeypot; rate limit |
 | Prova social | ⚠️ dados a validar | Nota Google, anos e atendimentos centralizados em `stats.ts` com `validated: false` |
 | Serviços | ✅ | 8 intenções → URLs canônicas |
-| Médicos | ⚠️ | 7 médicos com CRM e RQE (também no JSON-LD); bios e foto do Dr. José (silhueta) pendentes |
+| Médicos | ⚠️ | 7 médicos com CRM, RQE (também no JSON-LD) e foto; bios revisadas pendentes |
 | Estrutura | ⚠️ | Composição editorial com 6 fotos reais; identificação dos aparelhos e fotos em alta pendentes |
 | Localização | ✅ | NAP central, horários, "Como chegar", mapa sob demanda |
 | Reviews | ⚠️ | Nota + link para o Google; depoimentos reais aguardam seleção da CEMO |

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { TrackedLink } from '@/components/analytics/TrackedLink';
 import { Button } from '@/components/ui/Button';
@@ -12,6 +11,7 @@ import { getLeadAttribution, safeStorage } from '@/lib/attribution';
 import { cn } from '@/lib/cn';
 import { normalizeWhatsapp, validateLeadInput } from '@/lib/leads/schema';
 import type { LeadFieldErrors } from '@/lib/leads/types';
+import { hardNavigate } from '@/lib/navigation';
 
 export interface LeadFormProps {
   interests: LeadInterest[];
@@ -57,7 +57,6 @@ const fieldBase =
   'focus:border-2 focus:border-azul-cemo focus:outline-none focus-visible:outline-none';
 
 export function LeadForm({ interests, defaultInterest, formId, location, whatsappFallbackHref }: LeadFormProps) {
-  const router = useRouter();
   const uid = useId();
   const [values, setValues] = useState({ name: '', whatsapp: '', interest: defaultInterest ?? '' });
   const [errors, setErrors] = useState<LeadFieldErrors>({});
@@ -124,7 +123,7 @@ export function LeadForm({ interests, defaultInterest, formId, location, whatsap
       if (res.ok) {
         succeeded = true;
         track('lead_form_submit', { form_id: formId, location });
-        router.push('/obrigado/');
+        hardNavigate('/obrigado/');
         return;
       }
       if (res.status === 400) {

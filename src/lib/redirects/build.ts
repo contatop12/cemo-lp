@@ -10,13 +10,15 @@ export interface RedirectTables {
   gone: string[];
   // hostOnlyDropped: linhas que a normalização já cobre — mesma URL com outro host (www.), outra caixa,
   // sem barra final, ou duplicata de uma chave já mapeada para o mesmo destino.
-  stats: { redirect: number; consolidate: number; gone: number; hostOnlyDropped: number; naturalNotFound: number };
+  // blogAlias: /blog/<post>/ — o WordPress respondia esse permalink antigo com 301 para o post.
+  stats: { redirect: number; consolidate: number; gone: number; hostOnlyDropped: number; naturalNotFound: number; blogAlias: number };
 }
 
 interface MigrationRow {
   current_url: string;
   new_url: string;
   action: string;
+  page_type?: string;
   notes: string;
 }
 
@@ -33,7 +35,7 @@ export function buildRedirectTables(csvText: string): RedirectTables {
   const tables: RedirectTables = {
     redirects: {},
     gone: [],
-    stats: { redirect: 0, consolidate: 0, gone: 0, hostOnlyDropped: 0, naturalNotFound: 0 },
+    stats: { redirect: 0, consolidate: 0, gone: 0, hostOnlyDropped: 0, naturalNotFound: 0, blogAlias: 0 },
   };
   const gone = new Set<string>();
 
@@ -65,6 +67,22 @@ export function buildRedirectTables(csvText: string): RedirectTables {
         tables.stats.naturalNotFound++;
       }
     }
+  }
+
+  // /blog/<post>/ → destino final do post, num único salto. Post removido ou mandado para a Home fica sem alias
+  // (404 natural): nunca "tudo para a Home".
+  for (const row of rows) {
+    if (row.page_type?.trim() !== 'post_blog') continue;
+    const from = normalizePath(pathOf(row.current_url.trim()));
+    if (!/^\/[^/]+\/$/.test(from)) continue;
+    const alias = `/blog${from}`;
+    if (alias in tables.redirects || gone.has(alias)) continue;
+    const action = row.action.trim().toUpperCase();
+    const kept = action === 'KEEP' || action === 'UPDATE' ? row.new_url.trim() || from : undefined;
+    const target = tables.redirects[from] ?? kept;
+    if (!target || target === '/') continue;
+    tables.redirects[alias] = target;
+    tables.stats.blogAlias++;
   }
 
   tables.gone.sort();

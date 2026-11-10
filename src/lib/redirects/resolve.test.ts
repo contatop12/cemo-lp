@@ -16,6 +16,21 @@ describe('resolveRedirect (amostras do mapa de migração)', () => {
     expect(go(from)).toEqual({ kind: 'redirect', location: to });
   });
 
+  // URLs com impressões no Search Console que o WordPress ainda atendia (migração de produção, 10/11/2026).
+  it.each([
+    ['/category/ceratocone/page/2/', '/condicoes-oculares/ceratocone/'],
+    ['/category/dicas-e-curiosidades-sobre-os-olhos-e-visao/dicas/page/3/', '/blog/'],
+    ['/author/cemox/page/24/', '/blog/'],
+    ['/blog/alimentos-que-auxiliam-na-visao/', '/alimentos-que-auxiliam-na-visao/'],
+  ])('arquivo paginado e permalink antigo /blog/<post>/: %s → 301 %s', (from, to) => {
+    expect(go(from)).toEqual({ kind: 'redirect', location: to });
+  });
+
+  it('página 2 de uma tag removida também é 410; /blog/pagina/N/ do site novo passa', () => {
+    expect(go('/tag/campo-visual/page/2/')).toEqual({ kind: 'gone' });
+    expect(go('/blog/pagina/2/')).toEqual({ kind: 'pass' });
+  });
+
   it('/post-list/ → 410', () => {
     expect(go('/post-list/')).toEqual({ kind: 'gone' });
   });

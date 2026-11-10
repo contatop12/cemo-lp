@@ -29,5 +29,25 @@
   },
   "observability": {
     "enabled": true
+  },
+  "env": {
+    // PRODUÇÃO (oftalmologiacemo.com.br): Worker separado do staging, sem URL workers.dev. As rotas ficam
+    // sobre o registro A com proxy que já existe (DNS e e-mail da UOL intocados); o deploy com elas é a troca
+    // do WordPress pelo site novo. Voltar ao WordPress: apagar as duas rotas (docs/deploy-cloudflare.md).
+    // Bindings e vars não são herdados entre ambientes: repetir aqui.
+    "production": {
+      "name": "cemo-producao",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [
+        { "pattern": "oftalmologiacemo.com.br/*", "zone_name": "oftalmologiacemo.com.br" },
+        { "pattern": "www.oftalmologiacemo.com.br/*", "zone_name": "oftalmologiacemo.com.br" }
+      ],
+      "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "cemo-producao" }],
+      "r2_buckets": [{ "binding": "VIDEOS", "bucket_name": "cemo-videos" }],
+      "images": { "binding": "IMAGES" },
+      "vars": { "SITE_ENV": "production" },
+      "observability": { "enabled": true }
+    }
   }
 }

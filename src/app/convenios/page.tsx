@@ -35,7 +35,7 @@ export default async function ConveniosPage() {
         <TrackedLink
           event="whatsapp_click"
           location="convenios_hero"
-          href={whatsappHref(settings, 'Olá! Quero confirmar a cobertura do meu convênio no CEMO.')}
+          href={whatsappHref(settings, 'Quero confirmar a cobertura do meu convênio.')}
           className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-ui font-bold text-papel no-underline hover:bg-[#095A31]"
         >
           <WhatsappIcon />

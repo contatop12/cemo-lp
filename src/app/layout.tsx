@@ -3,12 +3,13 @@ import type { ReactNode } from 'react';
 import { AttributionCapture } from '@/components/analytics/AttributionCapture';
 import { CookieBanner } from '@/components/analytics/CookieBanner';
 import { GtmScript } from '@/components/analytics/GtmScript';
+import { MetaPixel } from '@/components/analytics/MetaPixel';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { StickyMobileCTA } from '@/components/layout/StickyMobileCTA';
 import { SkipLink } from '@/components/ui/SkipLink';
 import { content } from '@/content';
-import { getSiteEnv, getSiteUrl } from '@/lib/env';
+import { getPublicEnv, getSiteEnv, getSiteUrl } from '@/lib/env';
 import { atkinson, manrope } from './fonts';
 import './globals.css';
 
@@ -25,6 +26,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const settings = { ...rawSettings, todos: [] };
   const navigation = rawNavigation.map((g) => ({ ...g, links: g.links.filter((l) => l.published !== false) }));
   const technicalResponsible = await content.getDoctorBySlug(settings.technicalResponsibleSlug);
+  const { metaPixelId } = getPublicEnv();
 
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${atkinson.variable}`}>
@@ -41,6 +43,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         </div>
         <StickyMobileCTA settings={settings} />
         <CookieBanner />
+        {metaPixelId ? <MetaPixel pixelId={metaPixelId} /> : null}
       </body>
     </html>
   );

@@ -23,7 +23,9 @@
     "preview": "npm run build && opennextjs-cloudflare preview",
     "deploy": "node scripts/cloudflare-env.mjs echo verificacao-ok && npm run build && node scripts/cloudflare-env.mjs opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "cf:whoami": "node scripts/cloudflare-env.mjs wrangler whoami"
+    "cf:whoami": "node scripts/cloudflare-env.mjs wrangler whoami",
+    "build:producao": "node scripts/deploy-producao.mjs --build-only",
+    "deploy:producao": "node scripts/deploy-producao.mjs"
   },
   "repository": {
     "type": "git",

@@ -3,8 +3,9 @@ import userEvent from '@testing-library/user-event';
 import type { LeadInterest } from '@/content/types';
 import { LeadForm } from './LeadForm';
 
+// /obrigado/ com carregamento completo de página: o gatilho de conversão do Google Ads no GTM é de page view.
 const push = vi.fn();
-vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
+vi.mock('@/lib/navigation', () => ({ hardNavigate: (path: string) => push(path) }));
 
 type DataLayerWindow = Window & { dataLayer?: unknown[] };
 

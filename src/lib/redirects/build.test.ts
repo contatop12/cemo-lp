@@ -37,7 +37,23 @@ describe('buildRedirectTables (mini-CSV)', () => {
     const t = buildRedirectTables(mini);
     expect(t.redirects).toEqual({ '/contato-2/': '/contato/', '/post-a/': '/especialidades/catarata/' });
     expect(t.gone).toEqual(['/tag/x/']);
-    expect(t.stats).toEqual({ redirect: 1, consolidate: 1, gone: 1, hostOnlyDropped: 1, naturalNotFound: 1 });
+    expect(t.stats).toEqual({ redirect: 1, consolidate: 1, gone: 1, hostOnlyDropped: 1, naturalNotFound: 1, blogAlias: 0 });
+  });
+
+  it('/blog/<post>/ (permalink antigo do WordPress) vai direto ao destino final do post; nunca para a Home', () => {
+    const csv = [
+      'current_url,new_url,action,page_type,clicks,impressions,ctr,position,main_queries,reason,notes',
+      'https://oftalmologiacemo.com.br/post-mantido/,/post-mantido/,KEEP,post_blog,1,1,,,,,',
+      'https://oftalmologiacemo.com.br/post-consolidado/,/exames/x/,CONSOLIDATE,post_blog,1,1,,,,,',
+      'https://oftalmologiacemo.com.br/post-para-home/,/,REDIRECT,post_blog,1,1,,,,,',
+      'https://oftalmologiacemo.com.br/sobre-antigo/,/sobre/,REDIRECT,pagina,1,1,,,,,',
+    ].join('\n');
+    const t = buildRedirectTables(csv);
+    expect(t.redirects['/blog/post-mantido/']).toBe('/post-mantido/');
+    expect(t.redirects['/blog/post-consolidado/']).toBe('/exames/x/');
+    expect(t.redirects['/blog/post-para-home/']).toBeUndefined();
+    expect(t.redirects['/blog/sobre-antigo/']).toBeUndefined();
+    expect(t.stats.blogAlias).toBe(2);
   });
 });
 
@@ -54,7 +70,7 @@ describe('buildRedirectTables (CSV real)', () => {
   it('todas as linhas REDIRECT/CONSOLIDATE viram regra, menos as que só mudam o host', () => {
     // 39 CONSOLIDATE: o post de ultrassonografia virou /exames/ultrassom-ocular/ (ajustes 23/10)
     expect(t.stats.redirect + t.stats.consolidate).toBe(139 + 39 - t.stats.hostOnlyDropped);
-    expect(entries).toHaveLength(t.stats.redirect + t.stats.consolidate);
+    expect(entries).toHaveLength(t.stats.redirect + t.stats.consolidate + t.stats.blogAlias);
   });
 
   it('sem self-redirect', () => {

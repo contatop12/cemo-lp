@@ -16,11 +16,13 @@ export function getSiteUrl(): string {
   return (nonEmpty(process.env.NEXT_PUBLIC_SITE_URL) ?? DEFAULT_SITE_URL).replace(/\/+$/, '');
 }
 
-export function getPublicEnv(): { siteEnv: SiteEnv; siteUrl: string; gtmId: string | undefined } {
+export function getPublicEnv(): { siteEnv: SiteEnv; siteUrl: string; gtmId: string | undefined; metaPixelId: string | undefined } {
   return {
     siteEnv: getSiteEnv(),
     siteUrl: getSiteUrl(),
     gtmId: nonEmpty(process.env.NEXT_PUBLIC_GTM_ID),
+    // Pixel da Meta fora do GTM (o WordPress já carregava); o outro pixel da CEMO está dentro do GTM.
+    metaPixelId: nonEmpty(process.env.NEXT_PUBLIC_META_PIXEL_ID),
   };
 }
 

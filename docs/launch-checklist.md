@@ -15,7 +15,6 @@ Público: quem coordena a virada do domínio (agência + CEMO). Ordem de execuç
       dois trechos [inaudível] no vídeo do Dr. Adriano) → limpar `todos` de `videos.ts`.
 - [x] RQE dos 7 médicos publicados (CEMO, 23/10 e 30/10/2026). Falta só a Dra. Danielle (perfil não publicado).
 - [ ] Bios revisadas por cada médico.
-- [ ] Foto profissional do Dr. José (hoje aparece a silhueta cinza).
 - [ ] Logo oficial da Blue Saúde (a atual é a versão branca sobre azul tirada de site de corretor).
 - [ ] Dra. Danielle Longo: nome completo, CRM, formação e foto → publicar o perfil.
 - [ ] Procedimentos a confirmar: crosslinking, anel intraestromal, transplante de córnea (páginas prontas,

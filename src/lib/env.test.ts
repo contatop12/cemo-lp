@@ -39,9 +39,10 @@ describe('getPublicEnv', () => {
     vi.stubEnv('SITE_ENV', 'production');
     vi.stubEnv('NEXT_PUBLIC_SITE_URL', 'https://oftalmologiacemo.com.br');
     vi.stubEnv('NEXT_PUBLIC_GTM_ID', 'GTM-TEST');
+    vi.stubEnv('NEXT_PUBLIC_META_PIXEL_ID', '423546515361032');
     vi.stubEnv('LEAD_WEBHOOK_SECRET', 'segredo');
     const env = getPublicEnv();
-    expect(env).toEqual({ siteEnv: 'production', siteUrl: 'https://oftalmologiacemo.com.br', gtmId: 'GTM-TEST' });
+    expect(env).toEqual({ siteEnv: 'production', siteUrl: 'https://oftalmologiacemo.com.br', gtmId: 'GTM-TEST', metaPixelId: '423546515361032' });
     expect(JSON.stringify(env)).not.toContain('segredo');
   });
 
