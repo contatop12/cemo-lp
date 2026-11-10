@@ -139,7 +139,7 @@ export const doctors: Doctor[] = [
     todos: [BIO_TODO, PHOTO_TODO],
   },
   {
-    // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica. Sem foto ainda.
+    // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica; foto enviada em 04/11.
     slug: 'jose-pereira-do-rego-neto',
     name: 'José Pereira do Rego Neto',
     honorific: 'Dr.',
@@ -148,14 +148,14 @@ export const doctors: Doctor[] = [
     role: null,
     areas: ['Retina Clínica e Cirúrgica'],
     credentials: ['Especialista em retina clínica e cirúrgica'],
-    photo: null,
+    photo: portrait('jose-pereira-do-rego-neto', alt('Dr.', 'José Pereira do Rego Neto', 'de jaleco')),
     bio: ['O Dr. José Pereira do Rego Neto atua em retina clínica e cirúrgica no CEMO.'],
     specialtyIds: ['retina'],
     videoIds: [],
     canonicalPath: '/corpo-clinico/jose-pereira-do-rego-neto/',
     published: true,
     featured: false,
-    todos: [BIO_TODO, 'TODO_CONTENT_VALIDATION: foto profissional do Dr. José Pereira do Rego Neto (hoje aparece a silhueta)'],
+    todos: [BIO_TODO],
   },
   {
     // Ajustes da CEMO (23/10/2026): novo no corpo clínico, com CRM e RQE informados pela clínica; foto enviada em 30/10.

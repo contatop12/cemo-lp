@@ -34,6 +34,8 @@ describe('content repository (fixtures)', () => {
     });
     for (const d of doctors) expect(d.todos.join(' '), d.slug).not.toMatch(/confirmar RQE/);
     expect(doctors.find((d) => d.slug === 'igor-seidi-sekiguchi')?.photo).toMatchObject({ src: '/images/medicos/igor-seidi-sekiguchi.webp', width: 640, height: 800 });
+    expect(doctors.find((d) => d.slug === 'jose-pereira-do-rego-neto')?.photo?.src).toBe('/images/medicos/jose-pereira-do-rego-neto.webp');
+    for (const d of doctors) expect(d.photo, `${d.slug} sem foto`).not.toBeNull();
     for (const d of doctors) {
       expect(d.canonicalPath).toBe(`/corpo-clinico/${d.slug}/`);
       if (d.photo) expect(d.photo.src).toBe(`/images/medicos/${d.slug}.webp`);

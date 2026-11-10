@@ -63,7 +63,7 @@ const PAGES = [
   '/condicoes-oculares/ceratocone/',
   '/corpo-clinico/',
   '/corpo-clinico/david-ribeiro-de-mendonca-filho/',
-  '/corpo-clinico/jose-pereira-do-rego-neto/', // sem foto: silhueta
+  '/corpo-clinico/jose-pereira-do-rego-neto/',
   '/tratamentos/',
   '/tratamentos/yag-laser/',
   '/exames/ultrassom-ocular/',

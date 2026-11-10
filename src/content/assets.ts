@@ -24,6 +24,7 @@ const PORTRAIT_SIZES: Record<string, [number, number]> = {
   'priscilla-pires': [444, 555],
   'roberta-andrade-e-nascimento': [406, 508],
   'igor-seidi-sekiguchi': [640, 800],
+  'jose-pereira-do-rego-neto': [640, 800],
 };
 
 export function portrait(slug: string, alt: string): ImageAsset | null {
